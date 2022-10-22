@@ -18,7 +18,8 @@
     "framer-motion": "^6",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "wagmi": "^0.7.5"
   },
   "devDependencies": {
     "eslint": "8.25.0",
@@ -27,9 +28,9 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unicorn": "^44.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
-    "husky": "^8.0.0"
+    "prettier": "^2.7.1"
   },
   "lint-staged": {
     "*.{js,jsx}": [
