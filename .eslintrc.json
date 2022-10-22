@@ -3,7 +3,7 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "curly": "error",
-    "no-unused-vars": "off",
+    "no-unused-vars": "error",
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
