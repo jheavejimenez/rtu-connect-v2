@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier:check": "prettier --check \"./{data,src}/**/*.{ts,tsx}\"",
+    "prettier:write": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -26,6 +28,16 @@
     "eslint-plugin-unicorn": "^44.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
   }
 }
