@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 
-function App({ Component, pageProps }) {
+function App({ Component }) {
   return (
     <ChakraProvider>
       <Component {...pageProps} />
