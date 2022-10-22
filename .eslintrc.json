@@ -1,4 +1,5 @@
 {
+  "plugins": ["unused-imports", "simple-import-sort", "prettier", "unicorn"],
   "extends": "next/core-web-vitals",
   "rules": {
     "curly": "error",
