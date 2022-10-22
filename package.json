@@ -30,14 +30,5 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "husky": "^8.0.0"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "prettier --write",
-      "eslint --cache --fix"
-    ],
-    "*.json": [
-      "prettier --write"
-    ]
   }
 }
