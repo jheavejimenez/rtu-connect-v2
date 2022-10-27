@@ -14,7 +14,10 @@ function Layout({ children }) {
         <meta name="description" content="RTUConnect" />
         <link rel="icon" href="/public/favicon.ico" />
       </Head>
-      <div className="flex flex-col min-h-screen">{children}</div>
+      <div className="flex flex-col min-h-screen">
+        {/*insert navbar component here*/}
+        {children}
+      </div>
     </>
   );
 }
