@@ -2,10 +2,10 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export const useAppStore = create((set) => ({
-  profile: [],
-  setProfiles: (profile) => set({ profile }),
+  profiles: [],
+  setProfiles: (profiles) => set(() => ({ profiles })),
   currentProfile: null,
-  setCurrentProfile: (currentProfile) => set({ currentProfile }),
+  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
 }));
