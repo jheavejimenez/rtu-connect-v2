@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import { useAppPersistStore, useAppStore } from '../store/app';
 import useIsMounted from '../utils/hooks/useIsMounted';
+import Navbar from './Navbar';
 
 function Layout({ children }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -25,12 +26,12 @@ function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>RTUConnect</title>
-        <meta name="description" content="RTUConnect" />
-        <link rel="icon" href="/public/favicon.ico" />
+        <title>{'RTUConnect'}</title>
+        <meta name={'description'} content={'RTUConnect'} />
+        <link rel={'icon'} href={'/public/favicon.ico'} />
       </Head>
-      <div className="flex flex-col min-h-screen">
-        {/*insert navbar component here*/}
+      <div className={'flex flex-col min-h-screen'}>
+        <Navbar />
         {children}
       </div>
     </>
