@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import { useAppPersistStore, useAppStore } from '../store/app';
 import useIsMounted from '../utils/hooks/useIsMounted';
@@ -14,9 +13,9 @@ function Layout({ children }) {
 
   const { mounted } = useIsMounted();
   // user wallet
-  const { address, isDisconnected } = useAccount();
-  const { chain } = useNetwork();
-  const { disconnect } = useDisconnect();
+  // const { address, isDisconnected } = useAccount();
+  // const { chain } = useNetwork();
+  // const { disconnect } = useDisconnect();
 
   const clearAuthState = () => {
     setProfileId(null);
