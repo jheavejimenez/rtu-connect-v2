@@ -1,6 +1,7 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 
 import Avatar from './Avatar';
+import NavItems from './NavItems';
 
 function NavBar() {
   return (
@@ -33,41 +34,7 @@ function NavBar() {
           </div>
         </div>
       </div>
-      <ul className={'flex w-full lg:w-max items-center justify-center'}>
-        <li className={'w-1/5 md:w-max text-center'}>
-          <div
-            className={
-              'w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer ' +
-              'text-center inline-block rounded text-gray-600' +
-              ' hover:bg-gray-100 relative'
-            }
-          >
-            {'Home'}
-          </div>
-        </li>
-        <li className={'w-1/5 md:w-max text-center'}>
-          <div
-            className={
-              'w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer ' +
-              'text-center inline-block rounded text-gray-600' +
-              ' hover:bg-gray-100 relative'
-            }
-          >
-            {'community'}
-          </div>
-        </li>
-        <li className={'w-1/5 md:w-max text-center hidden md:inline-block'}>
-          <div
-            className={
-              'w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer ' +
-              'text-center inline-block rounded text-gray-600' +
-              ' hover:bg-gray-100 relative'
-            }
-          >
-            {'live'}
-          </div>
-        </li>
-      </ul>
+      <NavItems items={['Home', 'About', 'Contact']} />
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
         <li className={'mx-4'}>
           <div
