@@ -1,42 +1,80 @@
-import { Box } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Stack,
+  useColorModeValue,
+  useDisclosure
+} from '@chakra-ui/react';
+import Link from 'next/link';
+
+const Links = ['Dashboard', 'Projects', 'Team'];
+
+const NavLink = ({ children }) => (
+  <Link
+    px={2}
+    py={1}
+    rounded={'md'}
+    _hover={{
+      textDecoration: 'none',
+      bg: useColorModeValue('gray.200', 'gray.700')
+    }}
+    href={'#'}
+  >
+    {children}
+  </Link>
+);
 
 function NavBar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Box as={'div'}>
-      <nav
-        className={
-          'bg-white h-max md:h-14 w-full' +
-          ' shadow flex flex-col md:flex-row items-center' +
-          ' justify-center md:justify-between fixed top-0 z-50 border-b'
-        }
-      >
-        <div className={'flex justify-between mx-10 items-center w-full'}>
-          <div className={'flex items-center'}>
-            <a href={'/'} className={'mr-3'}>
-              {'RTU LOGO'}
-            </a>
-            <div className={'flex ml-2 items-center rounded-full bg-gray-100 p-2'}>
-              <button className={'outline-none focus:outline-none'} />
-              <input
-                className={'w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent'}
-                placeholder={'Search'}
-                type={'search'}
+    <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+        <HStack spacing={8} alignItems={'center'}>
+          <Box>{'Logo'}</Box>
+          <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
+            {Links.map((link) => (
+              <NavLink key={link}>{link}</NavLink>
+            ))}
+          </HStack>
+        </HStack>
+        <Flex alignItems={'center'}>
+          <Menu>
+            <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
+              <Avatar
+                size={'sm'}
+                src={
+                  'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                }
               />
-            </div>
-          </div>
-          <ul className={'flex justify-center items-center'}>
-            <li className={'mx-4'}>
-              <span>{'home'}</span>
-            </li>
-            <li className={'mx-4'}>
-              <span>{'community'}</span>
-            </li>
-            <li className={'mx-4'}>
-              <span>{'watch'}</span>
-            </li>
-          </ul>
-        </div>
-      </nav>
+            </MenuButton>
+            <MenuList>
+              <MenuItem>{'Link 1'}</MenuItem>
+              <MenuItem>{'Link 2'}</MenuItem>
+              <MenuDivider />
+              <MenuItem>{'Link 3'}</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      </Flex>
+
+      {isOpen ? (
+        <Box pb={4} display={{ md: 'none' }}>
+          <Stack as={'nav'} spacing={4}>
+            {Links.map((link) => (
+              <NavLink key={link}>{link}</NavLink>
+            ))}
+          </Stack>
+        </Box>
+      ) : null}
     </Box>
   );
 }
