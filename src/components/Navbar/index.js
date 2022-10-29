@@ -1,6 +1,8 @@
+import { Box } from '@chakra-ui/react';
+
 function NavBar() {
   return (
-    <div className={'NavBar'}>
+    <Box as={'div'}>
       <nav
         className={
           'bg-white h-max md:h-14 w-full' +
@@ -11,7 +13,7 @@ function NavBar() {
         <div className={'flex justify-between mx-10 items-center w-full'}>
           <div className={'flex items-center'}>
             <a href={'/'} className={'mr-3'}>
-              RTU LOGO
+              {'RTU LOGO'}
             </a>
             <div className={'flex ml-2 items-center rounded-full bg-gray-100 p-2'}>
               <button className={'outline-none focus:outline-none'} />
@@ -24,18 +26,18 @@ function NavBar() {
           </div>
           <ul className={'flex justify-center items-center'}>
             <li className={'mx-4'}>
-              <span>home</span>
+              <span>{'home'}</span>
             </li>
             <li className={'mx-4'}>
-              <span>community</span>
+              <span>{'community'}</span>
             </li>
             <li className={'mx-4'}>
-              <span>watch</span>
+              <span>{'watch'}</span>
             </li>
           </ul>
         </div>
       </nav>
-    </div>
+    </Box>
   );
 }
 
