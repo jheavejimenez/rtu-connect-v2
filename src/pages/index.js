@@ -2,8 +2,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 import styles from '../../styles/Home.module.css';
+import { useAppStore } from '../store/app';
 
 function Home() {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   return (
     <div className={styles.container}>
       <Head>
