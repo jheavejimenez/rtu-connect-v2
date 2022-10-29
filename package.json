@@ -15,6 +15,7 @@
     "@chakra-ui/react": "^2.3.6",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@heroicons/react": "^2.0.12",
     "framer-motion": "^6",
     "next": "12.3.1",
     "react": "18.2.0",
