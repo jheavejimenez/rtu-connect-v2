@@ -1,8 +1,10 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
 import { useAccount, useDisconnect, useNetwork, useQuery } from 'wagmi';
 
 import { GET_PROFILES } from '../graphQL/queries/get-profiles';
 import { useAppPersistStore, useAppStore } from '../store/app';
+import { CHAIN_ID } from '../utils/constants';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
 
@@ -41,6 +43,26 @@ function Layout({ children }) {
       setUserSigNonce(data?.profiles.items[0]?.nonce);
     }
   });
+
+  const validateLogin = () => {
+    const currentProfileAddress = currentProfile?.ownedBy;
+    const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
+    const isWrongNetwork = chain?.id !== CHAIN_ID;
+    const isDisconnectedWallet = isDisconnected || isWrongNetwork || isSwitchedAccount;
+
+    if (isDisconnectedWallet) {
+      disconnect?.();
+    }
+  };
+
+  useEffect(() => {
+    validateLogin();
+  }, [isDisconnected, address, chain, disconnect, profileId]);
+
+  if (loading || !mounted) {
+    return <div>{'Loading...'}</div>;
+  }
+
   return (
     <>
       <Head>
