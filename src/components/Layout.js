@@ -1,6 +1,7 @@
 import Head from 'next/head';
-import { useAccount, useDisconnect, useNetwork } from 'wagmi';
+import { useAccount, useDisconnect, useNetwork, useQuery } from 'wagmi';
 
+import { GET_PROFILES } from '../graphQL/queries/get-profiles';
 import { useAppPersistStore, useAppStore } from '../store/app';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
@@ -24,6 +25,22 @@ function Layout({ children }) {
     setCurrentProfile(null);
   };
 
+  const { loading } = useQuery(GET_PROFILES, {
+    variables: {
+      request: { ownedBy: address }
+    },
+    onCompleted: (data) => {
+      const profiles = data?.profiles.items;
+
+      if (!profiles?.length) {
+        clearAuthState();
+      }
+      const selectedUser = profiles?.find((p) => p.id === profileId);
+      setProfiles(profiles);
+      setCurrentProfile(selectedUser);
+      setUserSigNonce(data?.profiles.items[0]?.nonce);
+    }
+  });
   return (
     <>
       <Head>
