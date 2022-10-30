@@ -1,10 +1,17 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import '../../styles/globals.css';
+
+import { lazy } from 'react';
+
+const Provider = lazy(() => import('../components/Provider'));
+const Layout = lazy(() => import('../components/Layout'));
 
 function App({ Component, pageProps }) {
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <Provider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>
   );
 }
 

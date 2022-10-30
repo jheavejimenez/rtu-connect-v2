@@ -1,8 +1,13 @@
 import Head from 'next/head';
-import { useAccount, useDisconnect, useNetwork } from 'wagmi';
+import { useEffect } from 'react';
+import { useAccount, useDisconnect, useNetwork, useQuery } from 'wagmi';
 
+import { GET_PROFILES } from '../graphQL/queries/get-profiles';
 import { useAppPersistStore, useAppStore } from '../store/app';
+import { CHAIN_ID } from '../utils/constants';
+import { getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
+import Navbar from './Navbar';
 
 function Layout({ children }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -23,15 +28,51 @@ function Layout({ children }) {
     setCurrentProfile(null);
   };
 
+  const { loading } = useQuery(GET_PROFILES, {
+    variables: {
+      request: { ownedBy: address }
+    },
+    onCompleted: (data) => {
+      const profiles = data?.profiles.items;
+
+      if (!profiles?.length) {
+        clearAuthState();
+      }
+      const selectedUser = profiles?.find((p) => p.id === profileId);
+      setProfiles(profiles);
+      setCurrentProfile(selectedUser);
+      setUserSigNonce(data?.profiles.items[0]?.nonce);
+    }
+  });
+
+  const validateLogin = () => {
+    const currentProfileAddress = currentProfile?.ownedBy;
+    const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
+    const isWrongNetwork = chain?.id !== CHAIN_ID;
+    const isDisconnectedWallet =
+      !getTokenFromLocalStorage() || isDisconnected || isWrongNetwork || isSwitchedAccount;
+
+    if (isDisconnectedWallet) {
+      disconnect?.();
+    }
+  };
+
+  useEffect(() => {
+    validateLogin();
+  }, [isDisconnected, address, chain, disconnect, profileId]);
+
+  if (loading || !mounted) {
+    return <div>{'Loading...'}</div>;
+  }
+
   return (
     <>
       <Head>
-        <title>RTUConnect</title>
-        <meta name="description" content="RTUConnect" />
-        <link rel="icon" href="/public/favicon.ico" />
+        <title>{'RTUConnect'}</title>
+        <meta name={'description'} content={'RTUConnect'} />
       </Head>
-      <div className="flex flex-col min-h-screen">
-        {/*insert navbar component here*/}
+      <div className={'flex flex-col min-h-screen'}>
+        <Navbar />
         {children}
       </div>
     </>
