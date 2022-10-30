@@ -48,7 +48,8 @@ function Layout({ children }) {
     const currentProfileAddress = currentProfile?.ownedBy;
     const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
     const isWrongNetwork = chain?.id !== CHAIN_ID;
-    const isDisconnectedWallet = isDisconnected || isWrongNetwork || isSwitchedAccount;
+    const isDisconnectedWallet =
+      !getTokenFromLocalStorage() || isDisconnected || isWrongNetwork || isSwitchedAccount;
 
     if (isDisconnectedWallet) {
       disconnect?.();
