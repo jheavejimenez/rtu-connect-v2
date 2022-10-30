@@ -1,7 +1,9 @@
 import '../../styles/globals.css';
 
-import Layout from '../components/Layout';
-import Provider from '../components/Provider';
+import { lazy } from 'react';
+
+const Provider = lazy(() => import('../components/Provider'));
+const Layout = lazy(() => import('../components/Layout'));
 
 function App({ Component, pageProps }) {
   return (

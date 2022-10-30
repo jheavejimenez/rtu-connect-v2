@@ -1,5 +1,6 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 
+import { useAppStore } from '../../store/app';
 import SvgCommunity from '../logos/SvgCommunity';
 import SvgHome from '../logos/SvgHome';
 import SvgWatch from '../logos/SvgWatch';
@@ -7,6 +8,7 @@ import Avatar from './Avatar';
 import NavItems from './NavItems';
 
 function NavBar() {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   return (
     <nav
       className={
@@ -37,34 +39,48 @@ function NavBar() {
           </div>
         </div>
       </div>
-      {/* eslint-disable-next-line react/jsx-key */}
-      {/*<NavItems items={[<SvgHome />, <SvgCommunity />, <SvgWatch />]} />*/}
       <ul className={'flex w-full lg:w-max items-center justify-center'}>
         <NavItems url={'/'} active={true} logo={<SvgHome />} />
         <NavItems url={'/community'} active={false} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} active={false} logo={<SvgWatch />} />
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
-        <li className={'mx-4'}>
-          <div
-            className={
-              'rounded-full text-xl grid place-items-center bg-gray-200 ' +
-              'mx-1 p-3 cursor-pointer hover:bg-gray-300 relative'
-            }
-          >
-            <BellIcon className={'h-6 w-6'} />
-            <span
+        {currentProfile ? (
+          <>
+            <li className={'mx-4'}>
+              <div
+                className={
+                  'rounded-full text-xl grid place-items-center bg-gray-200 ' +
+                  'mx-1 p-3 cursor-pointer hover:bg-gray-300 relative'
+                }
+              >
+                <BellIcon className={'h-6 w-6'} />
+                <span
+                  className={
+                    'text-xs absolute top-0 right-0 bg-red-500 text-white ' +
+                    'font-semibold rounded-full px-1 text-center'
+                  }
+                >
+                  {'9'}
+                </span>
+              </div>
+            </li>
+            <li>
+              <Avatar />
+            </li>
+          </>
+        ) : (
+          <li className={'mx-4'}>
+            <button
               className={
-                'text-xs absolute top-0 right-0 bg-red-500 text-white font-semibold rounded-full px-1 text-center'
+                'bg-blue-500 text-white font-semibold rounded-full px-4 py-2 ' +
+                'transition duration-200 ease-in-out hover:bg-blue-600'
               }
             >
-              {'9'}
-            </span>
-          </div>
-        </li>
-        <li>
-          <Avatar />
-        </li>
+              {'Sign In'}
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );
