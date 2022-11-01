@@ -18,7 +18,6 @@ function Layout({ children }) {
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const { mounted } = useIsMounted();
-  // user wallet
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
