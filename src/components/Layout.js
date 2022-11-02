@@ -53,7 +53,7 @@ function Layout({ children }) {
       !getTokenFromLocalStorage() || isDisconnected || isWrongNetwork || isSwitchedAccount;
 
     if (isDisconnectedWallet) {
-      disconnect?.();
+      disconnect();
     }
   };
 
