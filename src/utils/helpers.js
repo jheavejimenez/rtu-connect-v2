@@ -10,6 +10,12 @@ export const clearLocalStorage = (keys) => {
   }
 };
 
+export const setLocalStorage = (keys, values) => {
+  for (const [i, key] of keys.entries()) {
+    localStorage.setItem(key, values[i]);
+  }
+};
+
 // check if jwt token is expired
 export const isTokenExpired = (token) => {
   const payloadBase64 = token.split('.')[1];
