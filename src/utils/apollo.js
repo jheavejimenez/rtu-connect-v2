@@ -1,6 +1,7 @@
 import { ApolloClient, ApolloLink, fromPromise, HttpLink, InMemoryCache, toPromise } from '@apollo/client';
 import axios from 'axios';
 
+import { refresh } from '../graphQL/auth/auth-mutations';
 import { API_URL } from './constants';
 import { clearLocalStorage, isTokenExpired } from './helpers';
 
@@ -35,6 +36,7 @@ const authLink = new ApolloLink((operation, forward) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify({
+        query: refresh,
         variables: {
           request: { refreshToken: localStorage.getItem('refreshToken') }
         }
