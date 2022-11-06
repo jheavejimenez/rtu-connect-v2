@@ -3,3 +3,9 @@ export const getTokenFromLocalStorage = () => {
   const refreshToken = localStorage.getItem('refreshToken');
   return accessToken !== 'undefined' && refreshToken !== 'undefined';
 };
+
+export const clearLocalStorage = (keys) => {
+  for (const key of keys) {
+    localStorage.removeItem(key);
+  }
+};
