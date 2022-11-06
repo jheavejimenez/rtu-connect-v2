@@ -1,7 +1,7 @@
-import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloLink, fromPromise, HttpLink, InMemoryCache } from '@apollo/client';
 
 import { API_URL } from './constants';
-import { clearLocalStorage } from './helpers';
+import { clearLocalStorage, isTokenExpired } from './helpers';
 
 const httpLink = new HttpLink({
   uri: API_URL,
@@ -16,15 +16,20 @@ const authLink = new ApolloLink((operation, forward) => {
     clearLocalStorage(['accessToken', 'refreshToken']);
     return forward(operation);
   }
-  // Use the setContext method to set the HTTP headers.
-  operation.setContext({
-    headers: {
-      'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
-    }
-  });
+  const isExpiring = isTokenExpired(accessToken);
 
-  // Call the next link in the middleware chain.
-  return forward(operation);
+  if (!isExpiring) {
+    // Use the setContext method to set the HTTP headers.
+    operation.setContext({
+      headers: {
+        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
+      }
+    });
+    // Call the next link in the middleware chain.
+    return forward(operation);
+  }
+  // this is where we get the new access token
+  return fromPromise();
 });
 
 const client = new ApolloClient({
