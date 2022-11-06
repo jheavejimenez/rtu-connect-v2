@@ -14,10 +14,11 @@ const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken');
   console.log('jwt token:', accessToken);
 
-  if (accessToken === 'undefined') {
+  if (!accessToken || accessToken === 'undefined') {
     clearLocalStorage(['accessToken', 'refreshToken']);
     return forward(operation);
   }
+
   const isExpiring = isTokenExpired(accessToken);
 
   if (!isExpiring) {
