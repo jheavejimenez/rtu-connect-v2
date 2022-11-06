@@ -1,6 +1,7 @@
+import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { useAccount, useDisconnect, useNetwork, useQuery } from 'wagmi';
+import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import { GET_PROFILES } from '../graphQL/queries/get-profiles';
 import { useAppPersistStore, useAppStore } from '../store/app';
@@ -8,6 +9,8 @@ import { CHAIN_ID } from '../utils/constants';
 import { getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
+
+``;
 
 function Layout({ children }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
