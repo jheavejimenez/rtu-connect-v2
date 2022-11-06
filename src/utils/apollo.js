@@ -1,6 +1,7 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
 
 import { API_URL } from './constants';
+import { clearLocalStorage } from './helpers';
 
 const httpLink = new HttpLink({
   uri: API_URL,
@@ -8,13 +9,17 @@ const httpLink = new HttpLink({
 });
 
 const authLink = new ApolloLink((operation, forward) => {
-  const token = window.sessionStorage.getItem('lensToken');
-  console.log('jwt token:', token);
+  const accessToken = localStorage.getItem('accessToken');
+  console.log('jwt token:', accessToken);
 
+  if (accessToken === 'undefined') {
+    clearLocalStorage(['accessToken', 'refreshToken']);
+    return forward(operation);
+  }
   // Use the setContext method to set the HTTP headers.
   operation.setContext({
     headers: {
-      'x-access-token': token ? `Bearer ${token}` : ''
+      'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
     }
   });
 
