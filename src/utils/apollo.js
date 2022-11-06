@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { refresh } from '../graphQL/auth/auth-mutations';
 import { API_URL } from './constants';
-import { clearLocalStorage, isTokenExpired } from './helpers';
+import { clearLocalStorage, isTokenExpired, setLocalStorage } from './helpers';
 
 const httpLink = new HttpLink({
   uri: API_URL,
@@ -50,9 +50,7 @@ const authLink = new ApolloLink((operation, forward) => {
             'x-access-token': `Bearer ${accessToken}`
           }
         });
-
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        setLocalStorage(['accessToken', 'refreshToken'], [accessToken, refreshToken]);
 
         return toPromise(forward(operation));
       })
