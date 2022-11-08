@@ -13,14 +13,9 @@ function Login() {
           {isConnected ? (
             <div className={'space-y-1'}>
               <div className={'text-xl font-bold'}>{`Welcome To ${APP_NAME}`}</div>
+              <div className={'text-sm text-gray-500'}>{'click sign in to continue'}</div>
             </div>
-          ) : (
-            <div className={'space-y-1'}>
-              <div className={'text-sm text-gray-500'}>
-                {'Connect with one of our available wallet providers or create a new one.'}
-              </div>
-            </div>
-          )}
+          ) : null}
           {/* put the wallet options here */}
         </div>
       ) : // <NewProfile isModal />
