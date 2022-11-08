@@ -5,6 +5,7 @@ import SvgCommunity from '../logos/SvgCommunity';
 import SvgHome from '../logos/SvgHome';
 import SvgWatch from '../logos/SvgWatch';
 import Avatar from './Avatar';
+import LoginBtn from './LoginBtn';
 import NavItems from './NavItems';
 
 function NavBar() {
@@ -71,14 +72,7 @@ function NavBar() {
           </>
         ) : (
           <li className={'mx-4'}>
-            <button
-              className={
-                'bg-blue-500 text-white font-semibold rounded-full px-4 py-2 ' +
-                'transition duration-200 ease-in-out hover:bg-blue-600'
-              }
-            >
-              {'Sign In'}
-            </button>
+            <LoginBtn />
           </li>
         )}
       </ul>
