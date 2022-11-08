@@ -8,7 +8,7 @@ function LoginBtn() {
 
   return (
     <>
-      <Modal title={'Connect your wallet.'} isOpen={showModal} isClose={() => setShowModal(false)}>
+      <Modal title={'Connect your wallet'} isOpen={showModal} isClose={() => setShowModal(false)}>
         <Login />
       </Modal>
       <button
