@@ -1,26 +1,22 @@
-import { Dialog } from '@headlessui/react';
 import { useState } from 'react';
 
+import Modal from '../UI/Modal';
+import Login from './Login';
+
 function LoginBtn() {
-  let [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={'relative z-50'}>
-        <div className={'fixed inset-0 flex items-center justify-center p-4'}>
-          <Dialog.Panel className={'w-full max-w-sm rounded bg-ble'}>
-            <Dialog.Title>{'Complete your order'}</Dialog.Title>
-            <Dialog.Description>{'You will be redirected to the checkout page.'}</Dialog.Description>
-            <button onClick={() => setIsOpen(false)}>{'Cancel'}</button>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
+      <Modal title={'Connect your wallet.'} isOpen={showModal} isClose={() => setShowModal(false)}>
+        <Login />
+      </Modal>
       <button
         className={
-          'bg-blue-500 text-white font-semibold rounded-full px-4 py-2 ' +
-          'hover:bg-blue-600 transition duration-200 ease-in-out'
+          'inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white' +
+          ' bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
         }
-        onClick={() => setIsOpen(true)}
+        onClick={() => setShowModal(!showModal)}
       >
         {'Login'}
       </button>

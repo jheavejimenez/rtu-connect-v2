@@ -16,7 +16,6 @@ function Login() {
             </div>
           ) : (
             <div className={'space-y-1'}>
-              <div className={'text-xl font-bold'}>{'Connect your wallet.'}</div>
               <div className={'text-sm text-gray-500'}>
                 {'Connect with one of our available wallet providers or create a new one.'}
               </div>
