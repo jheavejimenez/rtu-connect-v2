@@ -33,7 +33,18 @@ const wagmiClient = createClient({
 function Providers({ children }) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <ConnectKitProvider theme={'default'} mode={'light'}>
+      <ConnectKitProvider
+        theme={'default'}
+        mode={'light'}
+        options={{
+          hideNoWalletCTA: true,
+          showBalance: true
+        }}
+        customTheme={{
+          '--ck-connectbutton-background': 'rgb(231,231,231)',
+          '--ck-connectbutton-hover-background': 'rgb(211,211,211)'
+        }}
+      >
         <ApolloProvider client={client}>{children}</ApolloProvider>
       </ConnectKitProvider>
     </WagmiConfig>
