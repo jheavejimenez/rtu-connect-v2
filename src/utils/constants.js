@@ -17,3 +17,5 @@ export const POLYGON_MUMBAI = {
 export const CHAIN_ID = POLYGON_MUMBAI.id;
 
 export const APP_NAME = 'RTU Connect';
+
+export const GITBOOK = 'https://jhv.gitbook.io/rtu-connect';

@@ -6,7 +6,7 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../utils/apollo';
-import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID } from '../utils/constants';
+import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, GITBOOK } from '../utils/constants';
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -38,7 +38,13 @@ function Providers({ children }) {
         mode={'light'}
         options={{
           hideNoWalletCTA: true,
-          showBalance: true
+          disclaimer: (
+            <div className={'text-base'}>
+              <a href={`${GITBOOK}/getting-set-up/setting-up-metamask`} target={'_blank'} rel={'noreferrer'}>
+                {'I don’t have a wallet'}
+              </a>
+            </div>
+          )
         }}
         customTheme={{
           '--ck-connectbutton-background': 'rgb(231,231,231)',
