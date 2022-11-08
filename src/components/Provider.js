@@ -12,6 +12,7 @@ const { chains, provider } = configureChains(
   [chain.polygonMumbai],
   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
 );
+
 const connectors = () => {
   return [
     new MetaMaskConnector({
@@ -31,6 +32,8 @@ const wagmiClient = createClient({
 });
 
 function Providers({ children }) {
+  console.log(ALCHEMY_RPC);
+  console.log(chains);
   return (
     <WagmiConfig client={wagmiClient}>
       <ConnectKitProvider
