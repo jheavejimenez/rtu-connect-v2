@@ -1,4 +1,3 @@
-import { ConnectKitButton } from 'connectkit';
 import { useState } from 'react';
 
 import Modal from '../UI/Modal';
@@ -21,7 +20,6 @@ function LoginBtn() {
       {/*>*/}
       {/*  {'Login'}*/}
       {/*</button>*/}
-      <ConnectKitButton />
     </>
   );
 }

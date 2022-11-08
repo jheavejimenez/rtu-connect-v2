@@ -33,7 +33,7 @@ const wagmiClient = createClient({
 function Providers({ children }) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <ConnectKitProvider>
+      <ConnectKitProvider theme={'default'} mode={'light'}>
         <ApolloProvider client={client}>{children}</ApolloProvider>
       </ConnectKitProvider>
     </WagmiConfig>
