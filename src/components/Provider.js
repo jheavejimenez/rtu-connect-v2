@@ -1,11 +1,12 @@
 import { ApolloProvider } from '@apollo/client';
+import { ConnectKitProvider } from 'connectkit';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../utils/apollo';
-import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID } from '../utils/constants';
+import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, GITBOOK } from '../utils/constants';
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -14,7 +15,7 @@ const { chains, provider } = configureChains(
 
 const connectors = () => {
   return [
-    new InjectedConnector({
+    new MetaMaskConnector({
       chains,
       options: { shimDisconnect: true }
     }),
@@ -24,7 +25,6 @@ const connectors = () => {
     })
   ];
 };
-
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
@@ -32,9 +32,30 @@ const wagmiClient = createClient({
 });
 
 function Providers({ children }) {
+  console.log(ALCHEMY_RPC);
+  console.log(chains);
   return (
     <WagmiConfig client={wagmiClient}>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
+      <ConnectKitProvider
+        theme={'default'}
+        mode={'light'}
+        options={{
+          hideNoWalletCTA: true,
+          disclaimer: (
+            <div className={'text-base'}>
+              <a href={`${GITBOOK}/getting-set-up/setting-up-metamask`} target={'_blank'} rel={'noreferrer'}>
+                {'I don’t have a wallet'}
+              </a>
+            </div>
+          )
+        }}
+        customTheme={{
+          '--ck-connectbutton-background': 'rgb(231,231,231)',
+          '--ck-connectbutton-hover-background': 'rgb(211,211,211)'
+        }}
+      >
+        <ApolloProvider client={client}>{children}</ApolloProvider>
+      </ConnectKitProvider>
     </WagmiConfig>
   );
 }
