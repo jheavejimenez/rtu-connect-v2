@@ -10,8 +10,6 @@ import { getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
 
-``;
-
 function Layout({ children }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -65,7 +63,7 @@ function Layout({ children }) {
   }, [isDisconnected, address, chain, disconnect, profileId]);
 
   if (loading || !mounted) {
-    return <div>{'Loading...'}</div>;
+    return <div className={'grid h-screen place-items-center animate-pulse'}>{'Loading...'}</div>;
   }
 
   return (
