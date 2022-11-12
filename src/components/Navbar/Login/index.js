@@ -60,10 +60,18 @@ function Login() {
     }
   }
 
+  const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
   return connector?.id ? (
-    <Modal isOpen={isConnected} isClose={() => false} title={'Login to RTU Connect'}>
-      <button onClick={() => handleLogin()}>{'login'}</button>
-    </Modal>
+    <>
+      <Modal isOpen={isConnected} isClose={() => false} title={'Login to RTU Connect'}>
+        <button onClick={() => handleLogin()}>{'login'}</button>
+      </Modal>
+      {(challengeError || authenticateError || profileError) && (
+        <div className={'flex items-center space-x-1 font-bold text-red-500'}>
+          <div>{'error'}</div>
+        </div>
+      )}
+    </>
   ) : (
     <div className={'p-5'}>
       <ConnectKitButton />
