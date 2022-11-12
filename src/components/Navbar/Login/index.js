@@ -23,6 +23,7 @@ function Login() {
       console.log('error signing message', error); // TODO: convert it to toast message
     }
   });
+  const click = async () => {};
 
   async function handleLogin() {
     try {
@@ -64,7 +65,7 @@ function Login() {
   return connector?.id ? (
     <>
       <Modal isOpen={isConnected} isClose={() => false} title={'Login to RTU Connect'}>
-        <button onClick={() => handleLogin()}>{'login'}</button>
+        <button onClick={() => click()}>{'login'}</button>
       </Modal>
       {(challengeError || authenticateError || profileError) && (
         <div className={'flex items-center space-x-1 font-bold text-red-500'}>
