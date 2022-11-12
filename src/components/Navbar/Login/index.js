@@ -7,10 +7,11 @@ import { setLocalStorage } from '../../../utils/helpers';
 import Modal from '../../UI/Modal';
 
 function Login() {
-  const { connector, isConnected, address } = useAccount();
-  const [challenge, { error: challengeError, loading: challengeLoading }] = useLazyQuery(GET_CHALLENGE);
+  const [getChallenge, { error: challengeError, loading: challengeLoading }] = useLazyQuery(GET_CHALLENGE);
   const [authenticate, { error: authenticateError, loading: authenticateLoading }] =
     useMutation(AUTHENTICATION);
+
+  const { connector, isConnected, address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
     onError: (error) => {
       console.log('error signing message', error);
@@ -19,10 +20,11 @@ function Login() {
 
   async function handleLogin() {
     try {
-      const getChallenge = await challenge({
+      const challenge = await getChallenge({
         variables: { request: { address } }
       });
-      if (!getChallenge?.data?.challenge?.text) {
+
+      if (!challenge?.data?.challenge?.text) {
         throw new Error('No challenge found');
       }
 
@@ -35,8 +37,7 @@ function Login() {
       });
       setLocalStorage(
         ['accessToken', 'refreshToken'],
-        auth.data?.authenticate.accessToken,
-        auth.data?.authenticate.refreshToken
+        [auth.data?.authenticate.accessToken, auth.data?.authenticate.refreshToken]
       );
       console.log('auth', auth.data?.authenticate.accessToken);
     } catch (error) {
@@ -46,7 +47,7 @@ function Login() {
 
   return connector?.id ? (
     <Modal isOpen={isConnected} isClose={() => false} title={'Login to RTU Connect'}>
-      <button onClick={() => handleLogin()}>{'Disconnect'}</button>
+      <button onClick={() => handleLogin()}>{'login'}</button>
     </Modal>
   ) : (
     <div className={'p-5'}>
