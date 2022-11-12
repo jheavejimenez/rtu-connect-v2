@@ -1,25 +1,28 @@
-import { useState } from 'react';
+import { ConnectKitButton } from 'connectkit';
+import { useAccount, useDisconnect } from 'wagmi';
 
-import { APP_NAME } from '../../../utils/constants';
+import Modal from '../../UI/Modal';
+
+function Dialog(props) {
+  return null;
+}
 
 function Login() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [hasProfile, setHasProfile] = useState(true);
+  const { connector, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
 
-  return (
+  // function handleLogin() {
+  //   try {
+  //     const getChallenge =
+  //   }
+  // }
+  return connector?.id ? (
+    <Modal isOpen={isConnected} isClose={() => false} title={'Login to RTU Connect'}>
+      <button onClick={() => disconnect()}>{'Disconnect'}</button>
+    </Modal>
+  ) : (
     <div className={'p-5'}>
-      {hasProfile ? (
-        <div className={'space-y-5'}>
-          {isConnected ? (
-            <div className={'space-y-1'}>
-              <div className={'text-xl font-bold'}>{`Welcome To ${APP_NAME}`}</div>
-              <div className={'text-sm text-gray-500'}>{'click sign in to continue'}</div>
-            </div>
-          ) : null}
-          {/* put the wallet options here */}
-        </div>
-      ) : // <NewProfile isModal />
-      null}
+      <ConnectKitButton />
     </div>
   );
 }
