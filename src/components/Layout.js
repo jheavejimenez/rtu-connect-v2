@@ -74,11 +74,12 @@ function Layout({ children }) {
         <meta name={'description'} content={'RTUConnect'} />
       </Head>
       <Toaster
+        containerStyle={{
+          position: 'relative',
+          top: '65px'
+        }}
         position={'top-right'}
         toastOptions={{
-          style: {
-            background: '#eeeeee'
-          },
           success: {
             duration: 3000
           },
