@@ -1,13 +1,11 @@
 import { ConnectKitButton } from 'connectkit';
 
-import { useAppStore } from '../../store/app';
 import SvgCommunity from '../logos/SvgCommunity';
 import SvgHome from '../logos/SvgHome';
 import SvgWatch from '../logos/SvgWatch';
 import NavItems from './NavItems';
 
 function NavBar() {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   return (
     <nav
       className={
