@@ -14,7 +14,7 @@ function Login() {
   const { connector, isConnected, address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
     onError: (error) => {
-      console.log('error signing message', error);
+      console.log('error signing message', error); // TODO: convert it to toast message
     }
   });
 
@@ -25,7 +25,7 @@ function Login() {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        throw new Error('No challenge found');
+        throw new Error('No challenge found'); // TODO: convert it to toast message
       }
 
       const signature = await signMessageAsync({
@@ -39,9 +39,8 @@ function Login() {
         ['accessToken', 'refreshToken'],
         [auth.data?.authenticate.accessToken, auth.data?.authenticate.refreshToken]
       );
-      console.log('auth', auth.data?.authenticate.accessToken);
     } catch (error) {
-      console.log(error);
+      console.log(error); // TODO: convert it to toast message
     }
   }
 

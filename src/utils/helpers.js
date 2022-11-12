@@ -12,7 +12,6 @@ export const clearLocalStorage = (keys) => {
 
 export const setLocalStorage = (keys, values) => {
   for (const [i, key] of keys.entries()) {
-    console.log('values ', values);
     localStorage.setItem(key, values[i]);
   }
 };
