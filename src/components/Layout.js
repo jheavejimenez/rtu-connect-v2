@@ -76,6 +76,9 @@ function Layout({ children }) {
       <Toaster
         position={'top-right'}
         toastOptions={{
+          style: {
+            background: '#eeeeee'
+          },
           success: {
             duration: 3000
           },
