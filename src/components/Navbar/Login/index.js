@@ -21,7 +21,7 @@ function Login() {
   const { connector, isConnected, address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
     onError: () => {
-      toast.error('Error signing message');
+      toast.error('You Rejected the Signature Request');
     }
   });
 
@@ -57,7 +57,7 @@ function Login() {
         setCurrentProfile(currentProfile);
       }
     } catch (error) {
-      toast.error(error);
+      console.log(error);
     }
   }
 
