@@ -1,5 +1,6 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { ConnectKitButton } from 'connectkit';
+import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import { AUTHENTICATION, GET_CHALLENGE } from '../../../graphQL/auth/auth-mutations';
@@ -19,11 +20,10 @@ function Login() {
 
   const { connector, isConnected, address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
-    onError: (error) => {
-      console.log('error signing message', error); // TODO: convert it to toast message
+    onError: () => {
+      toast.error('Error signing message');
     }
   });
-  const click = async () => {};
 
   async function handleLogin() {
     try {
@@ -32,7 +32,7 @@ function Login() {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        throw new Error('No challenge found'); // TODO: convert it to toast message
+        toast.error('Error getting challenge');
       }
 
       const signature = await signMessageAsync({
@@ -57,7 +57,7 @@ function Login() {
         setCurrentProfile(currentProfile);
       }
     } catch (error) {
-      console.log(error); // TODO: convert it to toast message
+      toast.error(error);
     }
   }
 
@@ -65,13 +65,10 @@ function Login() {
   return connector?.id ? (
     <>
       <Modal isOpen={isConnected} isClose={() => false} title={'Login to RTU Connect'}>
-        <button onClick={() => click()}>{'login'}</button>
+        <button onClick={() => handleLogin()}>{'login'}</button>
       </Modal>
-      {(challengeError || authenticateError || profileError) && (
-        <div className={'flex items-center space-x-1 font-bold text-red-500'}>
-          <div>{'error'}</div>
-        </div>
-      )}
+      {(challengeError || authenticateError || profileError) &&
+        toast.error('Error logging in. Please refresh the browser and try again')}
     </>
   ) : (
     <div className={'p-5'}>
