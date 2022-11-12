@@ -1,8 +1,7 @@
-import { ConnectKitButton } from 'connectkit';
-
 import SvgCommunity from '../logos/SvgCommunity';
 import SvgHome from '../logos/SvgHome';
 import SvgWatch from '../logos/SvgWatch';
+import Login from './Login';
 import NavItems from './NavItems';
 
 function NavBar() {
@@ -43,7 +42,7 @@ function NavBar() {
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
         <li className={'mx-4'}>
-          <ConnectKitButton />
+          <Login />
         </li>
       </ul>
     </nav>
