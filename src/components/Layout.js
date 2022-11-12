@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import { GET_PROFILES } from '../graphQL/queries/get-profiles';
@@ -72,6 +73,17 @@ function Layout({ children }) {
         <title>{'RTUConnect'}</title>
         <meta name={'description'} content={'RTUConnect'} />
       </Head>
+      <Toaster
+        position={'top-right'}
+        toastOptions={{
+          success: {
+            duration: 3000
+          },
+          error: {
+            duration: 5000
+          }
+        }}
+      />
       <div className={'flex flex-col min-h-screen'}>
         <Navbar />
         {children}
