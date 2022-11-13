@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 function Modal({ isOpen, children, isClose, title }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as={'div'} className={'relative z-10'} onClose={isClose}>
+      <Dialog as={'div'} className={'overflow-y-auto fixed inset-0 z-10'} onClose={isClose}>
         <Transition.Child
           as={Fragment}
           enter={'ease-out duration-300'}
@@ -14,7 +14,7 @@ function Modal({ isOpen, children, isClose, title }) {
           leaveFrom={'opacity-100'}
           leaveTo={'opacity-0'}
         >
-          <div className={'fixed inset-0 bg-black bg-opacity-25'} />
+          <Dialog.Overlay className={'fixed inset-0 bg-gray-300 bg-opacity-75 transition-opacity'} />
         </Transition.Child>
 
         <div className={'fixed inset-0 overflow-y-auto'}>

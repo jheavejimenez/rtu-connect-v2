@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import { GET_PROFILES } from '../graphQL/queries/get-profiles';
@@ -9,8 +10,6 @@ import { CHAIN_ID } from '../utils/constants';
 import { getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
-
-``;
 
 function Layout({ children }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -65,7 +64,7 @@ function Layout({ children }) {
   }, [isDisconnected, address, chain, disconnect, profileId]);
 
   if (loading || !mounted) {
-    return <div>{'Loading...'}</div>;
+    return <div className={'grid h-screen place-items-center animate-pulse'}>{'Loading...'}</div>;
   }
 
   return (
@@ -74,6 +73,21 @@ function Layout({ children }) {
         <title>{'RTUConnect'}</title>
         <meta name={'description'} content={'RTUConnect'} />
       </Head>
+      <Toaster
+        containerStyle={{
+          position: 'relative',
+          top: '65px'
+        }}
+        position={'top-right'}
+        toastOptions={{
+          success: {
+            duration: 3000
+          },
+          error: {
+            duration: 5000
+          }
+        }}
+      />
       <div className={'flex flex-col min-h-screen'}>
         <Navbar />
         {children}

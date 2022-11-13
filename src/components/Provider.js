@@ -32,8 +32,6 @@ const wagmiClient = createClient({
 });
 
 function Providers({ children }) {
-  console.log(ALCHEMY_RPC);
-  console.log(chains);
   return (
     <WagmiConfig client={wagmiClient}>
       <ConnectKitProvider
