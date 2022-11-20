@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -58,7 +59,9 @@ function Providers({ children }) {
       {/*  }}*/}
       {/*>*/}
       {/*</ConnectKitProvider>*/}
-      <ApolloProvider client={client}>{children}</ApolloProvider>
+      <RainbowKitProvider chains={chains}>
+        <ApolloProvider client={client}>{children}</ApolloProvider>
+      </RainbowKitProvider>
     </WagmiConfig>
   );
 }

@@ -1,4 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
@@ -77,6 +78,7 @@ function Login() {
         </Modal>
       ) : null}
       {/*<ConnectKitButton />*/}
+      <ConnectButton />
       {(challengeError || authenticateError || profileError) &&
         toast.error('Error logging in. Please refresh the browser and try again')}
     </>
