@@ -16,11 +16,17 @@ const connectors = () => {
   return [
     new MetaMaskConnector({
       chains,
-      options: { shimDisconnect: true }
+      options: {
+        appName: 'RTU Connect',
+        shimDisconnect: true
+      }
     }),
     new WalletConnectConnector({
       chains,
-      options: { rpc: { [CHAIN_ID]: ALCHEMY_RPC } }
+      options: {
+        appName: 'RTU Connect',
+        rpc: { [CHAIN_ID]: ALCHEMY_RPC }
+      }
     })
   ];
 };
