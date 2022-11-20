@@ -1,5 +1,4 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { ConnectKitButton } from 'connectkit';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
@@ -20,11 +19,7 @@ function Login() {
   const [getProfile, { error: profileError, loading: profileLoading }] = useLazyQuery(GET_PROFILES);
 
   const [showModal, setShowModal] = useState(false);
-  const { connector, address } = useAccount({
-    onConnect: () => {
-      setShowModal(true);
-    }
-  });
+  const { connector, address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
     onError: () => {
       toast.error('You Rejected the Signature Request');
@@ -75,13 +70,12 @@ function Login() {
           title={'Login to RTU Connect'}
           isOpen={showModal}
           isClose={() => {
-            false;
+            setShowModal(false);
           }}
         >
           <button onClick={() => handleLogin()}>{'login'}</button>
         </Modal>
       ) : null}
-      <ConnectKitButton />
       {(challengeError || authenticateError || profileError) &&
         toast.error('Error logging in. Please refresh the browser and try again')}
     </>
