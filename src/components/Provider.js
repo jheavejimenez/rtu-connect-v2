@@ -1,36 +1,38 @@
+import '@rainbow-me/rainbowkit/styles.css';
+
 import { ApolloProvider } from '@apollo/client';
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { metaMaskWallet, rainbowWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../utils/apollo';
-import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID } from '../utils/constants';
+import { ALCHEMY_KEY } from '../utils/constants';
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
 );
 
-const connectors = () => {
-  return [
-    new MetaMaskConnector({
-      chains,
-      options: {
-        appName: 'RTU Connect',
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      metaMaskWallet({
+        chains,
         shimDisconnect: true
-      }
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        appName: 'RTU Connect',
-        rpc: { [CHAIN_ID]: ALCHEMY_RPC }
-      }
-    })
-  ];
-};
+      }),
+      rainbowWallet({
+        chains,
+        shimDisconnect: true
+      }),
+      walletConnectWallet({
+        chains
+      })
+    ]
+  }
+]);
+
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
