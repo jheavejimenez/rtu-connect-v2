@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
@@ -9,10 +9,6 @@ import { GET_PROFILES } from '../../../graphQL/queries/get-profiles';
 import { useAppStore } from '../../../store/app';
 import { setLocalStorage } from '../../../utils/helpers';
 import Modal from '../../UI/Modal';
-
-function ConnectKitButton() {
-  return null;
-}
 
 function Login() {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -30,7 +26,6 @@ function Login() {
       toast.error('You Rejected the Signature Request');
     }
   });
-  const { openConnectModal } = useConnectModal();
 
   async function handleLogin() {
     try {
