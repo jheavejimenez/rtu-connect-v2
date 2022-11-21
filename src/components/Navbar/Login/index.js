@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccountModal, useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
@@ -26,6 +26,10 @@ function Login() {
       toast.error('You Rejected the Signature Request');
     }
   });
+
+  const { openConnectModal } = useConnectModal();
+  const { openAccountModal } = useAccountModal();
+  const { openChainModal } = useChainModal();
 
   async function handleLogin() {
     try {
@@ -64,6 +68,7 @@ function Login() {
   }
 
   const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
+
   return (
     <>
       {connector?.id ? (
@@ -74,10 +79,15 @@ function Login() {
             setShowModal(false);
           }}
         >
-          <button onClick={() => handleLogin()}>{'login'}</button>
+          <button onClick={() => handleLogin()}>{'SignIn to lens'}</button>
         </Modal>
-      ) : null}
-      <ConnectButton />
+      ) : (
+        <button onClick={openConnectModal} type={'button'}>
+          {'Connect Wallet'}
+        </button>
+      )}
+      {openAccountModal && <button onClick={() => setShowModal(!showModal)}>{'Login'}</button>}
+
       {(challengeError || authenticateError || profileError) &&
         toast.error('Error logging in. Please refresh the browser and try again')}
     </>
