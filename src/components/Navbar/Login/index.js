@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { ConnectButton, useAccountModal, useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
+import { useAccountModal, useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
@@ -71,23 +71,23 @@ function Login() {
 
   return (
     <>
-      {/*{connector?.id ? (*/}
-      <Modal
-        title={'Login to RTU Connect'}
-        isOpen={showModal}
-        isClose={() => {
-          setShowModal(false);
-        }}
-      >
-        <button onClick={() => handleLogin()}>{'SignIn to lens'}</button>
-      </Modal>
-      {/*) : (*/}
-      {/*  <button onClick={openConnectModal} type={'button'}>*/}
-      {/*    {'Connect Wallet'}*/}
-      {/*  </button>*/}
-      {/*)}*/}
-      {/*{openAccountModal && <button onClick={() => setShowModal(!showModal)}>{'Login'}</button>}*/}
-      <ConnectButton />
+      {connector?.id ? (
+        <Modal
+          title={'Login to RTU Connect'}
+          isOpen={showModal}
+          isClose={() => {
+            setShowModal(false);
+          }}
+        >
+          <button onClick={() => handleLogin()}>{'SignIn to lens'}</button>
+        </Modal>
+      ) : (
+        <button onClick={openConnectModal} type={'button'}>
+          {'Connect Wallet'}
+        </button>
+      )}
+      {openAccountModal && <button onClick={() => setShowModal(!showModal)}>{'Login'}</button>}
+      {/*<ConnectButton />*/}
       {(challengeError || authenticateError || profileError) &&
         toast.error('Error logging in. Please refresh the browser and try again')}
     </>
