@@ -1,6 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { useAccountModal, useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
-import { useState } from 'react';
+import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
 
@@ -8,7 +7,6 @@ import { AUTHENTICATION, GET_CHALLENGE } from '../../../graphQL/auth/auth-mutati
 import { GET_PROFILES } from '../../../graphQL/queries/get-profiles';
 import { useAppStore } from '../../../store/app';
 import { setLocalStorage } from '../../../utils/helpers';
-import Modal from '../../UI/Modal';
 
 function Login() {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -19,17 +17,15 @@ function Login() {
     useMutation(AUTHENTICATION);
   const [getProfile, { error: profileError, loading: profileLoading }] = useLazyQuery(GET_PROFILES);
 
-  const [showModal, setShowModal] = useState(false);
-  const { connector, address } = useAccount();
+  const { openConnectModal } = useConnectModal();
+  const { openAccountModal } = useAccountModal();
+
+  const { address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
     onError: () => {
       toast.error('You Rejected the Signature Request');
     }
   });
-
-  const { openConnectModal } = useConnectModal();
-  const { openAccountModal } = useAccountModal();
-  const { openChainModal } = useChainModal();
 
   async function handleLogin() {
     try {
@@ -67,27 +63,30 @@ function Login() {
     }
   }
 
-  const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
-
   return (
     <>
-      {connector?.id ? (
-        <Modal
-          title={'Login to RTU Connect'}
-          isOpen={showModal}
-          isClose={() => {
-            setShowModal(false);
-          }}
+      {openConnectModal ? (
+        <button
+          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
+          onClick={openConnectModal}
         >
-          <button onClick={() => handleLogin()}>{'SignIn to lens'}</button>
-        </Modal>
-      ) : (
-        <button onClick={openConnectModal} type={'button'}>
           {'Connect Wallet'}
         </button>
+      ) : (
+        <button
+          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
+          onClick={handleLogin}
+        >
+          {'Login'}
+        </button>
       )}
-      {openAccountModal && <button onClick={() => setShowModal(!showModal)}>{'Login'}</button>}
-      {/*<ConnectButton />*/}
+
+      {openAccountModal && (
+        <button onClick={openAccountModal} type={'button'}>
+          {'Open Account Modal'}
+        </button>
+      )}
+
       {(challengeError || authenticateError || profileError) &&
         toast.error('Error logging in. Please refresh the browser and try again')}
     </>
