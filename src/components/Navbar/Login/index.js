@@ -70,7 +70,6 @@ function Login() {
     return <button onClick={handleLogin}>{'Login'}</button>;
   }
 
-  console.log(hasProfile);
   return (
     <>
       {openConnectModal ? (
