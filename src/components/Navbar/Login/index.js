@@ -25,6 +25,7 @@ function Login() {
       toast.error('You Rejected the Signature Request');
     }
   });
+  const hasProfile = useAppStore((state) => state.currentProfile);
 
   async function handleLogin() {
     try {
@@ -69,6 +70,7 @@ function Login() {
     return <button onClick={handleLogin}>{'Login'}</button>;
   }
 
+  console.log(hasProfile);
   return (
     <>
       {openConnectModal ? (
@@ -78,8 +80,8 @@ function Login() {
         >
           {'Connect Wallet'}
         </button>
-      ) : address ? (
-        <button>{'avatar'}</button>
+      ) : hasProfile ? (
+        <button>{'Avatar'}</button>
       ) : (
         lensLogin()
       )}
