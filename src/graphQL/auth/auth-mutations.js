@@ -18,7 +18,7 @@ export const AUTHENTICATION = gql`
 `;
 
 export const refresh = `
-   mutation Refresh($request: RefreshRequest!) {
+  mutation Refresh($request: RefreshRequest!) {
     refresh(request: $request) {
       accessToken
       refreshToken
