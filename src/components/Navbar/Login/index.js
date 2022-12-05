@@ -70,6 +70,13 @@ function Login() {
     return <button onClick={handleLogin}>{'Login'}</button>;
   }
 
+  function avatarOrNewProfile() {
+    if (hasProfile) {
+      return <div>{'Avatar'}</div>;
+    }
+    return <div>{'New Profile'}</div>;
+  }
+
   return (
     <>
       {openConnectModal ? (
@@ -80,7 +87,7 @@ function Login() {
           {'Connect Wallet'}
         </button>
       ) : hasProfile ? (
-        <button>{'Avatar'}</button>
+        avatarOrNewProfile()
       ) : (
         lensLogin()
       )}
