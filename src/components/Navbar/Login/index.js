@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
 
@@ -18,7 +18,6 @@ function Login() {
   const [getProfile, { error: profileError, loading: profileLoading }] = useLazyQuery(GET_PROFILES);
 
   const { openConnectModal } = useConnectModal();
-  const { openAccountModal } = useAccountModal();
 
   const { address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
@@ -26,6 +25,7 @@ function Login() {
       toast.error('You Rejected the Signature Request');
     }
   });
+  const hasProfile = useAppStore((state) => state.currentProfile);
 
   async function handleLogin() {
     try {
@@ -63,6 +63,20 @@ function Login() {
     }
   }
 
+  function lensLogin() {
+    if (challengeLoading || authenticateLoading || profileLoading || signLoading) {
+      return <div>{'Loading...'}</div>;
+    }
+    return <button onClick={handleLogin}>{'Login'}</button>;
+  }
+
+  function avatarOrNewProfile() {
+    if (hasProfile) {
+      return <div>{'Avatar'}</div>;
+    }
+    return <div>{'New Profile'}</div>;
+  }
+
   return (
     <>
       {openConnectModal ? (
@@ -72,19 +86,10 @@ function Login() {
         >
           {'Connect Wallet'}
         </button>
+      ) : hasProfile ? (
+        avatarOrNewProfile()
       ) : (
-        <button
-          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
-          onClick={handleLogin}
-        >
-          {'Login'}
-        </button>
-      )}
-
-      {openAccountModal && (
-        <button onClick={openAccountModal} type={'button'}>
-          {'Open Account Modal'}
-        </button>
+        lensLogin()
       )}
 
       {(challengeError || authenticateError || profileError) &&
