@@ -25,7 +25,6 @@ function Login() {
       toast.error('You Rejected the Signature Request');
     }
   });
-  const hasProfile = useAppStore((state) => state.currentProfile);
 
   async function handleLogin() {
     try {
@@ -64,10 +63,8 @@ function Login() {
   }
 
   function lensLogin() {
-    if (challengeLoading || authenticateLoading || profileLoading || signLoading) {
-      return <div>{'Loading...'}</div>;
-    }
-    return <button onClick={handleLogin}>{'Login'}</button>;
+    const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
+    return isLoading ? <div>{'Loading...'}</div> : <button onClick={handleLogin}>{'Login'}</button>;
   }
 
   function avatarOrNewProfile() {
