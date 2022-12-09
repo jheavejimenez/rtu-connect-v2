@@ -67,29 +67,25 @@ function Login() {
     return isLoading ? <div>{'Loading...'}</div> : <button onClick={handleLogin}>{'Login'}</button>;
   }
 
-  function avatarOrNewProfile() {
-    if (hasProfile) {
-      return <div>{'Avatar'}</div>;
-    }
-    return <div>{'New Profile'}</div>;
+  function avatarOrNewProfile({ hasProfile }) {
+    return hasProfile ? <div>{'Avatar'}</div> : <div>{'New Profile'}</div>;
   }
 
   return (
     <>
-      {openConnectModal ? (
-        <button
-          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
-          onClick={openConnectModal}
-        >
-          {'Connect Wallet'}
-        </button>
-      ) : hasProfile ? (
-        avatarOrNewProfile()
-      ) : (
-        lensLogin()
-      )}
+      {openConnectModal && (
+          <button
+            className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
+            onClick={openConnectModal}
+          >
+            {'Connect Wallet'}
+          </button>
+        ) &&
+        (hasProfile ? avatarOrNewProfile(hasProfile) : lensLogin())}
 
-      {(challengeError || authenticateError || profileError) &&
+      {challengeError ||
+        authenticateError ||
+        profileError ||
         toast.error('Error logging in. Please refresh the browser and try again')}
     </>
   );
