@@ -48,10 +48,25 @@ function ConnectToLens({ setHasProfile }) {
         variables: { request: { ownedBy: address } }
       });
 
-      if (!profileData || !profileData.profiles || profileData.profiles.length === 0) {
+      // if (profileData?.profiles?.items?.length === 0) {
+      //   setHasProfile(false);
+      //   console.log('no profile');
+      // } else {
+      //   const profiles = profileData.profiles;
+      //   const currentProfile = profiles[0];
+      //   setProfiles(profiles);
+      //   setCurrentProfile(currentProfile);
+      // }
+      if (
+        !profileData ||
+        !profileData.profiles ||
+        !profileData.profiles.items ||
+        profileData.profiles.items.length === 0
+      ) {
         setHasProfile(false);
+        console.log('no profile');
       } else {
-        const profiles = profileData.profiles;
+        const profiles = profileData.profiles.items;
         const currentProfile = profiles[0];
         setProfiles(profiles);
         setCurrentProfile(currentProfile);
