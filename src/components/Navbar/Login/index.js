@@ -1,7 +1,9 @@
 import { ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
+import Image from 'next/image';
 import { useState } from 'react';
 
+import rtuLogo from '../../logos/rtuLogo.png';
 import Button from '../../UI/Button';
 import Modal from '../../UI/Modal';
 import ConnectToLens from './ConnectToLens';
@@ -25,7 +27,12 @@ function Login() {
       {openConnectModal ? (
         <button onClick={openConnectModal}>{'Connect Wallet'}</button>
       ) : (
-        <Button onClick={() => setShowLoginModal(!showLoginModal)}>{'Login'}</Button>
+        <Button
+          icon={<Image className={'mr-0.5 w-4 h-4'} height={16} width={16} src={rtuLogo} alt={'RTU Logo'} />}
+          onClick={() => setShowLoginModal(!showLoginModal)}
+        >
+          {'Login'}
+        </Button>
       )}
     </>
   );
