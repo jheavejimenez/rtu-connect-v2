@@ -23,8 +23,8 @@ function NavBar() {
             src={rtuLogo}
             alt={'rtu logo'}
             className={'w-24 h-auto rounded-full'}
-            width={100}
-            height={100}
+            width={35}
+            height={35}
           />
         </div>
         <div className={'flex items-center justify-between space-x-1'}>
