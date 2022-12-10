@@ -6,6 +6,7 @@ import { AUTHENTICATION, GET_CHALLENGE } from '../../../graphQL/auth/auth-mutati
 import { GET_PROFILES } from '../../../graphQL/queries/get-profiles';
 import { useAppStore } from '../../../store/app';
 import { setLocalStorage } from '../../../utils/helpers';
+import Button from '../../UI/Button';
 
 function ConnectToLens({ setHasProfile }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -75,13 +76,13 @@ function ConnectToLens({ setHasProfile }) {
         <div className={'pb-5 text-sm text-gray-500'}>
           {'You need to sign the message to be  able to authenticate you to Lens Protocol.'}
         </div>
-        <button
+        <Button
           className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
           onClick={handleLogin}
           disabled={isLoading}
         >
           {isLoading ? 'Loading...' : 'Sign Message'}
-        </button>
+        </Button>
       </div>
       {(challengeError || authenticateError || profileError) &&
         toast.error('Error logging in. Please refresh the browser and try again')}
