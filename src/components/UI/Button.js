@@ -2,8 +2,7 @@ function Button({ loading, icon, children, ...props }) {
   return (
     <button
       className={
-        'w-60 px-4 py-2 font-bold text-white bg-blue-500 rounded-full ' +
-        +'hover:bg-blue-700 focus:outline-none focus:shadow-outline'
+        'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline'
       }
       disabled={loading}
       {...props}

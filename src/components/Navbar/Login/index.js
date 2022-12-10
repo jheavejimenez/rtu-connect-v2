@@ -2,6 +2,7 @@ import { ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 
+import Button from '../../UI/Button';
 import Modal from '../../UI/Modal';
 import ConnectToLens from './ConnectToLens';
 import NewProfile from './New/NewProfile';
@@ -24,12 +25,7 @@ function Login() {
       {openConnectModal ? (
         <button onClick={openConnectModal}>{'Connect Wallet'}</button>
       ) : (
-        <button
-          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
-          onClick={() => setShowLoginModal(!showLoginModal)}
-        >
-          {'Login'}
-        </button>
+        <Button onClick={() => setShowLoginModal(!showLoginModal)}>{'Login'}</Button>
       )}
     </>
   );
