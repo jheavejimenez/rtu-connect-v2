@@ -1,3 +1,6 @@
+import Image from 'next/image';
+
+import rtuLogo from '../logos/rtuLogo.png';
 import SvgCommunity from '../logos/SvgCommunity';
 import SvgHome from '../logos/SvgHome';
 import SvgWatch from '../logos/SvgWatch';
@@ -16,7 +19,13 @@ function NavBar() {
     >
       <div className={'flex items-center justify-between w-full md:w-max px-4 py-2'}>
         <div className={'mr-2 hidden md:inline-block cursor-pointer'}>
-          <img src={'http///....'} alt={'rtu logo'} className={'w-24 h-auto rounded-full'} />
+          <Image
+            src={rtuLogo}
+            alt={'rtu logo'}
+            className={'w-24 h-auto rounded-full'}
+            width={100}
+            height={100}
+          />
         </div>
         <div className={'flex items-center justify-between space-x-1'}>
           <div
