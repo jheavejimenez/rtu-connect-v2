@@ -1,5 +1,4 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
 
@@ -16,8 +15,6 @@ function WalletConnect() {
   const [authenticate, { error: authenticateError, loading: authenticateLoading }] =
     useMutation(AUTHENTICATION);
   const [getProfile, { error: profileError, loading: profileLoading }] = useLazyQuery(GET_PROFILES);
-
-  const { openConnectModal } = useConnectModal();
 
   const { address } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
@@ -62,26 +59,24 @@ function WalletConnect() {
     }
   }
 
-  function lensLogin() {
-    const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
-    return isLoading ? <div>{'Loading...'}</div> : <button onClick={handleLogin}>{'Login'}</button>;
-  }
+  const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
 
   return (
     <>
-      {openConnectModal && (
-          <button
-            className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
-            onClick={openConnectModal}
-          >
-            {'Connect Wallet'}
-          </button>
-        ) &&
-        lensLogin()}
-
-      {challengeError ||
-        authenticateError ||
-        profileError ||
+      <div className={'p-6'}>
+        <div className={'pb-5 text-xl font-bold'}>{'Please sign the message.'}</div>
+        <div className={'pb-5 text-sm text-gray-500'}>
+          {'You need to sign the message to be  able to authenticate you to Lens Protocol.'}
+        </div>
+        <button
+          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
+          onClick={handleLogin}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Loading...' : 'Sign Message'}
+        </button>
+      </div>
+      {(challengeError || authenticateError || profileError) &&
         toast.error('Error logging in. Please refresh the browser and try again')}
     </>
   );
