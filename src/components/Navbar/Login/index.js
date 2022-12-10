@@ -1,99 +1,38 @@
-import { useLazyQuery, useMutation } from '@apollo/client';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
-import toast from 'react-hot-toast';
-import { useAccount, useSignMessage } from 'wagmi';
+import Image from 'next/image';
+import { useState } from 'react';
 
-import { AUTHENTICATION, GET_CHALLENGE } from '../../../graphQL/auth/auth-mutations';
-import { GET_PROFILES } from '../../../graphQL/queries/get-profiles';
-import { useAppStore } from '../../../store/app';
-import { setLocalStorage } from '../../../utils/helpers';
+import rtuLogo from '../../logos/rtuLogo.png';
+import Button from '../../UI/Button';
+import Modal from '../../UI/Modal';
+import ConnectToLens from './ConnectToLens';
+import NewProfile from './New/NewProfile';
 
 function Login() {
-  const setProfiles = useAppStore((state) => state.setProfiles);
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-
-  const [getChallenge, { error: challengeError, loading: challengeLoading }] = useLazyQuery(GET_CHALLENGE);
-  const [authenticate, { error: authenticateError, loading: authenticateLoading }] =
-    useMutation(AUTHENTICATION);
-  const [getProfile, { error: profileError, loading: profileLoading }] = useLazyQuery(GET_PROFILES);
-
+  const [hasProfile, setHasProfile] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const { openConnectModal } = useConnectModal();
-
-  const { address } = useAccount();
-  const { signMessageAsync, isLoading: signLoading } = useSignMessage({
-    onError: () => {
-      toast.error('You Rejected the Signature Request');
-    }
-  });
-  const hasProfile = useAppStore((state) => state.currentProfile);
-
-  async function handleLogin() {
-    try {
-      const challenge = await getChallenge({
-        variables: { request: { address } }
-      });
-
-      if (!challenge?.data?.challenge?.text) {
-        toast.error('Error getting challenge');
-      }
-
-      const signature = await signMessageAsync({
-        message: challenge?.data?.challenge?.text
-      });
-
-      const auth = await authenticate({
-        variables: { request: { address, signature } }
-      });
-      setLocalStorage(
-        ['accessToken', 'refreshToken'],
-        [auth.data?.authenticate.accessToken, auth.data?.authenticate.refreshToken]
-      );
-      const { data: profileData } = await getProfile({
-        variables: { request: { ownedBy: address } }
-      });
-
-      if (profileData.profiles?.items) {
-        const profiles = profileData?.profiles.items;
-        const currentProfile = profiles[0];
-        setProfiles(profiles);
-        setCurrentProfile(currentProfile);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function lensLogin() {
-    if (challengeLoading || authenticateLoading || profileLoading || signLoading) {
-      return <div>{'Loading...'}</div>;
-    }
-    return <button onClick={handleLogin}>{'Login'}</button>;
-  }
-
-  function avatarOrNewProfile() {
-    if (hasProfile) {
-      return <div>{'Avatar'}</div>;
-    }
-    return <div>{'New Profile'}</div>;
-  }
 
   return (
     <>
+      <Modal
+        title={'RTU Connect'}
+        icon={<Image height={55} width={55} src={rtuLogo} alt={'RTU Logo'} />}
+        show={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      >
+        {hasProfile ? <ConnectToLens setHasProfile={setHasProfile} /> : <NewProfile />}
+      </Modal>
       {openConnectModal ? (
-        <button
-          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
-          onClick={openConnectModal}
-        >
-          {'Connect Wallet'}
-        </button>
-      ) : hasProfile ? (
-        avatarOrNewProfile()
+        <button onClick={openConnectModal}>{'Connect Wallet'}</button>
       ) : (
-        lensLogin()
+        <Button
+          icon={<Image className={'mr-0.5 w-4 h-4'} height={16} width={16} src={rtuLogo} alt={'RTU Logo'} />}
+          onClick={() => setShowLoginModal(!showLoginModal)}
+        >
+          {'Login'}
+        </Button>
       )}
-
-      {(challengeError || authenticateError || profileError) &&
-        toast.error('Error logging in. Please refresh the browser and try again')}
     </>
   );
 }

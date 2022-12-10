@@ -18,10 +18,8 @@ export const AUTHENTICATION = gql`
 `;
 
 export const refresh = `
-  mutation($request: Jwt!) {
-    refresh(request: {
-      refreshToken: $refreshToken
-    }) {
+  mutation Refresh($request: RefreshRequest!) {
+    refresh(request: $request) {
       accessToken
       refreshToken
     }

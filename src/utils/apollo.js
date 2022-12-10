@@ -63,7 +63,8 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  connectToDevTools: true
 });
 
 export default client;
