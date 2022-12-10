@@ -67,10 +67,6 @@ function WalletConnect() {
     return isLoading ? <div>{'Loading...'}</div> : <button onClick={handleLogin}>{'Login'}</button>;
   }
 
-  function avatarOrNewProfile({ hasProfile }) {
-    return hasProfile ? <div>{'Avatar'}</div> : <div>{'New Profile'}</div>;
-  }
-
   return (
     <>
       {openConnectModal && (
@@ -81,7 +77,7 @@ function WalletConnect() {
             {'Connect Wallet'}
           </button>
         ) &&
-        (hasProfile ? avatarOrNewProfile(hasProfile) : lensLogin())}
+        lensLogin()}
 
       {challengeError ||
         authenticateError ||
