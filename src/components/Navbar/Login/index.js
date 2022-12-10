@@ -10,7 +10,7 @@ function Login() {
   const [hasProfile, setHasProfile] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { openConnectModal } = useConnectModal();
-  console.log('hasProfile', hasProfile);
+
   return (
     <>
       <Modal
