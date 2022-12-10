@@ -71,7 +71,7 @@ function ConnectToLens({ setHasProfile }) {
 
   return (
     <>
-      <div className={'p-6'}>
+      <div className={'pt-3 px-6 pb-6'}>
         <div className={'pb-5 text-xl font-bold'}>{'Please sign the message.'}</div>
         <div className={'pb-5 text-sm text-gray-500'}>
           {'You need to sign the message to be  able to authenticate you to Lens Protocol.'}
