@@ -48,15 +48,6 @@ function ConnectToLens({ setHasProfile }) {
         variables: { request: { ownedBy: address } }
       });
 
-      // if (profileData?.profiles?.items?.length === 0) {
-      //   setHasProfile(false);
-      //   console.log('no profile');
-      // } else {
-      //   const profiles = profileData.profiles;
-      //   const currentProfile = profiles[0];
-      //   setProfiles(profiles);
-      //   setCurrentProfile(currentProfile);
-      // }
       if (
         !profileData ||
         !profileData.profiles ||
@@ -64,7 +55,6 @@ function ConnectToLens({ setHasProfile }) {
         profileData.profiles.items.length === 0
       ) {
         setHasProfile(false);
-        console.log('no profile');
       } else {
         const profiles = profileData.profiles.items;
         const currentProfile = profiles[0];
