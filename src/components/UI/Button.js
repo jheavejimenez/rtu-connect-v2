@@ -1,11 +1,12 @@
-function Button({ loading, icon, children, ...props }) {
+function Button({ loading, icon = '', children, ...props }) {
+  const className =
+    'btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline';
+
   return (
     <button
-      className={
-        'bg-blue-500 hover:bg-blue-700 text-white font-bold' +
-        ' py-2 px-4 rounded-md focus:outline-none focus:shadow-outline' +
-        ' disabled:opacity-50 shadow-sm disabled:cursor-not-allowed'
-      }
+      className={`${className} ${loading && 'disabled:opacity-50 shadow-sm'} ${
+        loading && 'disabled:cursor-not-allowed'
+      }`}
       disabled={loading}
       {...props}
     >

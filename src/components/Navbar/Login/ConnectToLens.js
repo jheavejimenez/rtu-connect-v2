@@ -68,7 +68,6 @@ function ConnectToLens({ setHasProfile }) {
   }
 
   const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
-
   return (
     <>
       <div className={'pt-3 px-6 pb-6'}>
@@ -76,7 +75,7 @@ function ConnectToLens({ setHasProfile }) {
         <div className={'pb-5 text-sm text-gray-500'}>
           {'You need to sign the message to be  able to authenticate you to Lens Protocol.'}
         </div>
-        <Button onClick={handleLogin} disabled={isLoading}>
+        <Button onClick={handleLogin} disabled={isLoading} loading={isLoading}>
           {isLoading ? 'Loading...' : 'Sign Message'}
         </Button>
       </div>
