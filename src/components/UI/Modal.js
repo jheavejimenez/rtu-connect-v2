@@ -42,10 +42,10 @@ function Modal({ icon, show, children, onClose, title }) {
                     </div>
                     <button
                       type={'button'}
-                      className={'p-1 text-gray-800 rounded-full  hover:bg-gray-200'}
+                      className={'p-1 text-gray-800 rounded-full  hover:bg-gray-100'}
                       onClick={onClose}
                     >
-                      <XCircleIcon className={'w-5 h-5'} />
+                      <XCircleIcon className={'w-7 h-7 hover:text-red-600'} />
                     </button>
                   </div>
                   {children}

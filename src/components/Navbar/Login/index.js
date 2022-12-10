@@ -1,4 +1,3 @@
-import { ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -17,8 +16,8 @@ function Login() {
   return (
     <>
       <Modal
-        title={'RTU'}
-        icon={<ArrowRightCircleIcon className={'w-5 h-5'} />}
+        title={'RTU Connect'}
+        icon={<Image height={55} width={55} src={rtuLogo} alt={'RTU Logo'} />}
         show={showLoginModal}
         onClose={() => setShowLoginModal(false)}
       >
