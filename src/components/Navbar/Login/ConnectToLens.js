@@ -76,11 +76,7 @@ function ConnectToLens({ setHasProfile }) {
         <div className={'pb-5 text-sm text-gray-500'}>
           {'You need to sign the message to be  able to authenticate you to Lens Protocol.'}
         </div>
-        <Button
-          className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'}
-          onClick={handleLogin}
-          disabled={isLoading}
-        >
+        <Button onClick={handleLogin} disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Sign Message'}
         </Button>
       </div>
