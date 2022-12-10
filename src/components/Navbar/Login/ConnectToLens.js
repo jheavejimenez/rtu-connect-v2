@@ -7,7 +7,7 @@ import { GET_PROFILES } from '../../../graphQL/queries/get-profiles';
 import { useAppStore } from '../../../store/app';
 import { setLocalStorage } from '../../../utils/helpers';
 
-function WalletConnect() {
+function ConnectToLens() {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
 
@@ -82,4 +82,4 @@ function WalletConnect() {
   );
 }
 
-export default WalletConnect;
+export default ConnectToLens;

@@ -3,8 +3,8 @@ import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 
 import Modal from '../../UI/Modal';
+import ConnectToLens from './ConnectToLens';
 import NewProfile from './New/NewProfile';
-import WalletConnect from './WalletConnect';
 
 function Login() {
   const [hasProfile, setHasProfile] = useState(true);
@@ -18,7 +18,7 @@ function Login() {
         show={showLoginModal}
         onClose={() => setShowLoginModal(false)}
       >
-        {hasProfile ? <WalletConnect setHasProfile={setHasProfile} /> : <NewProfile />}
+        {hasProfile ? <ConnectToLens setHasProfile={setHasProfile} /> : <NewProfile />}
       </Modal>
       {openConnectModal ? (
         <button onClick={openConnectModal}>{'Connect Wallet'}</button>
