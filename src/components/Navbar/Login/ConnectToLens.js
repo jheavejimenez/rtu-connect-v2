@@ -7,7 +7,7 @@ import { GET_PROFILES } from '../../../graphQL/queries/get-profiles';
 import { useAppStore } from '../../../store/app';
 import { setLocalStorage } from '../../../utils/helpers';
 
-function ConnectToLens() {
+function ConnectToLens({ setHasProfile }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
 
@@ -48,8 +48,10 @@ function ConnectToLens() {
         variables: { request: { ownedBy: address } }
       });
 
-      if (profileData.profiles?.items) {
-        const profiles = profileData?.profiles.items;
+      if (!profileData || !profileData.profiles || profileData.profiles.length === 0) {
+        setHasProfile(false);
+      } else {
+        const profiles = profileData.profiles;
         const currentProfile = profiles[0];
         setProfiles(profiles);
         setCurrentProfile(currentProfile);
