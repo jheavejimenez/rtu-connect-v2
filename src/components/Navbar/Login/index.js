@@ -24,14 +24,9 @@ function Login() {
         {hasProfile ? <ConnectToLens setHasProfile={setHasProfile} /> : <NewProfile />}
       </Modal>
       {openConnectModal ? (
-        <button onClick={openConnectModal}>{'Connect Wallet'}</button>
+        <Button onClick={openConnectModal}>{'Connect Wallet'}</Button>
       ) : (
-        <Button
-          icon={<Image className={'mr-0.5 w-4 h-4'} height={16} width={16} src={rtuLogo} alt={'RTU Logo'} />}
-          onClick={() => setShowLoginModal(!showLoginModal)}
-        >
-          {'Login'}
-        </Button>
+        <Button onClick={() => setShowLoginModal(!showLoginModal)}>{'Login'}</Button>
       )}
     </>
   );
