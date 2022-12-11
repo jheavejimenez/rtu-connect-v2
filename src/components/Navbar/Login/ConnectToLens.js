@@ -7,6 +7,7 @@ import { GET_PROFILES } from '../../../graphQL/queries/get-profiles';
 import { useAppStore } from '../../../store/app';
 import { setLocalStorage } from '../../../utils/helpers';
 import Button from '../../UI/Button';
+import Spinner from '../../UI/Spinner';
 
 function ConnectToLens({ setHasProfile }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -76,7 +77,7 @@ function ConnectToLens({ setHasProfile }) {
           {'You need to sign the message to be  able to authenticate you to Lens Protocol.'}
         </div>
         <Button onClick={handleLogin} disabled={isLoading} loading={isLoading}>
-          {isLoading ? 'Loading...' : 'Sign Message'}
+          {isLoading ? <Spinner /> : 'Sign Message'}
         </Button>
       </div>
       {(challengeError || authenticateError || profileError) &&
