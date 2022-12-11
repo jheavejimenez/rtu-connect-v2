@@ -21,7 +21,7 @@ function NewProfile({ isModal = false }) {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className={'flex flex-col p-12'}>
+      <div className={'flex flex-col px-12 pb-12'}>
         <div className={'flex flex-col items-center justify-center'}>
           <label
             className={
@@ -36,12 +36,13 @@ function NewProfile({ isModal = false }) {
           name={'handle'}
           type={'text'}
           placeholder={'@Jheave'}
+          autoComplete={'off'}
           onChange={formik.handleChange}
           value={formik.values.handle}
           className={
-            'px-4 py-2 my-4 border border-gray-300' +
+            'px-4 py-2 my-4 border border-gray-200' +
             ' rounded-md shadow-sm focus:outline-none' +
-            ' focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+            ' focus:ring-blue-500 focus:border-blue-500 focus:border-2 sm:text-sm'
           }
         />
         <Button type={'submit'}>{'Create'}</Button>
