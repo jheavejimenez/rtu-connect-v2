@@ -25,10 +25,20 @@ function NewProfile({ isModal = false }) {
         <div className={'flex flex-col items-center justify-center'}>
           <label
             className={
-              'flex flex-col items-center justify-center w-32 h-32 border-2 border-gray-300 rounded-full cursor-pointer'
+              'flex flex-col items-center justify-center w-32 h-32 border-2 border-gray-300 rounded-full cursor-pointer' +
+              ' hover:bg-gray-100 hover:border-gray-400 bg-gray-50'
             }
           >
-            {'Avatar'}
+            <input
+              type={'file'}
+              className={'hidden'}
+              onChange={(e) => {
+                if (e.target.files[0]) {
+                  setAvatar(e.target.files[0]);
+                }
+              }}
+            />
+            {'Upload Avatar'}
           </label>
         </div>
         <input
