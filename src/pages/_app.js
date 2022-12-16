@@ -1,17 +1,21 @@
 import '../../styles/globals.css';
 
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
+
+import Loading from '../components/Shimmer/Loading';
 
 const Provider = lazy(() => import('../components/Provider'));
 const Layout = lazy(() => import('../components/Layout'));
 
 function App({ Component, pageProps }) {
   return (
-    <Provider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider>
+    <Suspense fallback={<Loading />}>
+      <Provider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
+    </Suspense>
   );
 }
 
