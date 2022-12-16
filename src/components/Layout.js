@@ -10,6 +10,7 @@ import { CHAIN_ID } from '../utils/constants';
 import { getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
+import Loading from './Shimmer/Loading';
 
 function Layout({ children }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -64,7 +65,7 @@ function Layout({ children }) {
   }, [isDisconnected, address, chain, disconnect, profileId]);
 
   if (loading || !mounted) {
-    return <div className={'grid h-screen place-items-center animate-pulse'}>{'Loading...'}</div>;
+    return <Loading />;
   }
 
   return (
