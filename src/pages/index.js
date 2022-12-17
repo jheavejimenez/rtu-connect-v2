@@ -6,7 +6,7 @@ function Home() {
 
   return (
     <GridLayout>
-      <GridItem span={12}>
+      <GridItem>
         <h1 className={'text-3xl font-bold text-center'}>{'Welcome to Next.js!'}</h1>
       </GridItem>
     </GridLayout>
