@@ -1,4 +1,4 @@
-import { GridItem, GridLayout } from '../components/UI/GridLayout';
+import { GridLayout } from '../components/UI/GridLayout';
 import { useAppStore } from '../store/app';
 
 function Home() {
@@ -6,7 +6,7 @@ function Home() {
 
   return (
     <GridLayout>
-      <GridItem />
+      <h1>{'test '}</h1>
     </GridLayout>
   );
 }
