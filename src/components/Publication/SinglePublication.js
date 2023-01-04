@@ -2,6 +2,7 @@ import moment from 'moment/moment';
 import { useRouter } from 'next/router';
 
 import UserProfile from '../Profile';
+import Reactions from '../Reacts';
 import PublicationBody from './PublicationBody';
 
 function SinglePublication({ publication, feedItem }) {
@@ -25,6 +26,7 @@ function SinglePublication({ publication, feedItem }) {
       </div>
       <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}`)}>
         <PublicationBody publication={publication} />
+        <Reactions />
       </div>
     </article>
   );

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 function Like() {
   const count = 5;
   return (
-    <motion.button whileTap={{ scale: 0.9 }} onClick={createLike} aria-label={'Like'}>
+    <motion.button whileTap={{ scale: 0.9 }} aria-label={'Like'}>
       <span className={'flex items-center space-x-1 text-pink-500'}>
         <span className={'p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20'}>
           <HeartIcon className={'w-[15px] sm:w-[18px]'} />
