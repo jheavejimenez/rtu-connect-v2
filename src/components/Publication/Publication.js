@@ -37,7 +37,7 @@ function Publication({ publication }) {
         <div className={'flex justify-between pb-4 space-x-1.5'}>{profile}</div>
         <div className={'ml-[53px]'}>
           <PublicationBody publication={publication} />
-          <div className={'text-sm text-gray-500 my-3'}>{/*timestamp*/}</div>
+          <div className={'text-sm text-gray-500 my-3'}>{'2 mins ago'}</div>
           {showStats && <div className={'divider'} />}
         </div>
       </div>
