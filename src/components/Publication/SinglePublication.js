@@ -37,3 +37,5 @@ function SinglePublication({ publication }, props) {
     </article>
   );
 }
+
+export default SinglePublication;
