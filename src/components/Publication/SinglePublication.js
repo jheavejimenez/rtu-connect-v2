@@ -1,3 +1,4 @@
+import moment from 'moment/moment';
 import { useRouter } from 'next/router';
 
 import PublicationBody from './PublicationBody';
@@ -17,6 +18,7 @@ function SinglePublication({ publication, feedItem }) {
     : isMirror
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
+  console.log(timestamp);
   return (
     <article className={'hover:bg-gray-100 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5'}>
       <div className={'flex justify-between pb-4 space-x-1.5'}>
@@ -24,7 +26,7 @@ function SinglePublication({ publication, feedItem }) {
           {'user profile'}
           {/*<UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />*/}
         </span>
-        <span className={'text-xs text-gray-500'}>{'2 mins ago'}</span>
+        <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
       </div>
       <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}`)}>
         <PublicationBody publication={publication} />
