@@ -1,6 +1,7 @@
 import moment from 'moment/moment';
 import { useRouter } from 'next/router';
 
+import UserProfile from '../Profile';
 import PublicationBody from './PublicationBody';
 
 function SinglePublication({ publication, feedItem }) {
@@ -8,11 +9,7 @@ function SinglePublication({ publication, feedItem }) {
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.id) : publication;
-  const profile = feedItem
-    ? rootPublication.profile
-    : isMirror
-    ? publication?.mirrorOf?.profile
-    : publication?.profile;
+  const profile = feedItem.profile;
   const timestamp = feedItem
     ? rootPublication.createdAt
     : isMirror
@@ -23,8 +20,7 @@ function SinglePublication({ publication, feedItem }) {
     <article className={'hover:bg-gray-100 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5'}>
       <div className={'flex justify-between pb-4 space-x-1.5'}>
         <span onClick={(event) => event.stopPropagation()}>
-          {'user profile'}
-          {/*<UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />*/}
+          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
         </span>
         <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
       </div>
