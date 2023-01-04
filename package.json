@@ -19,6 +19,7 @@
     "axios": "^1.1.3",
     "ethers": "^5.7.2",
     "formik": "^2.2.9",
+    "framer-motion": "^8.1.7",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "moment": "^2.29.4",
