@@ -27,9 +27,6 @@ export const isTokenExpired = (token) => {
 
 export const publications = [
   {
-    root: {
-      id: '1'
-    },
     id: '0x1b-0x011d',
     profile: {
       id: '0x1b',
@@ -42,7 +39,7 @@ export const publications = [
       attributes: [],
       picture: {
         original: {
-          url: 'https://statics-mumbai-lens-staging.s3.eu-west-1.amazonaws.com/profile/QmVeEwimhwaebeHFDTVY3XNjFuaNUWuhv1ksNefnzeTKXH',
+          url: 'https://profile',
           __typename: 'Media'
         },
         __typename: 'MediaSet'
@@ -53,7 +50,7 @@ export const publications = [
     reaction: null,
     mirrors: [],
     hasCollectedByMe: false,
-    onChainContentURI: 'https://arweave.net/oM86W1d6vgrWMm_M6XReQaJMr2yfAUyhCKkaPUaaswk',
+    onChainContentURI: 'https://arweave.net/test',
     canComment: { result: false, __typename: 'CanCommentResponse' },
     canMirror: { result: false, __typename: 'CanMirrorResponse' },
     collectedBy: null,
@@ -68,8 +65,7 @@ export const publications = [
     metadata: {
       name: 'none',
       description: null,
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum`,
       image: null,
       attributes: [],
       cover: null,

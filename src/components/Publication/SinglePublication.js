@@ -6,7 +6,7 @@ function SinglePublication({ publication, feedItem }) {
   const { push } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
-  const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
+  const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.id) : publication;
   const profile = feedItem
     ? rootPublication.profile
     : isMirror
