@@ -7,7 +7,7 @@ import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../utils/apollo';
-import { ALCHEMY_KEY, GITBOOK } from '../utils/constants';
+import { ALCHEMY_KEY, APP_NAME, GITBOOK } from '../utils/constants';
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -44,7 +44,7 @@ function Providers({ children }) {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         appInfo={{
-          appName: 'RTU Connect',
+          appName: APP_NAME,
           learnMoreUrl: `${GITBOOK}`
         }}
         chains={chains}

@@ -2,6 +2,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { APP_NAME } from '../../../utils/constants';
 import rtuLogo from '../../logos/rtuLogo.png';
 import Button from '../../UI/Button';
 import Modal from '../../UI/Modal';
@@ -15,7 +16,7 @@ function Login() {
   return (
     <>
       <Modal
-        title={'RTU Connect'}
+        title={APP_NAME}
         icon={<Image height={55} width={55} src={rtuLogo} alt={'RTU Logo'} />}
         show={showLoginModal}
         onClose={() => setShowLoginModal(false)}

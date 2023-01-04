@@ -1,6 +1,6 @@
 import { ExclamationTriangleIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
-import { APP_NAME } from '../../utils/constants';
+import { APP_NAME, GITBOOK } from '../../utils/constants';
 
 function BetaWarning() {
   return (
@@ -19,7 +19,7 @@ function BetaWarning() {
       </p>
       <div className={'flex items-center space-x-1.5 text-sm font-bold text-yellow-700'}>
         <QuestionMarkCircleIcon className={'h-6 w-6 text-yellow-700'} />
-        <a href={''} target={'_blank'} rel={'noreferrer noopener'}>
+        <a href={GITBOOK} target={'_blank'} rel={'noreferrer noopener'}>
           {'Visit our Documentation'}
         </a>
       </div>
