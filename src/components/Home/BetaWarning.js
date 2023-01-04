@@ -1,5 +1,7 @@
 import { ExclamationTriangleIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
+import { APP_NAME } from '../../utils/constants';
+
 function BetaWarning() {
   return (
     <aside
@@ -13,7 +15,7 @@ function BetaWarning() {
         <p>{'Beta warning!'}</p>
       </div>
       <p className={'text-sm leading-[22px]'}>
-        {'RTU Connect is in beta. It is not yet ready for production use. It may contain bugs.'}
+        {`${APP_NAME} is in beta. It is not yet ready for production use. It may contain bugs.`}
       </p>
       <div className={'flex items-center space-x-1.5 text-sm font-bold text-yellow-700'}>
         <QuestionMarkCircleIcon className={'h-6 w-6 text-yellow-700'} />
