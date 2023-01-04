@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PublicationBody from './PublicationBody';
+
 // Helper function to get the stats for a publication
 const getStats = (publication) => {
   const isMirror = publication.__typename === 'Mirror';
@@ -34,7 +36,7 @@ function Publication({ publication }) {
       <div>
         <div className={'flex justify-between pb-4 space-x-1.5'}>{profile}</div>
         <div className={'ml-[53px]'}>
-          {/*PublicationBody*/}
+          <PublicationBody publication={publication} />
           <div className={'text-sm text-gray-500 my-3'}>{/*timestamp*/}</div>
           {showStats && <div className={'divider'} />}
         </div>
