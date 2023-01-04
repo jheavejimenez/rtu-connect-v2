@@ -6,16 +6,10 @@ import { useRouter } from 'next/router';
 function PublicationBody({ publication }) {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
-
+  console.log(publication?.metadata?.content);
   return (
     <div className={'break-words'}>
-      <Markup
-        className={
-          ({ 'line-clamp-5': showMore }, 'whitespace-pre-wrap break-words leading-md linkify text-md')
-        }
-      >
-        {publication?.metadata?.content}
-      </Markup>
+      <Markup content={publication?.metadata?.content} />
       {showMore && (
         <div className={'mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1'}>
           <EyeIcon className={'h-4 w-4'} />
