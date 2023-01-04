@@ -6,7 +6,7 @@ import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import { GET_PROFILES } from '../graphQL/queries/get-profiles';
 import { useAppPersistStore, useAppStore } from '../store/app';
-import { CHAIN_ID } from '../utils/constants';
+import { APP_NAME, CHAIN_ID } from '../utils/constants';
 import { getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
@@ -71,8 +71,8 @@ function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>{'RTUConnect'}</title>
-        <meta name={'description'} content={'RTUConnect'} />
+        <title>{APP_NAME}</title>
+        <meta name={'description'} content={APP_NAME} />
       </Head>
       <Toaster
         containerStyle={{
@@ -89,7 +89,7 @@ function Layout({ children }) {
           }
         }}
       />
-      <div className={'flex flex-col min-h-screen'}>
+      <div className={'flex flex-col min-h-screen bg-gray-50'}>
         <Navbar />
         {children}
       </div>
