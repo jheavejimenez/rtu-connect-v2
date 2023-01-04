@@ -2,7 +2,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 
 function UserProfile({ profile }) {
-  console.log(profile);
   return (
     <div className={'flex justify-between items-center'}>
       <Link href={`/u/${profile?.handle}`}>

@@ -15,7 +15,6 @@ function SinglePublication({ publication, feedItem }) {
     : isMirror
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
-  console.log(timestamp);
   return (
     <article className={'hover:bg-gray-100 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5'}>
       <div className={'flex justify-between pb-4 space-x-1.5'}>
