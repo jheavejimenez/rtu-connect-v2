@@ -1,6 +1,6 @@
 function Post() {
   return (
-    <div className={'p-5 space-y-3 rounded-none sm:rounded-xl border'}>
+    <div className={'p-5 space-y-3 rounded-none sm:rounded-xl bg-white border'}>
       <div className={'flex items-center space-x-3'}>
         <img
           src={'https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg'}

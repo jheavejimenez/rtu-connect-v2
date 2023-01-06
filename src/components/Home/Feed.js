@@ -19,15 +19,13 @@ function Feed() {
       next={loadMore}
       loader={<Spinner />}
     >
-      <div className={'divide-y-[1px] rounded-none sm:rounded-xl border bg-white'}>
-        {publications?.map((publication, index) => (
-          <SinglePublication
-            key={`${publication?.id}_${index}`}
-            feedItem={publication}
-            publication={publication}
-          />
-        ))}
-      </div>
+      {publications?.map((publication, index) => (
+        <SinglePublication
+          key={`${publication?.id}_${index}`}
+          feedItem={publication}
+          publication={publication}
+        />
+      ))}
     </InfiniteScroll>
   );
 }

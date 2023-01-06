@@ -17,7 +17,9 @@ function SinglePublication({ publication, feedItem }) {
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
   return (
-    <article className={'hover:bg-gray-100 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5'}>
+    <article
+      className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
+    >
       <div className={'flex justify-between pb-4 space-x-1.5'}>
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
