@@ -1,5 +1,3 @@
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-
 function Post() {
   return (
     <div className={'p-5 space-y-3 rounded-none sm:rounded-xl border'}>
@@ -15,7 +13,6 @@ function Post() {
           }
           type={'button'}
         >
-          <PencilSquareIcon className={'h-5 w-5'} />
           <span className={'text-gray-400'}>{"What's on your mind?, Jhv"}</span>
         </button>
       </div>
