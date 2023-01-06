@@ -45,3 +45,4 @@ next-env.d.ts
 .eslintcache
 
 /src/utils/dummyData.json
+/src/utils/DummyRecommendedProfile.json
