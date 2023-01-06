@@ -2,7 +2,7 @@ import Card from '../../UI/Card';
 
 function Post() {
   return (
-    <Card className={'p-5 space-y-3 !rounded-md'}>
+    <Card className={'p-5 space-y-3 !rounded-xl'}>
       <div className={'flex items-center space-x-3'}>
         <img
           src={'https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg'}
