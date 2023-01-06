@@ -32,3 +32,5 @@ function ThreadBody({ publication }) {
     </article>
   );
 }
+
+export default ThreadBody;
