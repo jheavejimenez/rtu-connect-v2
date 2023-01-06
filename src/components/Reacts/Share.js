@@ -1,4 +1,4 @@
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -32,7 +32,7 @@ function Share() {
           {isLoading ? (
             <Spinner variant={mirrored ? 'success' : 'primary'} size={'xs'} />
           ) : (
-            <ArrowsRightLeftIcon className={'w-[15px] sm:w-[18px]'} />
+            <ArrowPathRoundedSquareIcon className={'w-[15px] sm:w-[18px]'} />
           )}
         </span>
         {count > 0 && <span className={'text-[11px] sm:text-xs'}>{count}</span>}
