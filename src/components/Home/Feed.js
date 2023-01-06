@@ -11,7 +11,6 @@ function Feed() {
    * need to replace with real data
    */
   const publications = dummyData.data.explorePublications.items;
-  console.log(publications);
   return (
     <InfiniteScroll
       dataLength={publications?.length ?? 0}
