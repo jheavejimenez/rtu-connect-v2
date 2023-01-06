@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Feed from '../../../components/Home/Feed';
 import UserProfile from '../../../components/Profile';
 import Publication from '../../../components/Publication/Publication';
+import Card from '../../../components/UI/Card';
 import { GridLayout } from '../../../components/UI/GridLayout';
 import { useAppStore } from '../../../store/app';
 
@@ -15,9 +16,9 @@ function ViewPublication() {
   return (
     <GridLayout>
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
-        <div className={'divide-y-[1px] rounded-none sm:rounded-xl border bg-white'}>
+        <Card className={'divide-y-[1px]'}>
           <Publication publication={publication} />
-        </div>
+        </Card>
         <Feed publication={publication} />
       </div>
       <div className={'space-y-5 lg:col-span-4 md:col-span-12 col-span-12'}>

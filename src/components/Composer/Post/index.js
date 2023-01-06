@@ -1,6 +1,8 @@
+import Card from '../../UI/Card';
+
 function Post() {
   return (
-    <div className={'p-5 space-y-3 rounded-none sm:rounded-xl bg-white border'}>
+    <Card className={'p-5 space-y-3'}>
       <div className={'flex items-center space-x-3'}>
         <img
           src={'https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg'}
@@ -16,7 +18,7 @@ function Post() {
           <span className={'text-gray-400'}>{"What's on your mind?, Jhv"}</span>
         </button>
       </div>
-    </div>
+    </Card>
   );
 }
 
