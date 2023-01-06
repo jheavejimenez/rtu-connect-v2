@@ -43,3 +43,5 @@ next-env.d.ts
 
 # Builds
 .eslintcache
+
+/src/utils/dummyData.json
