@@ -27,57 +27,117 @@ export const isTokenExpired = (token) => {
 
 export const publications = [
   {
-    id: '0x1b-0x011d',
-    profile: {
-      id: '0x1b',
-      name: null,
-      handle: 'jhv.test',
-      bio: null,
-      ownedBy: '0x00000000000000',
-      isFollowedByMe: false,
-      stats: { totalFollowers: 33, totalFollowing: 28, __typename: 'ProfileStats' },
-      attributes: [],
-      picture: {
-        original: {
-          url: 'https://profile',
-          __typename: 'Media'
+    items: [
+      {
+        id: '0x1b-0x011d',
+        profile: {
+          id: '0x1b',
+          name: null,
+          handle: 'jhv.test',
+          bio: null,
+          ownedBy: '0x00000000000000',
+          isFollowedByMe: false,
+          stats: { totalFollowers: 33, totalFollowing: 28, __typename: 'ProfileStats' },
+          attributes: [],
+          picture: {
+            original: {
+              url: 'https://profile',
+              __typename: 'Media'
+            },
+            __typename: 'MediaSet'
+          },
+          followModule: { __typename: 'FeeFollowModuleSettings' },
+          __typename: 'Profile'
         },
-        __typename: 'MediaSet'
+        reaction: null,
+        mirrors: [],
+        hasCollectedByMe: false,
+        onChainContentURI: 'https://arweave.net/test',
+        canComment: { result: false, __typename: 'CanCommentResponse' },
+        canMirror: { result: false, __typename: 'CanMirrorResponse' },
+        collectedBy: null,
+        collectModule: { __typename: 'RevertCollectModuleSettings' },
+        stats: {
+          totalUpvotes: 0,
+          totalAmountOfMirrors: 0,
+          totalAmountOfCollects: 0,
+          totalAmountOfComments: 0,
+          __typename: 'PublicationStats'
+        },
+        metadata: {
+          name: 'none',
+          description: null,
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+          image: null,
+          attributes: [],
+          cover: null,
+          media: [],
+          encryptionParams: null,
+          __typename: 'MetadataOutput'
+        },
+        hidden: false,
+        createdAt: '2023-01-04T13:15:08.000Z',
+        appId: null,
+        __typename: 'Post',
+        collectNftAddress: null,
+        referenceModule: null
       },
-      followModule: { __typename: 'FeeFollowModuleSettings' },
-      __typename: 'Profile'
-    },
-    reaction: null,
-    mirrors: [],
-    hasCollectedByMe: false,
-    onChainContentURI: 'https://arweave.net/test',
-    canComment: { result: false, __typename: 'CanCommentResponse' },
-    canMirror: { result: false, __typename: 'CanMirrorResponse' },
-    collectedBy: null,
-    collectModule: { __typename: 'RevertCollectModuleSettings' },
-    stats: {
-      totalUpvotes: 0,
-      totalAmountOfMirrors: 0,
-      totalAmountOfCollects: 0,
-      totalAmountOfComments: 0,
-      __typename: 'PublicationStats'
-    },
-    metadata: {
-      name: 'none',
-      description: null,
-      content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum`,
-      image: null,
-      attributes: [],
-      cover: null,
-      media: [],
-      encryptionParams: null,
-      __typename: 'MetadataOutput'
-    },
-    hidden: false,
-    createdAt: '2023-01-04T13:15:08.000Z',
-    appId: null,
-    __typename: 'Post',
-    collectNftAddress: null,
-    referenceModule: null
+      {
+        id: '0x1b-0x011d',
+        profile: {
+          id: '0x1b',
+          name: null,
+          handle: 'jhv.test',
+          bio: null,
+          ownedBy: '0x00000000000000',
+          isFollowedByMe: false,
+          stats: { totalFollowers: 33, totalFollowing: 28, __typename: 'ProfileStats' },
+          attributes: [],
+          picture: {
+            original: {
+              url: 'https://profile',
+              __typename: 'Media'
+            },
+            __typename: 'MediaSet'
+          },
+          followModule: { __typename: 'FeeFollowModuleSettings' },
+          __typename: 'Profile'
+        },
+        reaction: null,
+        mirrors: [],
+        hasCollectedByMe: false,
+        onChainContentURI: 'https://arweave.net/test',
+        canComment: { result: false, __typename: 'CanCommentResponse' },
+        canMirror: { result: false, __typename: 'CanMirrorResponse' },
+        collectedBy: null,
+        collectModule: { __typename: 'RevertCollectModuleSettings' },
+        stats: {
+          totalUpvotes: 0,
+          totalAmountOfMirrors: 0,
+          totalAmountOfCollects: 0,
+          totalAmountOfComments: 0,
+          __typename: 'PublicationStats'
+        },
+        metadata: {
+          name: 'none',
+          description: null,
+          content:
+            'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+          image: null,
+          attributes: [],
+          cover: null,
+          media: [],
+          encryptionParams: null,
+          __typename: 'MetadataOutput'
+        },
+        hidden: false,
+        createdAt: '2023-01-04T13:15:08.000Z',
+        appId: null,
+        __typename: 'Post',
+        collectNftAddress: null,
+        referenceModule: null
+      }
+    ]
   }
 ];
