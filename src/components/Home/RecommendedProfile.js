@@ -3,7 +3,7 @@ import UserProfile from '../Profile';
 import Card from '../UI/Card';
 
 function RecommendedProfile() {
-  const profiles = DummyRecommendedProfiles;
+  const profiles = DummyRecommendedProfiles; // should remove this after testing
   return (
     <Card className={'!rounded-xl'}>
       <h3 className={'font-bold p-3 text-gray-800'}>{'Who to follow'}</h3>
