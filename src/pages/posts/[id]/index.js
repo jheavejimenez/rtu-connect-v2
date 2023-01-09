@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import Feed from '../../../components/Home/Feed';
+import ViewComment from '../../../components/Comment';
 import UserProfile from '../../../components/Profile';
 import Publication from '../../../components/Publication/Publication';
 import Card from '../../../components/UI/Card';
@@ -19,7 +19,7 @@ function ViewPublication() {
         <Card className={'divide-y-[1px]'}>
           <Publication publication={publication} />
         </Card>
-        <Feed publication={publication} />
+        <ViewComment publication={publication} />
       </div>
       <div className={'space-y-5 lg:col-span-4 md:col-span-12 col-span-12'}>
         <aside className={'p-5 divide-y-[1px] rounded-none sm:rounded-xl border bg-white'}>
