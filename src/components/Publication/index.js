@@ -1,3 +1,4 @@
+import ViewComment from '../Comment';
 import RecommendedProfile from '../Home/RecommendedProfile';
 import UserProfile from '../Profile';
 import Card from '../UI/Card';
@@ -11,7 +12,7 @@ function ViewPublication() {
         <Card>
           <Publication publication={publication} />
         </Card>
-        {/*<Feed publication={publication} />*/}
+        <ViewComment publication={publication} />
       </div>
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         <Card as={'aside'} className={'p-5'}>
