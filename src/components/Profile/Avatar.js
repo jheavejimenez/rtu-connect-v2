@@ -1,6 +1,10 @@
 import { Menu, Transition } from '@headlessui/react';
-import { ArrowRightOnRectangleIcon, Cog6ToothIcon, UserIcon } from '@heroicons/react/20/solid';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightOnRectangleIcon,
+  Cog6ToothIcon,
+  ExclamationTriangleIcon,
+  UserIcon
+} from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 
 function Avatar() {
