@@ -19,7 +19,7 @@ function ViewComment({ publication }) {
       {/*<ErrorMessage title="Failed to load comment feed" error={error} />*/}
       {/*{!error && !loading && totalComments !== 0 && (*/}
       <InfiniteScroll dataLength={10} scrollThreshold={50} hasMore={false} next={false}>
-        <Card className={'divide-y-[1px] dark:divide-gray-700/80'}>
+        <Card className={'divide-y-[1px]'}>
           {comments?.map((comment, index) => (
             <SinglePublication key={`${index}`} publication={comment} />
           ))}
