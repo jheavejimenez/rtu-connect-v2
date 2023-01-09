@@ -87,7 +87,7 @@ function Avatar() {
                 className={'mr-3 h-5 w-5 text-yellow-600 group-hover:text-yellow-700'}
                 aria-hidden={'true'}
               />
-              {'v-2.1-beta'}
+              {'v-2.1.0-beta'}
             </Menu.Item>
           </div>
         </Menu.Items>
