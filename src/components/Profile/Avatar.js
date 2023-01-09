@@ -11,7 +11,6 @@ function Avatar() {
           as={'img'}
           className={'inline-block h-10 w-10 rounded-full ring-2 ring-blue-800'}
           alt={'avatar'}
-          // check if profileId.picture exists if not use logoProfile
           src={'https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg'}
         />
       </div>
