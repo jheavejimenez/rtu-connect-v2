@@ -1,4 +1,3 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
 
 import { useAppStore } from '../../store/app';
@@ -6,6 +5,7 @@ import rtuLogo from '../logos/rtuLogo.png';
 import SvgCommunity from '../logos/SvgCommunity';
 import SvgHome from '../logos/SvgHome';
 import SvgWatch from '../logos/SvgWatch';
+import Avatar from '../Profile/Avatar';
 import Login from './Login';
 import NavItems from './NavItems';
 
@@ -53,7 +53,7 @@ function NavBar() {
         <NavItems url={'/watch'} active={false} logo={<SvgWatch />} />
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
-        <li className={'mx-4'}>{!currentProfile ? <Login /> : <ConnectButton />}</li>
+        <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar />}</li>
       </ul>
     </nav>
   );
