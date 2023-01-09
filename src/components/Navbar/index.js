@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import { useAppStore } from '../../store/app';
 import rtuLogo from '../logos/rtuLogo.png';
 import SvgCommunity from '../logos/SvgCommunity';
 import SvgHome from '../logos/SvgHome';
@@ -8,6 +9,8 @@ import Login from './Login';
 import NavItems from './NavItems';
 
 function NavBar() {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  console.log(currentProfile);
   return (
     <nav
       className={
@@ -50,9 +53,7 @@ function NavBar() {
         <NavItems url={'/watch'} active={false} logo={<SvgWatch />} />
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
-        <li className={'mx-4'}>
-          <Login />
-        </li>
+        <li className={'mx-4'}>{!currentProfile ? <Login /> : <span>{'signed'}</span>}</li>
       </ul>
     </nav>
   );
