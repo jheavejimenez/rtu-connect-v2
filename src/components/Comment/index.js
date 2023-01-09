@@ -25,7 +25,6 @@ function ViewComment({ publication }) {
           ))}
         </Card>
       </InfiniteScroll>
-      {')}'}
     </>
   );
 }
