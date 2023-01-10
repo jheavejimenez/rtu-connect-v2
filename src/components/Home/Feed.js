@@ -1,7 +1,7 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import dummyData from '../../utils/dummyData';
 import SinglePublication from '../Publication/SinglePublication';
+import Empty from '../UI/Empty';
 import Spinner from '../UI/Spinner';
 
 function Feed() {
@@ -10,7 +10,10 @@ function Feed() {
    * note the current publication data is hard coded
    * need to replace with real data
    */
-  const publications = dummyData.data.explorePublications.items;
+  const publications = [];
+  if (publications?.length === 0) {
+    return <Empty message={"You don't follow anyone. Start posting now!"} />;
+  }
   return (
     <InfiniteScroll
       dataLength={publications?.length ?? 0}
