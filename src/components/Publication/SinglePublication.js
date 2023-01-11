@@ -9,13 +9,19 @@ function SinglePublication({ publication, feedItem }) {
   const { push } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
-  const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.id) : publication;
-  const profile = feedItem.profile;
+  const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
+  const profile = feedItem
+    ? rootPublication.profile
+    : isMirror
+    ? publication?.mirrorOf?.profile
+    : publication?.profile;
   const timestamp = feedItem
     ? rootPublication.createdAt
     : isMirror
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
+
+  console.log(profile);
   return (
     <article
       className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
@@ -26,8 +32,8 @@ function SinglePublication({ publication, feedItem }) {
         </span>
         <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
       </div>
-      <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication}`)}>
-        <PublicationBody publication={publication} />
+      <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}}`)}>
+        <PublicationBody publication={rootPublication} />
         <Reactions />
       </div>
     </article>

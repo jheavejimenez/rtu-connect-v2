@@ -2,16 +2,11 @@ import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
-import dummyData from '../../utils/dummyData';
 import SinglePublication from '../Publication/SinglePublication';
 import Empty from '../UI/Empty';
 import Spinner from '../UI/Spinner';
 
 function Feed() {
-  const request = {
-    profileId: '0x492a'
-  };
-
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED, {
     variables: {
       feedRequest: {
@@ -20,10 +15,11 @@ function Feed() {
       }
     }
   });
-  console.log(data);
   const loadMore = async () => {};
 
-  const publications = dummyData.data.explorePublications.items;
+  const publications = data?.feed?.items;
+  const pageInfo = data?.feed?.pageInfo;
+
   if (publications?.length === 0) {
     return <Empty message={"You don't follow anyone. Start posting now!"} />;
   }
@@ -37,7 +33,7 @@ function Feed() {
     >
       {publications?.map((publication, index) => (
         <SinglePublication
-          key={`${publication?.id}_${index}`}
+          key={`${publication?.root.id}_${index}`}
           feedItem={publication}
           publication={publication}
         />
