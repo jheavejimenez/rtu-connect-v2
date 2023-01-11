@@ -21,7 +21,6 @@ function SinglePublication({ publication, feedItem }) {
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
 
-  console.log(profile);
   return (
     <article
       className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
