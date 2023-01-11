@@ -19,7 +19,7 @@ function ThreadBody({ publication }) {
         <span className={'text-xs text-gray-500'}>{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
       <div className={'flex'}>
-        <div className={'mr-8 ml-5 bg-gray-300 border-gray-300 border-[0.8px] -my-[3px]'} />
+        <div className={'mr-8 ml-5 bg-gray-300 border-gray-300 border-[0.8px]-my-[3px]'} />
         <div className={'pt-4 pb-5 !w-[85%] sm:w-full'} onClick={() => push(`/posts/${publication?.id}`)}>
           <PublicationBody publication={publication} />
           <Reactions publication={publication} />
