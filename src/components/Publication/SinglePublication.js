@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import UserProfile from '../Profile';
 import Reactions from '../Reacts';
 import PublicationBody from './PublicationBody';
+import PublicationType from './Type';
 
 function SinglePublication({ publication, feedItem }) {
   const { push } = useRouter();
@@ -25,6 +26,7 @@ function SinglePublication({ publication, feedItem }) {
     <article
       className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
     >
+      {feedItem && <PublicationType publication={publication} showType={true} showThread={true} />}
       <div className={'flex justify-between pb-4 space-x-1.5'}>
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
@@ -32,7 +34,7 @@ function SinglePublication({ publication, feedItem }) {
         <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
       </div>
       <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}}`)}>
-        <PublicationBody publication={rootPublication} />
+        <PublicationBody publication={publication} />
         <Reactions />
       </div>
     </article>
