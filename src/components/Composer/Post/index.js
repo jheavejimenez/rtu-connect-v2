@@ -1,6 +1,8 @@
+import { useAppStore } from '../../../store/app';
 import Card from '../../UI/Card';
 
 function Post() {
+  const user = useAppStore((state) => state.currentProfile);
   return (
     <Card className={'p-5 space-y-3 !rounded-xl'}>
       <div className={'flex items-center space-x-3'}>
@@ -15,7 +17,9 @@ function Post() {
           }
           type={'button'}
         >
-          <span className={'text-gray-400'}>{"What's on your mind?, Jhv"}</span>
+          <span className={'text-gray-400'}>
+            {`What's on your mind?, ${user?.handle.replace('.test', '')}`}
+          </span>
         </button>
       </div>
     </Card>
