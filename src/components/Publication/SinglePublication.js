@@ -22,6 +22,7 @@ function SinglePublication({ publication, feedItem }) {
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
 
+  // console.log(rootPublication);
   return (
     <article
       className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
@@ -34,7 +35,7 @@ function SinglePublication({ publication, feedItem }) {
         <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
       </div>
       <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}}`)}>
-        <PublicationBody publication={publication} />
+        <PublicationBody publication={rootPublication} />
         <Reactions />
       </div>
     </article>
