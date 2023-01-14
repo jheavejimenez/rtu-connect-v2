@@ -1,7 +1,7 @@
 import Commented from './Commented';
 
 function PublicationType({ publication, showType, showThread = false }) {
-  const type = publication?.comments[0]?.__typename;
+  const type = publication?.__typename;
   const isCollected = !!publication?.collectedBy;
 
   if (!showType) {
