@@ -7,11 +7,21 @@ import Empty from '../UI/Empty';
 import Spinner from '../UI/Spinner';
 
 function Feed() {
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED);
+  const { data } = useQuery(EXPLORE_FEED, {
+    variables: {
+      explorePublicationsRequest: {
+        sortCriteria: 'TOP_COMMENTED',
+        publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
+        noRandomize: true,
+        limit: 20
+      }
+    }
+  });
   const loadMore = async () => {};
 
-  const publications = data?.feed?.items;
-  const pageInfo = data?.feed?.pageInfo;
+  const publications = data?.explorePublications?.items;
+  const pageInfo = data?.explorePublications?.pageInfo;
+  // const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
   if (publications?.length === 0) {
     return <Empty message={"You don't follow anyone. Start posting now!"} />;
@@ -25,11 +35,7 @@ function Feed() {
       loader={<Spinner />}
     >
       {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.root.id}_${index}`}
-          feedItem={publication}
-          publication={publication}
-        />
+        <SinglePublication key={`${publication.id}_${index}`} publication={publication} />
       ))}
     </InfiniteScroll>
   );

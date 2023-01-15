@@ -1,5 +1,4 @@
 import moment from 'moment/moment';
-import { useRouter } from 'next/router';
 
 import UserProfile from '../Profile';
 import Reactions from '../Reacts';
@@ -7,7 +6,6 @@ import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
 
 function SinglePublication({ publication, feedItem }) {
-  const { push } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
@@ -22,7 +20,6 @@ function SinglePublication({ publication, feedItem }) {
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
 
-  // console.log(rootPublication);
   return (
     <article
       className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}

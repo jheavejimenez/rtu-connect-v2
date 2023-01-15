@@ -1,10 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const EXPLORE_FEED = gql`
-  query ExplorePublications {
-    explorePublications(
-      request: { sortCriteria: TOP_COMMENTED, publicationTypes: [POST, COMMENT, MIRROR], limit: 10 }
-    ) {
+  query ExplorePublications($explorePublicationsRequest: ExplorePublicationRequest!) {
+    explorePublications(request: $explorePublicationsRequest) {
       items {
         __typename
         ... on Post {
