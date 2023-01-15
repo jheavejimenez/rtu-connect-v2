@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 function PublicationBody({ publication }) {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
-  // console.log(publication?.metadata?.content);
   return (
     <div className={'break-words'}>
       <Markup content={publication?.metadata?.content} />
