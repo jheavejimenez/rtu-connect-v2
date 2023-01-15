@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const EXPLORE_FEED = gql`
+export const PROFILE_FEED = gql`
   query Feed($feedRequest: FeedRequest!) {
     feed(request: $feedRequest) {
       items {

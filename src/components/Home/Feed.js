@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
+import { EXPLORE_FEED } from '../../graphQL/queries/profile-feed';
 import SinglePublication from '../Publication/SinglePublication';
 import Empty from '../UI/Empty';
 import Spinner from '../UI/Spinner';
