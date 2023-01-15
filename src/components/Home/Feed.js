@@ -34,10 +34,14 @@ function Feed() {
   return (
     <InfiniteScroll
       dataLength={publications?.length ?? 0}
-      scrollThreshold={0.5}
+      scrollThreshold={0.9}
       hasMore={hasMore}
       next={loadMore}
-      loader={<Spinner />}
+      loader={
+        <div className={'flex justify-center mt-5'}>
+          <Spinner />
+        </div>
+      }
     >
       {publications?.map((publication, index) => (
         <SinglePublication key={`${publication.id}_${index}`} publication={publication} />
