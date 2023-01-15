@@ -1,5 +1,8 @@
 import { chain } from 'wagmi';
 
+// infinite scroll
+export const SCROLL_THRESHOLD = 0.5;
+
 // lens protocol
 export const API_URL = 'https://api-mumbai.lens.dev/';
 

@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
+import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import Empty from '../UI/Empty';
 import Spinner from '../UI/Spinner';
@@ -34,7 +35,7 @@ function Feed() {
   return (
     <InfiniteScroll
       dataLength={publications?.length ?? 0}
-      scrollThreshold={0.9}
+      scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
       loader={
