@@ -2,17 +2,21 @@ import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
+import { useAppStore } from '../../store/app';
 import SinglePublication from '../Publication/SinglePublication';
 import Empty from '../UI/Empty';
 import Spinner from '../UI/Spinner';
 
 function Feed() {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
   const explorePublicationsRequest = {
     sortCriteria: 'TOP_COMMENTED',
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     noRandomize: true,
-    limit: 20
+    limit: 10
   };
+  const profileId = currentProfile?.id ?? null;
 
   const { data, fetchMore } = useQuery(EXPLORE_FEED, {
     variables: { explorePublicationsRequest }
@@ -24,7 +28,23 @@ function Feed() {
 
   const loadMore = async () => {
     await fetchMore({
-      variables: { request: { explorePublicationsRequest, cursor: pageInfo?.next } }
+      variables: {
+        explorePublicationsRequest: {
+          ...explorePublicationsRequest,
+          cursor: pageInfo?.next
+        }
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return prev;
+        }
+        return {
+          explorePublications: {
+            ...fetchMoreResult.explorePublications,
+            items: [...prev.explorePublications.items, ...fetchMoreResult.explorePublications.items]
+          }
+        };
+      }
     });
   };
 
