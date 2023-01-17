@@ -13,7 +13,7 @@ export const getTokenFromLocalStorage = () => {
 
 /**
  *
- * @param {string} keys
+ * @param {string[]} keys
  * @description removes the access token and refresh token from the browser's local storage.
  *
  */
@@ -25,7 +25,7 @@ export const clearLocalStorage = (keys) => {
 
 /**
  *
- * @param {string} keys
+ * @param {string[]} keys
  * @param {string} values
  * @description sets the access token and refresh token in the browser's local storage.
  *
