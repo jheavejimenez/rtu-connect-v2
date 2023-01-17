@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
 import ViewComment from '../../../components/Comment';
@@ -5,6 +6,7 @@ import UserProfile from '../../../components/Profile';
 import Publication from '../../../components/Publication/Publication';
 import Card from '../../../components/UI/Card';
 import { GridLayout } from '../../../components/UI/GridLayout';
+import { GET_PUBLICATION } from '../../../graphQL/queries/get-publication';
 import { useAppStore } from '../../../store/app';
 
 function ViewPublication() {
@@ -12,6 +14,10 @@ function ViewPublication() {
   const {
     query: { id }
   } = useRouter();
+
+  const { data } = useQuery(GET_PUBLICATION);
+
+  const publication = data?.publication;
 
   return (
     <GridLayout>
