@@ -53,7 +53,8 @@ function Feed() {
           cursor: pageInfo?.next
         },
         profileId
-      }
+      },
+      updateQuery
     });
   };
 
