@@ -74,6 +74,11 @@ function Feed() {
           <Spinner />
         </div>
       }
+      endMessage={
+        <div className={'flex justify-center mt-5'}>
+          <p className={'text-gray-500'}>{'You have seen it all'}</p>
+        </div>
+      }
     >
       {publications?.map((publication, index) => (
         <SinglePublication key={`${publication.id}_${index}`} publication={publication} />
