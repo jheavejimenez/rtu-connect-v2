@@ -12,7 +12,6 @@ function PublicationBody({ publication }) {
     ? contentFormatter(publication?.metadata?.content?.slice(0, 450))
     : contentFormatter(publication?.metadata?.content);
 
-  console.log(content);
   return (
     <div className={'break-words'}>
       <Interweave allowList={['b', 'i', 'a', 'br', 'code', 'span']} content={content} />
