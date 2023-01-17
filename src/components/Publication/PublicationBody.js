@@ -1,14 +1,19 @@
 import { EyeIcon } from '@heroicons/react/20/solid';
-import { Markup } from 'interweave';
+import { Interweave } from 'interweave';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 function PublicationBody({ publication }) {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+
   return (
     <div className={'break-words'}>
-      <Markup content={publication?.metadata?.content} />
+      <Interweave
+        allowList={['b', 'i', 'a', 'br', 'code', 'span']}
+        content={publication?.metadata?.content}
+        escapeHtml={true}
+      />
       {showMore && (
         <div className={'mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1'}>
           <EyeIcon className={'h-4 w-4'} />

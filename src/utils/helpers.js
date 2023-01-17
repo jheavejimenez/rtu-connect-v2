@@ -25,6 +25,7 @@ export const isTokenExpired = (token) => {
   return Date.now() >= exp * 1000;
 };
 
+export const contentFormatter = (value) => value.replace(/(?:\r?\n[\t ]*){2,}/g, '\n\n').trim();
 export const publications = [
   {
     items: [
