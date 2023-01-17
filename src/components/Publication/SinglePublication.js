@@ -33,7 +33,7 @@ function SinglePublication({ publication, feedItem }) {
         </span>
         <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
       </div>
-      <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}}`)}>
+      <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}`)}>
         <PublicationBody publication={rootPublication} />
         <Reactions />
       </div>
