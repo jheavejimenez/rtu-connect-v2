@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_PUBLICATION = gql`
-  query Publication {
-    publication(request: { publicationId: "0x01-0x01" }) {
+  query $publicationRequest: PublicationQueryRequest!) {
+    publication(request: $publicationRequest) {
       __typename
       ... on Post {
         ...PostFields
