@@ -43,9 +43,8 @@ export const setLocalStorage = (keys, values) => {
  *
  */
 export const isTokenExpired = (token) => {
-  const payloadBase64 = token.split('.')[1];
-  const decodedJson = Buffer.from(payloadBase64, 'base64').toString();
-  const decoded = JSON.parse(decodedJson);
+  const payload = token.split('.')[1];
+  const decoded = JSON.parse(atob(payload));
   const exp = decoded.exp;
   return Date.now() >= exp * 1000;
 };
