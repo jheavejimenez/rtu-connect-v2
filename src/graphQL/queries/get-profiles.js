@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_PROFILES = gql`
-  query ($request: ProfileQueryRequest!) {
+  query Profiles($request: ProfileQueryRequest!) {
     profiles(request: $request) {
       items {
         id
