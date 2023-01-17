@@ -27,24 +27,34 @@ function Feed() {
   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
   const loadMore = async () => {
+    const loadedIds = new Set();
+    const updateQuery = (prev, { fetchMoreResult }) => {
+      if (!fetchMoreResult) {
+        return prev;
+      }
+      const newData = fetchMoreResult.explorePublications.items.filter((item) => !loadedIds.has(item.id));
+      for (const item of newData) {
+        loadedIds.add(item.id);
+      }
+      return {
+        explorePublications: {
+          ...fetchMoreResult.explorePublications,
+          items: [...prev.explorePublications.items, ...newData]
+        }
+      };
+    };
+    if (!hasMore) {
+      return;
+    }
     await fetchMore({
       variables: {
         explorePublicationsRequest: {
           ...explorePublicationsRequest,
           cursor: pageInfo?.next
-        }
+        },
+        profileId
       },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        return {
-          explorePublications: {
-            ...fetchMoreResult.explorePublications,
-            items: [...prev.explorePublications.items, ...fetchMoreResult.explorePublications.items]
-          }
-        };
-      }
+      updateQuery
     });
   };
 
