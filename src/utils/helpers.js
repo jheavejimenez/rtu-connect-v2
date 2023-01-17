@@ -25,6 +25,15 @@ export const isTokenExpired = (token) => {
   return Date.now() >= exp * 1000;
 };
 
+/**
+ *
+ * @param value - Value to trim
+ * @returns trimmed value
+ * @description - remove any whitespace characters from the beginning and end of the "value" string,
+ *  but it will only remove newline characters that are preceded and followed by at least one whitespace character,
+ *  so it will not remove any newline characters that are not surrounded by whitespace.
+ *
+ */
 export const contentFormatter = (value) => value.replace(/(?:\r?\n[\t ]*){2,}/g, '\n\n').trim();
 export const publications = [
   {
