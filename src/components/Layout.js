@@ -7,7 +7,7 @@ import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 import { GET_PROFILES } from '../graphQL/queries/get-profiles';
 import { useAppPersistStore, useAppStore } from '../store/app';
 import { APP_NAME, CHAIN_ID } from '../utils/constants';
-import { getTokenFromLocalStorage } from '../utils/helpers';
+import { clearLocalStorage, getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
 import Loading from './Shimmer/Loading';
@@ -56,6 +56,8 @@ function Layout({ children }) {
       !getTokenFromLocalStorage() || isDisconnected || isWrongNetwork || isSwitchedAccount;
 
     if (isDisconnectedWallet) {
+      clearAuthState();
+      clearLocalStorage(['accessToken', 'refreshToken', 'rtuconnect.store']);
       disconnect();
     }
   };
