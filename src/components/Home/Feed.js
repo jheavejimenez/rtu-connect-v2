@@ -6,7 +6,6 @@ import { useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import Empty from '../UI/Empty';
-import Spinner from '../UI/Spinner';
 
 function Feed() {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -54,8 +53,7 @@ function Feed() {
           cursor: pageInfo?.next
         },
         profileId
-      },
-      updateQuery
+      }
     });
   };
 
@@ -71,7 +69,7 @@ function Feed() {
       next={loadMore}
       loader={
         <div className={'flex justify-center mt-5'}>
-          <Spinner />
+          <span className={'text-gray-500 animate-pulse'}>{'Loading...'}</span>
         </div>
       }
       endMessage={
