@@ -18,7 +18,7 @@ export const getTokenFromLocalStorage = () => {
  *
  */
 export const clearLocalStorage = (keys) => {
-  for (const key of keys) {
+  for (const key of keys.filter((key) => localStorage.getItem(key) !== null)) {
     localStorage.removeItem(key);
   }
 };
