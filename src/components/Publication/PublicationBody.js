@@ -3,6 +3,8 @@ import { Interweave } from 'interweave';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { contentFormatter } from '../../utils/helpers';
+
 function PublicationBody({ publication }) {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
@@ -11,7 +13,7 @@ function PublicationBody({ publication }) {
     <div className={'break-words'}>
       <Interweave
         allowList={['b', 'i', 'a', 'br', 'code', 'span']}
-        content={publication?.metadata?.content}
+        content={contentFormatter(publication?.metadata?.content)}
         escapeHtml={true}
       />
       {showMore && (
