@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { contentFormatter } from '../../utils/helpers';
+import MediaRenderer from './MediaRenderer';
 
 function PublicationBody({ publication }) {
   const { pathname } = useRouter();
@@ -24,6 +25,9 @@ function PublicationBody({ publication }) {
           <EyeIcon className={'h-4 w-4'} />
           <Link href={`/posts/${publication?.id}`}>{'Show more'}</Link>
         </div>
+      )}
+      {publication?.metadata?.media?.length > 0 && (
+        <MediaRenderer media={publication?.metadata?.media[0]?.original?.url} />
       )}
     </div>
   );
