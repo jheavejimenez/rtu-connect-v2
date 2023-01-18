@@ -1,5 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import dummyData from '../../utils/dummyData';
 import SinglePublication from '../Publication/SinglePublication';
 import Card from '../UI/Card';
 

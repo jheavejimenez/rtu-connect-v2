@@ -44,7 +44,7 @@ function ViewPublication() {
         <Card className={'!rounded-xl'}>
           <Publication publication={publication} />
         </Card>
-        {/*<ViewComment publication={publication} />*/}
+        {/*<ViewComment />*/}
       </div>
       <div className={'space-y-5 lg:col-span-4 md:col-span-12 col-span-12'}>
         <aside className={'p-5 divide-y-[1px] rounded-none sm:rounded-xl border bg-white'}>
