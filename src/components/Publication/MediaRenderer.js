@@ -8,7 +8,9 @@ function MediaRenderer({ media, mediaType }) {
   return (
     <div className={'relative rounded-l-md my-5'}>
       {mediaType?.includes('video/mp4') ? (
-        <iframe class={'w-full aspect-video'} src={media} />
+        <div className={'rounded-lg'}>
+          <iframe className={'w-full aspect-video md:aspect-square'} src={media} />
+        </div>
       ) : (
         <img
           src={fixURL(media)}
