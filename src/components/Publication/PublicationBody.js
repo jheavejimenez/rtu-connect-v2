@@ -14,7 +14,11 @@ function PublicationBody({ publication }) {
 
   return (
     <div className={'break-words'}>
-      <Interweave allowList={['b', 'i', 'a', 'br', 'code', 'span']} content={content} />
+      <Interweave
+        className={'whitespace-pre-wrap break-words text-md'}
+        allowList={['b', 'i', 'a', 'br', 'code', 'span']}
+        content={content}
+      />
       {showMore && (
         <div className={'mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1'}>
           <EyeIcon className={'h-4 w-4'} />
