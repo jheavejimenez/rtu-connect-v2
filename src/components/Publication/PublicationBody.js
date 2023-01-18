@@ -27,7 +27,10 @@ function PublicationBody({ publication }) {
         </div>
       )}
       {publication?.metadata?.media?.length > 0 && (
-        <MediaRenderer media={publication?.metadata?.media[0]?.original?.url} />
+        <MediaRenderer
+          media={publication?.metadata?.media[0]?.original?.url}
+          mediaType={publication?.metadata?.media[0]?.original?.mimeType}
+        />
       )}
     </div>
   );
