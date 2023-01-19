@@ -9,7 +9,7 @@ function MediaRenderer({ media, mediaType }) {
     <div className={'relative rounded-l-md my-5'}>
       {mediaType?.includes('video/mp4') ? (
         <div className={'rounded-lg'}>
-          <iframe className={'w-full aspect-video md:aspect-square'} src={media} />
+          <iframe className={'w-full aspect-[1/2] md:aspect-square'} src={media} />
         </div>
       ) : (
         <img
