@@ -1,32 +1,23 @@
 import { gql } from '@apollo/client';
 
-export const EXPLORE_FEED = gql`
-  query ExplorePublications($explorePublicationsRequest: ExplorePublicationRequest!) {
-    explorePublications(request: $explorePublicationsRequest) {
-      items {
-        __typename
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Mirror {
-          ...MirrorFields
-        }
+export const GET_PUBLICATION = gql`
+  query Publication($publicationRequest: PublicationQueryRequest!) {
+    publication(request: $publicationRequest) {
+      __typename
+      ... on Post {
+        ...PostFields
       }
-      pageInfo {
-        prev
-        next
-        totalCount
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Mirror {
+        ...MirrorFields
       }
     }
   }
 
   fragment MediaFields on Media {
     url
-    width
-    height
     mimeType
   }
 
@@ -57,12 +48,6 @@ export const EXPLORE_FEED = gql`
         original {
           ...MediaFields
         }
-        small {
-          ...MediaFields
-        }
-        medium {
-          ...MediaFields
-        }
       }
     }
     coverPicture {
@@ -74,12 +59,6 @@ export const EXPLORE_FEED = gql`
       }
       ... on MediaSet {
         original {
-          ...MediaFields
-        }
-        small {
-          ...MediaFields
-        }
-        medium {
           ...MediaFields
         }
       }
@@ -114,12 +93,6 @@ export const EXPLORE_FEED = gql`
     content
     media {
       original {
-        ...MediaFields
-      }
-      small {
-        ...MediaFields
-      }
-      medium {
         ...MediaFields
       }
     }
