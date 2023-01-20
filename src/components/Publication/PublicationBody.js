@@ -9,6 +9,7 @@ import MediaRenderer from './MediaRenderer';
 function PublicationBody({ publication }) {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+
   const content = showMore
     ? contentFormatter(publication?.metadata?.content?.slice(0, 450))
     : contentFormatter(publication?.metadata?.content);
