@@ -58,7 +58,8 @@ export const isTokenExpired = (token) => {
  *  so it will not remove any newline characters that are not surrounded by whitespace.
  *
  */
-export const contentFormatter = (value) => value.replace(/(?:\r?\n[\t ]*){2,}/g, '\n\n').trim();
+export const contentFormatter = (value) =>
+  value ? value.replace(/(?:\r?\n[\t ]*){2,}/g, '\n\n').trim() : '';
 
 export const fixURL = (url) => {
   const replacedURL = url?.replace('ipfs://', 'https://');
