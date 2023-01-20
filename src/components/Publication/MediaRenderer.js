@@ -14,6 +14,7 @@ function MediaRenderer({ media, mediaType }) {
       ) : (
         <img
           src={fixURL(media)}
+          alt={'media'}
           loading={'lazy'}
           decoding={'async'}
           className={'object-cover rounded-md w-1/2 h-1/2'}
