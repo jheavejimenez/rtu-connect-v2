@@ -1,10 +1,6 @@
-import { useState } from 'react';
-
 import { fixURL } from '../../utils/helpers';
 
 function MediaRenderer({ media, mediaType }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-
   return (
     <div className={'relative rounded-l-md my-5'}>
       {mediaType?.includes('video/mp4') ? (
