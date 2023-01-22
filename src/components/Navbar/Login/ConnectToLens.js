@@ -69,6 +69,7 @@ function ConnectToLens({ setHasProfile }) {
   }
 
   const isLoading = challengeLoading || authenticateLoading || profileLoading || signLoading;
+
   return (
     <>
       <div className={'pt-3 px-6 pb-6'}>
