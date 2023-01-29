@@ -3,7 +3,6 @@ import Post from '../Composer/Post';
 import { GridLayout } from '../UI/GridLayout';
 import BetaWarning from './BetaWarning';
 import Feed from './Feed';
-import RecommendedProfile from './RecommendedProfile';
 
 function Home() {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -15,7 +14,6 @@ function Home() {
       </div>
       <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>
         <BetaWarning />
-        <RecommendedProfile />
       </div>
     </GridLayout>
   );
