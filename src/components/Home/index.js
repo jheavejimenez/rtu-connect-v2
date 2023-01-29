@@ -15,7 +15,7 @@ function Home() {
       </div>
       <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>
         <BetaWarning />
-      ///  <RecommendedProfile />
+        {/*<RecommendedProfile />*/}
       </div>
     </GridLayout>
   );
