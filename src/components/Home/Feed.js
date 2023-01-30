@@ -5,7 +5,7 @@ import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
 import { useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
-import PublicationShimmer from '../Shimmer/PublicationShimmer';
+import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
 
 function Feed() {
@@ -58,8 +58,8 @@ function Feed() {
       updateQuery
     });
   };
-  if (!loading) {
-    return <PublicationShimmer />;
+  if (loading) {
+    return <FeedShimmer />;
   }
   if (publications?.length === 0) {
     return <Empty message={"You don't follow anyone. Start posting now!"} />;
