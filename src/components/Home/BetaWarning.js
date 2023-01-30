@@ -1,6 +1,6 @@
-import { ExclamationTriangleIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
-import { APP_NAME, GITBOOK } from '../../utils/constants';
+import { APP_NAME, FAUCET, GITBOOK } from '../../utils/constants';
 
 function BetaWarning() {
   return (
@@ -18,11 +18,19 @@ function BetaWarning() {
         {`${APP_NAME} is in beta. It is not yet ready for production use. It may contain bugs.`}
       </p>
       <div className={'flex items-center space-x-1.5 text-sm font-bold text-yellow-700'}>
-        <QuestionMarkCircleIcon className={'h-6 w-6 text-yellow-700'} />
-        <a href={GITBOOK} target={'_blank'} rel={'noreferrer noopener'}>
-          {'Visit our Documentation'}
+        <CurrencyDollarIcon className={'h-6 w-6 text-yellow-700'} />
+        <a href={FAUCET} target={'_blank'} rel={'noreferrer noopener'}>
+          {'Get Testnet Token'}
         </a>
       </div>
+      <p className={'text-sm leading-[22px]'}>
+        {`Visit our Documentation to `}
+        <span className={'text-sm font-bold text-yellow-700'}>
+          <a href={GITBOOK} target={'_blank'} rel={'noreferrer noopener'}>
+            {'learn more'}
+          </a>
+        </span>
+      </p>
     </aside>
   );
 }

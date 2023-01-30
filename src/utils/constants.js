@@ -11,6 +11,7 @@ export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
 export const ALCHEMY_RPC = `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`;
 
 // polygon
+export const FAUCET = 'https://faucet.polygon.technology';
 export const POLYGON_MUMBAI = {
   ...chain.polygonMumbai,
   name: 'Polygon Mumbai',
