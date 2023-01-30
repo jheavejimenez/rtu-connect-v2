@@ -34,3 +34,43 @@ export const ALLOWED_MEDIA_TYPES = [
   'video/ogg',
   'video/webm'
 ];
+
+// Recommended Profiles
+
+export const RECOMMENDED_PROFILES = {
+  data: {
+    recommendedProfiles: [
+      {
+        id: '0x11',
+        name: null,
+        bio: null,
+        attributes: [
+          {
+            displayType: null,
+            traitType: null,
+            key: 'custom_field',
+            value: 'yes this is custom'
+          }
+        ],
+        followNftAddress: null,
+        metadata: 'ipfs://QmSfyMcnh1wnJHrAWCBjZHapTS859oNSsuDFiAPPdAHgHP',
+        isDefault: false,
+        picture: null,
+        handle: 'Jheave Jimenez',
+        coverPicture: null,
+        ownedBy: '0x5905232b8ea73f1F2FCBE4297573733bf41b666d',
+        dispatcher: null,
+        stats: {
+          totalFollowers: 2,
+          totalFollowing: 0,
+          totalPosts: 4,
+          totalComments: 0,
+          totalMirrors: 0,
+          totalPublications: 4,
+          totalCollects: 0
+        },
+        followModule: null
+      }
+    ]
+  }
+};

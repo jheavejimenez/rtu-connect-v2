@@ -1,9 +1,9 @@
-import DummyRecommendedProfiles from '../../utils/DummyRecommendedProfile.json';
+import { RECOMMENDED_PROFILES } from '../../utils/constants';
 import UserProfile from '../Profile';
 import Card from '../UI/Card';
 
 function RecommendedProfile() {
-  const profiles = DummyRecommendedProfiles; // should remove this after testing
+  const profiles = RECOMMENDED_PROFILES;
   return (
     <Card className={'!rounded-xl'}>
       <h3 className={'font-bold p-3 text-gray-800'}>{'Who to follow'}</h3>
@@ -15,7 +15,6 @@ function RecommendedProfile() {
               <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
             </div>
           ))}
-          {/*))}*/}
         </div>
       </aside>
     </Card>
