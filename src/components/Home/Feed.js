@@ -5,6 +5,7 @@ import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
 import { useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
+import PublicationShimmer from '../Shimmer/PublicationShimmer';
 import Empty from '../UI/Empty';
 
 function Feed() {
@@ -18,7 +19,7 @@ function Feed() {
   };
   const profileId = currentProfile?.id ?? null;
 
-  const { data, fetchMore } = useQuery(EXPLORE_FEED, {
+  const { data, fetchMore, loading } = useQuery(EXPLORE_FEED, {
     variables: { explorePublicationsRequest }
   });
 
@@ -57,7 +58,9 @@ function Feed() {
       updateQuery
     });
   };
-
+  if (!loading) {
+    return <PublicationShimmer />;
+  }
   if (publications?.length === 0) {
     return <Empty message={"You don't follow anyone. Start posting now!"} />;
   }
