@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
+import BetaWarning from '../../../components/Home/BetaWarning';
 import UserProfile from '../../../components/Profile';
 import Publication from '../../../components/Publication/Publication';
 import Card from '../../../components/UI/Card';
@@ -54,6 +55,7 @@ function ViewPublication() {
             }
           />
         </aside>
+        <BetaWarning />
       </div>
     </GridLayout>
   );
