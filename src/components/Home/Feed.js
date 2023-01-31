@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { ErrorMessage } from 'formik';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
@@ -19,7 +20,7 @@ function Feed() {
   };
   const profileId = currentProfile?.id ?? null;
 
-  const { data, fetchMore, loading } = useQuery(EXPLORE_FEED, {
+  const { data, fetchMore, loading, error } = useQuery(EXPLORE_FEED, {
     variables: { explorePublicationsRequest }
   });
 
@@ -63,6 +64,9 @@ function Feed() {
   }
   if (publications?.length === 0) {
     return <Empty message={"You don't follow anyone. Start posting now!"} />;
+  }
+  if (error) {
+    return <ErrorMessage title={`Failed to load feed`} error={error} />;
   }
 
   return (
