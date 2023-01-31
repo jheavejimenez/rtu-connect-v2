@@ -12,11 +12,16 @@ function Home() {
   return (
     <GridLayout>
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
-        <Banner
-          title={`👋 Welcome to ${APP_NAME}`}
-          text={'A decentralize social media for Rizal Technological University built with Lens Protocol 🌿'}
-        />
-        {currentProfile && <Post />}
+        {currentProfile ? (
+          <Post />
+        ) : (
+          <Banner
+            title={`👋 Welcome to ${APP_NAME}`}
+            text={
+              'A decentralize social media for Rizal Technological University built with Lens Protocol 🌿'
+            }
+          />
+        )}
         <Feed />
       </div>
       <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>
