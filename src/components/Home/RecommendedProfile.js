@@ -1,6 +1,7 @@
 import { RECOMMENDED_PROFILES } from '../../utils/constants';
 import UserProfile from '../Profile';
 import Card from '../UI/Card';
+import ErrorMessage from '../UI/ErrorMesssage';
 
 function RecommendedProfile() {
   const profiles = RECOMMENDED_PROFILES;
@@ -9,7 +10,7 @@ function RecommendedProfile() {
       <h3 className={'font-bold p-3 text-gray-800'}>{'Who to follow'}</h3>
       <aside>
         <div className={'space-y-4 p-5'}>
-          {/*<ErrorMessage title="Failed to load recommendations" error={error} />*/}
+          <ErrorMessage title={'Failed to load recommendations'} />
           {profiles.data?.recommendedProfiles?.slice(0, 5)?.map((profile) => (
             <div key={profile?.id} className={'truncate'}>
               <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
