@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_PUBLICATION = gql`
+export const GET_PUBLICATIONS = gql`
   query Publications($publicationsRequest: PublicationsQueryRequest!) {
     publications(request: $publicationsRequest) {
       items {
