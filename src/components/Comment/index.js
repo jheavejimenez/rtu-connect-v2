@@ -38,7 +38,7 @@ function ViewComment({ publication }) {
 
   return (
     <>
-      {/*{currentProfile ? canComment ? <NewComment publication={publication} /> : <CommentWarning /> : null}*/}
+      {/*{currentProfile && <NewComment publication={publication} />}*/}
       {loading && <FeedShimmer />}
       {!loading && comments.length === 0 && <Empty message={<span>{'Be the first one to comment!'}</span>} />}
       <ErrorMessage title={'Failed to load comment feed'} error={error} />
