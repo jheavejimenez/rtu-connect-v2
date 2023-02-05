@@ -1,10 +1,13 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { useAppStore } from '../../store/app';
 import dummyData from '../../utils/dummyData';
 import SinglePublication from '../Publication/SinglePublication';
 import Card from '../UI/Card';
 
 function ViewComment({ publication }) {
+  const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const loadMore = async () => {};
   const comments = dummyData.data.explorePublications.items;
   return (
