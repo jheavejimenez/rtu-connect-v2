@@ -29,6 +29,7 @@ function ViewComment({ publication }) {
   const comments = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next && comments?.length !== pageInfo.totalCount;
+  const commentsLength = comments.length;
 
   const loadMore = async () => {
     await fetchMore({
@@ -40,10 +41,10 @@ function ViewComment({ publication }) {
     <>
       {/*{currentProfile && <NewComment publication={publication} />}*/}
       {loading && <FeedShimmer />}
-      {!loading && comments.length === 0 && <Empty message={<span>{'Be the first one to comment!'}</span>} />}
+      {!loading && commentsLength === 0 && <Empty message={<span>{'Be the first one to comment!'}</span>} />}
       <ErrorMessage title={'Failed to load comment feed'} error={error} />
       <InfiniteScroll
-        dataLength={comments.length}
+        dataLength={commentsLength}
         scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
         next={loadMore}
