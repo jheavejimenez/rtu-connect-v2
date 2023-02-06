@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
+import ViewComment from '../../../components/Comment';
 import BetaWarning from '../../../components/Home/BetaWarning';
 import UserProfile from '../../../components/Profile';
 import Publication from '../../../components/Publication/Publication';
@@ -45,7 +46,7 @@ function ViewPublication() {
         <Card className={'!rounded-xl'}>
           <Publication publication={publication} />
         </Card>
-        {/*<ViewComment />*/}
+        <ViewComment publication={publication} />
       </div>
       <div className={'space-y-5 lg:col-span-4 md:col-span-12 col-span-12'}>
         <aside className={'p-5 divide-y-[1px] rounded-none sm:rounded-xl border bg-white'}>

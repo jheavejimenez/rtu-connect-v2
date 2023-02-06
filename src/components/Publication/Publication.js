@@ -1,4 +1,4 @@
-import moment from 'moment/moment';
+import moment from 'moment';
 import React from 'react';
 
 import UserProfile from '../Profile';
@@ -50,13 +50,13 @@ function Publication({ publication }) {
       <PublicationType publication={publication} />
       <div>
         <div className={'flex justify-between pb-4 space-x-1.5'}>
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+          <span onClick={(event) => event.stopPropagation()}>
+            <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+          </span>
+          <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
         </div>
         <div className={'ml-[53px]'}>
           <PublicationBody publication={publication} />
-          <div className={'text-sm text-gray-500 my-3'}>
-            <span>{moment(timestamp).fromNow()}</span>
-          </div>
           <div className={'divider'} />
           <Reactions />
         </div>

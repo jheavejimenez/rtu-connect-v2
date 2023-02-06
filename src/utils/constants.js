@@ -41,35 +41,30 @@ export const RECOMMENDED_PROFILES = {
   data: {
     recommendedProfiles: [
       {
-        id: '0x11',
+        id: '0x43d0',
         name: null,
         bio: null,
-        attributes: [
-          {
-            displayType: null,
-            traitType: null,
-            key: 'custom_field',
-            value: 'yes this is custom'
-          }
-        ],
-        followNftAddress: null,
-        metadata: 'ipfs://QmSfyMcnh1wnJHrAWCBjZHapTS859oNSsuDFiAPPdAHgHP',
-        isDefault: false,
-        picture: null,
-        handle: 'Jheave Jimenez',
-        coverPicture: null,
-        ownedBy: '0x5905232b8ea73f1F2FCBE4297573733bf41b666d',
+        metadata: null,
+        followNftAddress: '0x43E3C0aF415e888890651Fa1CeF11Cd8F8C6bDaf',
+        ownedBy: '0xAE32c7CB4B71299EbC1f79eD7165490df4c59D1D',
+        isFollowedByMe: false,
+        isFollowing: false,
+        attributes: [],
         dispatcher: null,
+        isDefault: false,
+        handle: 'jheave.test',
+        picture: null,
+        coverPicture: null,
+        followModule: null,
+        __typename: 'Profile',
         stats: {
           totalFollowers: 2,
           totalFollowing: 0,
           totalPosts: 4,
-          totalComments: 0,
+          totalComments: 2,
           totalMirrors: 0,
-          totalPublications: 4,
-          totalCollects: 0
-        },
-        followModule: null
+          __typename: 'ProfileStats'
+        }
       }
     ]
   }
