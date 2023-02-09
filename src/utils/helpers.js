@@ -61,6 +61,13 @@ export const isTokenExpired = (token) => {
 export const contentFormatter = (value) =>
   value ? value.replace(/(?:\r?\n[\t ]*){2,}/g, '\n\n').trim() : '';
 
+/**
+ *
+ * @param {string} url
+ * @returns {string}
+ * @description - this will replace ipfs to https so that the image can load in img src
+ *
+ */
 export const fixURL = (url) => {
   const replacedURL = url?.replace('ipfs://', 'https://');
   return replacedURL?.concat('.ipfs.nftstorage.link');
