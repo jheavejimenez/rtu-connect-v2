@@ -72,3 +72,14 @@ export const fixURL = (url) => {
   const replacedURL = url?.replace('ipfs://', 'https://');
   return replacedURL?.concat('.ipfs.nftstorage.link');
 };
+
+/**
+ *
+ * @param {string} handle
+ * @returns {string}
+ * @description - remove .test string in user handle and remove it
+ *
+ */
+export const fixUsername = (handle) => {
+  return handle?.replace('.test', '');
+};
