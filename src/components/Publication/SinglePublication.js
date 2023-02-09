@@ -25,6 +25,7 @@ function SinglePublication({ publication, feedItem, showType = true, showThread 
   return (
     <article
       className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
+      onClick={() => push(`/posts/${rootPublication?.id}`)}
     >
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
       <div className={'flex justify-between pb-4 space-x-1.5'}>
@@ -33,9 +34,9 @@ function SinglePublication({ publication, feedItem, showType = true, showThread 
         </span>
         <span className={'text-xs text-gray-500'}>{moment(timestamp).fromNow()}</span>
       </div>
-      <div className={'ml-[53px]'} onClick={() => push(`/posts/${rootPublication?.id}`)}>
+      <div className={'ml-[53px]'}>
         <PublicationBody publication={rootPublication} />
-        <Reactions />
+        <Reactions publication={rootPublication} />
       </div>
     </article>
   );
