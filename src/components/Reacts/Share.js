@@ -15,10 +15,10 @@ function Share({ publication, electedMirror }) {
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
 
   function createMirror() {
-    setIsloading(true);
-    setTimeout(() => {
-      setIsloading(false);
-    }, 1000);
+    // setIsloading(true);
+    // setTimeout(() => {
+    //   setIsloading(false);
+    // }, 1000);
   }
 
   return (
