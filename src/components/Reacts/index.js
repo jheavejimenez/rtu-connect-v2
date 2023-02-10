@@ -16,7 +16,9 @@ function Reactions({ publication, electedMirror }) {
     >
       <Like publication={publication} />
       <Comment />
-      {collectModuleType !== 'RevertCollectModuleSettings' && <Share />}
+      {collectModuleType !== 'RevertCollectModuleSettings' && (
+        <Share publication={publication} electedMirror={electedMirror} />
+      )}
     </span>
   );
 }

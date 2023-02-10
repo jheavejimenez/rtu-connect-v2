@@ -36,7 +36,7 @@ function SinglePublication({ publication, feedItem, showType = true, showThread 
       </div>
       <div className={'ml-[53px]'}>
         <PublicationBody publication={rootPublication} />
-        <Reactions publication={rootPublication} />
+        <Reactions publication={rootPublication} electedMirror={feedItem?.electedMirror} />
       </div>
     </article>
   );
