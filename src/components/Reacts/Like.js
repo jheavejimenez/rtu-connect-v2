@@ -5,13 +5,12 @@ import { useState } from 'react';
 import { useAppStore } from '../../store/app';
 
 function Like({ publication }) {
-  const isMirror = publication.__typename === 'Mirror';
+  const isMirror = publication?.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const [count, setCount] = useState(
     isMirror ? publication?.mirrorOf?.stats?.totalUpvotes : publication?.stats?.totalUpvotes
   );
-
   // TODO: make a mutation to like a publication
 
   return (

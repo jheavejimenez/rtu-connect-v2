@@ -15,7 +15,7 @@ function Reactions({ publication, electedMirror }) {
       }}
     >
       <Like publication={publication} />
-      <Comment />
+      <Comment publication={publication} />
       {collectModuleType !== 'RevertCollectModuleSettings' && (
         <Share publication={publication} electedMirror={electedMirror} />
       )}
