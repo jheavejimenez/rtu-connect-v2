@@ -58,7 +58,7 @@ function Publication({ publication }) {
         <div className={'ml-[53px]'}>
           <PublicationBody publication={publication} />
           <div className={'divider'} />
-          <Reactions />
+          <Reactions publication={publication} />
         </div>
       </div>
     </article>
