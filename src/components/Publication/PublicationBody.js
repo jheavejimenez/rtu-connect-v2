@@ -1,5 +1,6 @@
 import { EyeIcon } from '@heroicons/react/20/solid';
 import { Interweave } from 'interweave';
+import { UrlMatcher } from 'interweave-autolink';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -14,12 +15,23 @@ function PublicationBody({ publication }) {
     ? contentFormatter(publication?.metadata?.content?.slice(0, 450))
     : contentFormatter(publication?.metadata?.content);
 
+  const decorateUrl = (url) => {
+    return (
+      <a href={url}>
+        <span className={'text-blue-500'}>{url}</span>
+      </a>
+    );
+  };
+
   return (
     <div className={'break-words'}>
       <Interweave
         className={'whitespace-pre-wrap break-words text-md'}
         allowList={['b', 'i', 'a', 'br', 'code', 'span']}
-        content={content}
+        content={
+          'This contains a URL, https://github.com/milesj/interweave, and a #hashtag, that will be converted to an anchor link!'
+        }
+        matchers={[new UrlMatcher('url')]}
       />
       {showMore && (
         <div className={'mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1'}>
