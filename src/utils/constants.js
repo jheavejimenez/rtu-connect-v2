@@ -1,4 +1,6 @@
 // infinite scroll
+import * as chain from '@wagmi/chains';
+
 export const SCROLL_THRESHOLD = 0.5;
 
 // lens protocol
@@ -10,11 +12,11 @@ export const ALCHEMY_RPC = `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KE
 
 // polygon
 export const FAUCET = 'https://faucet.polygon.technology';
-// export const POLYGON_MUMBAI = {
-//   ...chain.polygonMumbai,
-//   name: 'Polygon Mumbai',
-//   rpcUrls: { default: 'https://rpc-mumbai.maticvigil.com' }
-// };
+export const POLYGON_MUMBAI = {
+  ...chain.polygonMumbai,
+  name: 'Polygon Mumbai',
+  rpcUrls: { default: 'https://rpc-mumbai.maticvigil.com' }
+};
 
 export const CHAIN_ID = 80001;
 

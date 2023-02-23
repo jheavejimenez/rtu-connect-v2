@@ -7,6 +7,7 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
+import client from '../utils/apollo';
 import { APP_NAME, GITBOOK } from '../utils/constants';
 
 // const { chains, provider } = configureChains(
@@ -14,7 +15,7 @@ import { APP_NAME, GITBOOK } from '../utils/constants';
 //   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
 // );
 
-const { provider, webSocketProvider } = configureChains([polygonMumbai], [publicProvider()]);
+const { provider, webSocketProvider, chains } = configureChains([polygonMumbai], [publicProvider()]);
 
 const connectors = connectorsForWallets([
   {
@@ -42,6 +43,7 @@ const connectors = connectorsForWallets([
 // });
 const wagmiClient = createClient({
   autoConnect: true,
+  connectors,
   provider,
   webSocketProvider
 });
