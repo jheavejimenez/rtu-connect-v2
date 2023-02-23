@@ -17,7 +17,6 @@ function ViewComment({ publication }) {
   const profileId = currentProfile?.id ?? null;
 
   const publicationsRequest = {
-    profileId,
     commentsOf: publicationId,
     limit: 10
   };
