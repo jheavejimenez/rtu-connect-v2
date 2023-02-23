@@ -3,16 +3,18 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { ApolloProvider } from '@apollo/client';
 import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { metaMaskWallet, rainbowWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { mainnet, polygonMumbai } from 'wagmi/chains';
+import { publicProvider } from 'wagmi/providers/public';
 
-import client from '../utils/apollo';
-import { ALCHEMY_KEY, APP_NAME, GITBOOK } from '../utils/constants';
+import { APP_NAME, GITBOOK } from '../utils/constants';
 
-const { chains, provider } = configureChains(
-  [chain.polygonMumbai],
-  [alchemyProvider({ apiKey: ALCHEMY_KEY })]
-);
+// const { chains, provider } = configureChains(
+//   [chain.polygonMumbai],
+//   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
+// );
+
+const { provider, webSocketProvider } = configureChains([polygonMumbai, mainnet], [publicProvider()]);
 
 const connectors = connectorsForWallets([
   {
@@ -33,10 +35,15 @@ const connectors = connectorsForWallets([
   }
 ]);
 
+// const wagmiClient = createClient({
+//   autoConnect: true,
+//   connectors,
+//   provider
+// });
 const wagmiClient = createClient({
   autoConnect: true,
-  connectors,
-  provider
+  provider,
+  webSocketProvider
 });
 
 function Providers({ children }) {
