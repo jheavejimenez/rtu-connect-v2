@@ -1,15 +1,15 @@
 import '@rainbow-me/rainbowkit/styles.css';
 
-import { ApolloProvider } from '@apollo/client';
+import { LensProvider, staging } from '@lens-protocol/react';
+import { localStorage } from '@lens-protocol/react/web';
+import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
 import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { metaMaskWallet, rainbowWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
-import client from '../utils/apollo';
 import { APP_NAME, GITBOOK } from '../utils/constants';
-
 // const { chains, provider } = configureChains(
 //   [chain.polygonMumbai],
 //   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
@@ -48,6 +48,12 @@ const wagmiClient = createClient({
   webSocketProvider
 });
 
+const lensConfig = {
+  bindings: wagmiBindings(),
+  environment: staging,
+  storage: localStorage()
+};
+
 function Providers({ children }) {
   return (
     <WagmiConfig client={wagmiClient}>
@@ -58,7 +64,10 @@ function Providers({ children }) {
         }}
         chains={chains}
       >
-        <ApolloProvider client={client}>{children}</ApolloProvider>
+        <LensProvider config={lensConfig}>
+          {children}
+          {/*<ApolloProvider client={client}>{children}</ApolloProvider>*/}
+        </LensProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );
