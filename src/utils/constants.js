@@ -11,8 +11,8 @@ export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
 export const ALCHEMY_RPC = `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`;
 
 // firebase
-export const RTU_CONNECT_MEDIA = 'media/';
-export const RTU_CONNECT_PROFILE = 'profile/';
+export const RTU_CONNECT_MEDIA = 'media';
+export const RTU_CONNECT_PROFILE = 'profile';
 
 // polygon
 export const FAUCET = 'https://faucet.polygon.technology';
