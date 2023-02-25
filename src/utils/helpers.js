@@ -1,3 +1,7 @@
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+
+import { storage } from './firebase';
+
 /**
  *
  * @returns {boolean}
@@ -82,4 +86,26 @@ export const fixURL = (url) => {
  */
 export const fixUsername = (handle) => {
   return handle?.replace('.test', '');
+};
+
+/**
+ *
+ * @param file
+ * @param fileName
+ * @param metadata
+ * @description - upload file to firebase storage
+ * @returns {url}
+ *
+ */
+export const uploadFile = (file, fileName, metadata) => {
+  let url;
+
+  const storageRef = ref(storage, fileName);
+  uploadBytes(storageRef, file, metadata).then((snapshot) => {
+    getDownloadURL(ref(snapshot.ref)).then((downloadURL) => {
+      url = downloadURL;
+    });
+  });
+
+  return url;
 };
