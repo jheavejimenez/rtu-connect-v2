@@ -1,9 +1,9 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 
-import { storage } from '../../../../utils/firebase';
+import { RTU_CONNECT_PROFILE } from '../../../../utils/constants';
+import { uploadFile } from '../../../../utils/helpers';
 import Button from '../../../UI/Button';
 
 function NewProfile({ isModal = false }) {
@@ -23,25 +23,23 @@ function NewProfile({ isModal = false }) {
     reader.readAsDataURL(selectedFile);
   };
 
-  const uploadFile = () => {
-    if (avatar == null) {
-      return;
+  const handleFileUpload = async () => {
+    const metadata = {
+      contentType: file.type
+    };
+
+    try {
+      const fileUrl = await uploadFile(file, `${RTU_CONNECT_PROFILE}/${file.name}`, metadata);
+      console.log('File uploaded successfully ' + fileUrl);
+      // log the return url to the console
+    } catch (error) {
+      console.error('File upload failed:', error);
     }
-    const imageRef = ref(storage, `profile/${file.name}`);
-    uploadBytes(imageRef, file).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrls((prev) => [...prev, url]);
-      });
-    });
   };
 
   const formik = useFormik({
     initialValues: {
       handle: ''
-    },
-
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
     }
   });
 
@@ -93,7 +91,7 @@ function NewProfile({ isModal = false }) {
             ' focus:ring-blue-500 focus:border-blue-500 focus:border-2 sm:text-sm'
           }
         />
-        <Button type={'submit'} onClick={uploadFile}>
+        <Button type={'submit'} onClick={handleFileUpload}>
           {'Create'}
         </Button>
       </div>
