@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -29,7 +30,7 @@ function NewProfile({ isModal = false }) {
     };
 
     try {
-      const fileUrl = await uploadFile(file, `${RTU_CONNECT_PROFILE}/${file.name}`, metadata);
+      const fileUrl = await uploadFile(file, `${RTU_CONNECT_PROFILE}/${file.name}-${nanoid(5)}`, metadata);
       console.log('File uploaded successfully ' + fileUrl);
       // log the return url to the console
     } catch (error) {
