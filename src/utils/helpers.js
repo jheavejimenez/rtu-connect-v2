@@ -98,14 +98,9 @@ export const fixUsername = (handle) => {
  *
  */
 export const uploadFile = (file, fileName, metadata) => {
-  let url;
-
   const storageRef = ref(storage, fileName);
-  uploadBytes(storageRef, file, metadata).then((snapshot) => {
-    getDownloadURL(ref(snapshot.ref)).then((downloadURL) => {
-      url = downloadURL;
-    });
-  });
 
-  return url;
+  return uploadBytes(storageRef, file, metadata).then((snapshot) => {
+    return getDownloadURL(ref(snapshot.ref));
+  });
 };
