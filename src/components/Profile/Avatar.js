@@ -7,7 +7,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 
-function Avatar() {
+import { getAvatarUrl } from '../../utils/helpers';
+
+function Avatar({ profile }) {
+  console.log(getAvatarUrl(profile));
   return (
     <Menu as={'div'} className={'relative inline-block text-left'}>
       <div>
@@ -15,7 +18,7 @@ function Avatar() {
           as={'img'}
           className={'inline-block h-10 w-10 rounded-full ring-2 ring-blue-800'}
           alt={'avatar'}
-          src={'https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg'}
+          src={getAvatarUrl(profile)}
         />
       </div>
       <Transition
