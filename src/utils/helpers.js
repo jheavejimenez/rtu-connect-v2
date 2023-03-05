@@ -112,7 +112,6 @@ export const uploadFile = (file, fileName, metadata) => {
  * @returns {string}
  *
  */
-
 export const formatUsername = (username) => {
   return username
     .toLowerCase()
