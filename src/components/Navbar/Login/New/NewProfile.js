@@ -9,6 +9,8 @@ import { CREATE_PROFILE } from '../../../../graphQL/mutations/create-profile';
 import { RTU_CONNECT_PROFILE, ZERO_ADDRESS } from '../../../../utils/constants';
 import { formatUsername, getStampFyiUrl, uploadFile } from '../../../../utils/helpers';
 import Button from '../../../UI/Button';
+import Spinner from '../../../UI/Spinner';
+import PendingProfile from './PendingProfile';
 
 function NewProfile({ isModal = false }) {
   const { address } = useAccount();
@@ -48,7 +50,9 @@ function NewProfile({ isModal = false }) {
     }
   });
 
-  return (
+  return data?.createProfile.__typename === 'RelayerResult' && data?.createProfile.txHash ? (
+    <PendingProfile txHash={data?.createProfile?.txHash} />
+  ) : (
     <form onSubmit={formik.handleSubmit}>
       {data?.createProfile.__typename === 'RelayError' &&
         data?.createProfile.reason &&
@@ -100,7 +104,13 @@ function NewProfile({ isModal = false }) {
           }
         />
         <Button type={'submit'} loading={loading}>
-          {loading ? <span className={'animate-pulse'}>{'Creating profile'}</span> : 'Create Profile'}
+          {loading ? (
+            <div className={'flex flex-col items-center justify-center'}>
+              <Spinner />
+            </div>
+          ) : (
+            'Create Profile'
+          )}
         </Button>
       </div>
     </form>
