@@ -1,4 +1,4 @@
-import { fixURL } from '../../utils/helpers';
+import { getNFTStorageLink } from '../../utils/helpers';
 
 function MediaRenderer({ media, mediaType }) {
   return (
@@ -14,7 +14,7 @@ function MediaRenderer({ media, mediaType }) {
         </div>
       ) : (
         <img
-          src={fixURL(media)}
+          src={getNFTStorageLink(media)}
           alt={'media'}
           loading={'lazy'}
           decoding={'async'}
