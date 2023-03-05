@@ -9,7 +9,6 @@ import { CREATE_PROFILE } from '../../../../graphQL/mutations/create-profile';
 import { RTU_CONNECT_PROFILE, ZERO_ADDRESS } from '../../../../utils/constants';
 import { formatUsername, getStampFyiUrl, uploadFile } from '../../../../utils/helpers';
 import Button from '../../../UI/Button';
-import Spinner from '../../../UI/Spinner';
 
 function NewProfile({ isModal = false }) {
   const { address } = useAccount();
@@ -100,8 +99,8 @@ function NewProfile({ isModal = false }) {
             ' focus:ring-blue-500 focus:border-blue-500 focus:border-2 sm:text-sm'
           }
         />
-        <Button type={'submit'} icon={loading ? <Spinner /> : ''} loading={loading}>
-          {'Create'}
+        <Button type={'submit'} loading={loading}>
+          {loading ? <span className={'animate-pulse'}>{'Creating profile'}</span> : 'Create Profile'}
         </Button>
       </div>
     </form>
