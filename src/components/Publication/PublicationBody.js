@@ -1,5 +1,6 @@
 import { EyeIcon } from '@heroicons/react/20/solid';
 import { Interweave } from 'interweave';
+import { MentionMatcher, UrlMatcher } from 'interweave-autolink';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -20,6 +21,14 @@ function PublicationBody({ publication }) {
         className={'whitespace-pre-wrap break-words text-md'}
         allowList={['b', 'i', 'a', 'br', 'code', 'span']}
         content={content}
+        matchers={[
+          new MentionMatcher('mention'),
+          new UrlMatcher('url', (url, props, children) => (
+            <a href={url} target={'_blank'} rel={'noopener noreferrer'}>
+              <b className={'font-bold'}>{children}</b>
+            </a>
+          ))
+        ]}
       />
       {showMore && (
         <div className={'mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1'}>

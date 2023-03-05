@@ -53,7 +53,7 @@ function NavBar() {
         <NavItems url={'/watch'} active={false} logo={<SvgWatch />} />
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
-        <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar />}</li>
+        <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
       </ul>
     </nav>
   );

@@ -1,3 +1,8 @@
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+
+import { BLOCK_LIST_URL, NFT_STORAGE_GATEWAY, ZERO_ADDRESS } from './constants';
+import { storage } from './firebase';
+
 /**
  *
  * @returns {boolean}
@@ -68,9 +73,9 @@ export const contentFormatter = (value) =>
  * @description - this will replace ipfs to https so that the image can load in img src
  *
  */
-export const fixURL = (url) => {
-  const replacedURL = url?.replace('ipfs://', 'https://');
-  return replacedURL?.concat('.ipfs.nftstorage.link');
+export const getNFTStorageLink = (url) => {
+  const gateway = NFT_STORAGE_GATEWAY;
+  return url.replace('https://ipfs.io/ipfs/', gateway).replace('ipfs://', gateway);
 };
 
 /**
@@ -82,4 +87,61 @@ export const fixURL = (url) => {
  */
 export const fixUsername = (handle) => {
   return handle?.replace('.test', '');
+};
+
+/**
+ *
+ * @param file
+ * @param fileName
+ * @param metadata
+ * @description - upload file to firebase storage
+ * @returns {url}
+ *
+ */
+export const uploadFile = (file, fileName, metadata) => {
+  const storageRef = ref(storage, fileName);
+
+  return uploadBytes(storageRef, file, metadata).then((snapshot) => {
+    return getDownloadURL(ref(snapshot.ref));
+  });
+};
+
+/**
+ *
+ * @param {string} username
+ * @description - convert username to lowercase and remove spaces and special characters
+ * @returns {string}
+ *
+ */
+export const formatUsername = (username) => {
+  return username
+    .toLowerCase()
+    .replace('@', '')
+    .replace(/[^\dA-Za-z]/g, '');
+};
+
+/**
+ *
+ * @param {string} address
+ * @returns {`https://cdn.stamp.fyi/avatar/eth:${string}?s=250`}
+ * @description - get stamp.fyi avatar url
+ *
+ */
+export const getStampFyiUrl = (address) => {
+  return `https://cdn.stamp.fyi/avatar/eth:${address.toLowerCase()}?s=250`;
+};
+
+export const getAvatarUrl = (profile) => {
+  if (
+    BLOCK_LIST_URL.includes(profile?.picture?.original?.url) ||
+    BLOCK_LIST_URL.includes(profile?.picture?.uri)
+  ) {
+    return getStampFyiUrl(profile?.ownedBy ?? ZERO_ADDRESS);
+  }
+
+  return getNFTStorageLink(
+    profile?.picture?.original?.url ??
+      profile?.picture?.uri ??
+      getStampFyiUrl(profile?.ownedBy ?? ZERO_ADDRESS)
+  );
 };

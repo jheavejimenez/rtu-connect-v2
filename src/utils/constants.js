@@ -1,6 +1,6 @@
-import { chain } from 'wagmi';
-
 // infinite scroll
+import * as chain from '@wagmi/chains';
+
 export const SCROLL_THRESHOLD = 0.5;
 
 // lens protocol
@@ -10,6 +10,10 @@ export const API_URL = 'https://api-mumbai.lens.dev/';
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
 export const ALCHEMY_RPC = `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`;
 
+// firebase
+export const RTU_CONNECT_MEDIA = 'media';
+export const RTU_CONNECT_PROFILE = 'profile';
+
 // polygon
 export const FAUCET = 'https://faucet.polygon.technology';
 export const POLYGON_MUMBAI = {
@@ -18,22 +22,17 @@ export const POLYGON_MUMBAI = {
   rpcUrls: { default: 'https://rpc-mumbai.maticvigil.com' }
 };
 
-export const CHAIN_ID = POLYGON_MUMBAI.id;
+export const CHAIN_ID = 80001;
+
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+
+export const NFT_STORAGE_GATEWAY = 'https://nftstorage.link/ipfs/';
 
 export const APP_NAME = 'RTU Connect';
 
 export const GITBOOK = 'https://jhv.gitbook.io/rtu-connect';
 
-export const ALLOWED_MEDIA_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'image/gif',
-  'video/mp4',
-  'video/mpeg',
-  'video/ogg',
-  'video/webm'
-];
+export const ALLOWED_VIDEO_TYPES = ['video/quicktime', 'video/mp4', 'video/mpeg', 'video/ogg', 'video/webm'];
 
 // Recommended Profiles
 
@@ -69,3 +68,10 @@ export const RECOMMENDED_PROFILES = {
     ]
   }
 };
+
+export const BLOCK_LIST_URL = [
+  'https://test.com',
+  'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan'
+];
+
+export const VERIFIED_PROFILES = ['0x43d0'];
