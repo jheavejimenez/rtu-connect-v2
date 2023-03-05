@@ -32,16 +32,7 @@ export const APP_NAME = 'RTU Connect';
 
 export const GITBOOK = 'https://jhv.gitbook.io/rtu-connect';
 
-export const ALLOWED_MEDIA_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'image/gif',
-  'video/mp4',
-  'video/mpeg',
-  'video/ogg',
-  'video/webm'
-];
+export const ALLOWED_VIDEO_TYPES = ['video/quicktime', 'video/mp4', 'video/mpeg', 'video/ogg', 'video/webm'];
 
 // Recommended Profiles
 
