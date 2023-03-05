@@ -10,7 +10,6 @@ import { Fragment } from 'react';
 import { getAvatarUrl } from '../../utils/helpers';
 
 function Avatar({ profile }) {
-  console.log(getAvatarUrl(profile));
   return (
     <Menu as={'div'} className={'relative inline-block text-left'}>
       <div>
