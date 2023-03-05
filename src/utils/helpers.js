@@ -104,3 +104,18 @@ export const uploadFile = (file, fileName, metadata) => {
     return getDownloadURL(ref(snapshot.ref));
   });
 };
+
+/**
+ *
+ * @param {string} username
+ * @description - convert username to lowercase and remove spaces and special characters
+ * @returns {string}
+ *
+ */
+
+export const formatUsername = (username) => {
+  return username
+    .toLowerCase()
+    .replace('@', '')
+    .replace(/[^\dA-Za-z]/g, '');
+};
