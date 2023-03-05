@@ -1,18 +1,22 @@
+import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useAccount } from 'wagmi';
 
-import { RTU_CONNECT_PROFILE } from '../../../../utils/constants';
-import { uploadFile } from '../../../../utils/helpers';
+import { CREATE_PROFILE } from '../../../../graphQL/mutations/create-profile';
+import { RTU_CONNECT_PROFILE, ZERO_ADDRESS } from '../../../../utils/constants';
+import { formatUsername, getStampFyiUrl, uploadFile } from '../../../../utils/helpers';
 import Button from '../../../UI/Button';
+import Spinner from '../../../UI/Spinner';
 
 function NewProfile({ isModal = false }) {
-  const [avatar, setAvatar] = useState(null);
-  const [uploading, setUploading] = useState(false);
   const { address } = useAccount();
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+
+  const [createProfile, { data, loading }] = useMutation(CREATE_PROFILE);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -24,28 +28,32 @@ function NewProfile({ isModal = false }) {
     reader.readAsDataURL(selectedFile);
   };
 
-  const handleFileUpload = async () => {
-    const metadata = {
-      contentType: file.type
-    };
-
-    try {
-      const fileUrl = await uploadFile(file, `${RTU_CONNECT_PROFILE}/${file.name}-${nanoid(5)}`, metadata);
-      console.log('File uploaded successfully ' + fileUrl);
-      // log the return url to the console
-    } catch (error) {
-      console.error('File upload failed:', error);
-    }
-  };
-
   const formik = useFormik({
     initialValues: {
       handle: ''
+    },
+    onSubmit: async (values) => {
+      const metadata = {
+        contentType: file?.type
+      };
+      const handle = formatUsername(values.handle);
+      const fileUrl = file ? await uploadFile(file, `${RTU_CONNECT_PROFILE}/${nanoid(11)}`, metadata) : null;
+      await createProfile({
+        variables: {
+          request: {
+            handle,
+            profilePictureUri: fileUrl ? fileUrl : getStampFyiUrl(address ?? ZERO_ADDRESS)
+          }
+        }
+      });
     }
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      {data?.createProfile.__typename === 'RelayError' &&
+        data?.createProfile.reason &&
+        toast.error(data?.createProfile.reason)}
       <div className={'flex flex-col px-12 pb-12'}>
         <div className={'flex flex-col items-center justify-center'}>
           {previewUrl ? (
@@ -92,7 +100,7 @@ function NewProfile({ isModal = false }) {
             ' focus:ring-blue-500 focus:border-blue-500 focus:border-2 sm:text-sm'
           }
         />
-        <Button type={'submit'} onClick={handleFileUpload}>
+        <Button type={'submit'} icon={loading ? <Spinner /> : ''} loading={loading}>
           {'Create'}
         </Button>
       </div>
