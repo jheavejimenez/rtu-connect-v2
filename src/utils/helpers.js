@@ -118,3 +118,14 @@ export const formatUsername = (username) => {
     .replace('@', '')
     .replace(/[^\dA-Za-z]/g, '');
 };
+
+/**
+ *
+ * @param {string} address
+ * @returns {`https://cdn.stamp.fyi/avatar/eth:${string}?s=250`}
+ * @description - get stamp.fyi avatar url
+ *
+ */
+export const getStampFyiUrl = (address) => {
+  return `https://cdn.stamp.fyi/avatar/eth:${address.toLowerCase()}?s=250`;
+};
