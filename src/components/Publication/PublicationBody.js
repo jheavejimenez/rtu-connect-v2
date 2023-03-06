@@ -14,13 +14,15 @@ function PublicationBody({ publication }) {
     ? contentFormatter(publication?.metadata?.content?.slice(0, 450))
     : contentFormatter(publication?.metadata?.content);
 
+  const matchers = [new UrlMatcher('url'), new MDCodeMatcher('code'), new MentionMatcher('mention')];
+
   return (
     <div className={'break-words'}>
       <Interweave
         className={'whitespace-pre-wrap break-words text-md'}
         allowList={['b', 'i', 'a', 'br', 'code', 'span']}
         content={content}
-        matchers={[new MentionMatcher('mention'), new UrlMatcher('url'), new MDCodeMatcher('mdCode')]}
+        matchers={matchers}
         onClick={(event) => event.stopPropagation()}
       />
       {showMore && (
