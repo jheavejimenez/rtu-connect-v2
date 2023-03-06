@@ -1,4 +1,8 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { Matcher } from 'interweave';
+import { URL_PATTERN } from 'interweave-autolink';
+import Link from 'next/link';
+import { createElement } from 'react';
 
 import { BLOCK_LIST_URL, NFT_STORAGE_GATEWAY, ZERO_ADDRESS } from './constants';
 import { storage } from './firebase';
@@ -131,6 +135,13 @@ export const getStampFyiUrl = (address) => {
   return `https://cdn.stamp.fyi/avatar/eth:${address.toLowerCase()}?s=250`;
 };
 
+/**
+ *
+ * @param {string} profile
+ * @returns {`https://cdn.stamp.fyi/avatar/eth:${string}?s=250`|string}
+ * @description - get avatar url
+ *
+ */
 export const getAvatarUrl = (profile) => {
   if (
     BLOCK_LIST_URL.includes(profile?.picture?.original?.url) ||
@@ -145,3 +156,126 @@ export const getAvatarUrl = (profile) => {
       getStampFyiUrl(profile?.ownedBy ?? ZERO_ADDRESS)
   );
 };
+
+/**
+ *
+ * @param url
+ * @returns {string}
+ * @description - add protocol to url if it doesn't have one
+ *
+ */
+function addProtocolIfNeeded(url) {
+  if (!url.match(/^https?:\/\//)) {
+    url = `http://${url}`;
+  }
+  return url;
+}
+
+/**
+ *
+ * @param children
+ * @param url
+ * @returns {JSX.Element}
+ * @constructor
+ * @description - create a link component that will open in a new tab if the url is external
+ *
+ */
+const Url = ({ url }) => {
+  const href = addProtocolIfNeeded(url);
+
+  console.log('url', url);
+  return (
+    <Link href={href} legacyBehavior={true} rel={'noopener'}>
+      <a
+        className={'text-blue-500 hover:text-blue-700'}
+        onClick={(event) => event.stopPropagation()}
+        target={'_blank'}
+      >
+        {url}
+      </a>
+    </Link>
+  );
+};
+
+/**
+ *
+ * @description - Matcher for identifying and replacing URLs in a string
+ * @returns {JSX.Element}
+ * @constructor
+ * @extends Matcher
+ * @example
+ * <UrlMatcher>
+ *
+ */
+export class UrlMatcher extends Matcher {
+  replaceWith(children, props) {
+    return createElement(Url, props);
+  }
+
+  getPattern() {
+    return URL_PATTERN;
+  }
+
+  // Get the HTML tag name for rendering matches
+  asTag() {
+    return 'a';
+  }
+
+  // Match a URL in a string and return the relevant information
+  match(string) {
+    const response = this.doMatch(string, this.getPattern(), this.handleMatches, true);
+
+    if (response?.valid) {
+      const { host } = response;
+      const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
+
+      // Exclude certain top-level domains from matching
+      if ('lens'.includes(tld)) {
+        response.valid = false;
+      }
+    }
+
+    return response;
+  }
+
+  // Extract and return the URL, host, and full path information from a URL match
+  handleMatches(matches) {
+    return {
+      url: matches[0],
+      host: matches[3],
+      fullPath: (matches[4] ?? '') + (matches[5] ?? '') + (matches[6] ?? '')
+    };
+  }
+}
+
+/**
+ *
+ * @description - Matcher for identifying and replacing markdown code blocks in a string
+ * @returns {JSX.Element}
+ * @constructor
+ * @extends Matcher
+ * @example
+ * <MDCodeMatcher>
+ *   <code className={"text-sm bg-gray-300 rounded-lg "}>{children}</code>
+ *
+ */
+export class MDCodeMatcher extends Matcher {
+  replaceWith(children, props) {
+    return <code className={'text-sm bg-gray-300 rounded-lg '}>{children}</code>;
+  }
+
+  asTag() {
+    return 'code';
+  }
+
+  match(value) {
+    return this.doMatch(
+      value,
+      /`(.*?)`/u,
+      (matches) => ({
+        match: matches[1]
+      }),
+      true
+    );
+  }
+}
