@@ -3,7 +3,11 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 function Comment({ publication }) {
-  const count = 5;
+  const isMirror = publication?.__typename === 'Mirror';
+  const commentsCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfComments
+    : publication?.stats?.totalAmountOfComments;
+
   return (
     <motion.button whileTap={{ scale: 0.9 }} aria-label={'Comment'}>
       <Link href={`/posts/${publication?.id}`}>
@@ -11,7 +15,7 @@ function Comment({ publication }) {
           <span className={'p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20'}>
             <ChatBubbleLeftIcon className={'w-[15px] sm:w-[18px]'} />
           </span>
-          {count > 0 && <span className={'text-[11px] sm:text-xs'}>{count}</span>}
+          {commentsCount > 0 && <span className={'text-[11px] sm:text-xs'}>{commentsCount}</span>}
         </span>
       </Link>
     </motion.button>
