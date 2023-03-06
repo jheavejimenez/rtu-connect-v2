@@ -9,8 +9,11 @@ function Share({ publication, electedMirror }) {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
-  const isMirror = publication.__typename === 'Mirror';
+  const isMirror = publication?.__typename === 'Mirror';
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
+  const mirrorCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
+    : publication?.stats?.totalAmountOfMirrors;
 
   function createMirror() {
     setIsloading(true);
@@ -38,7 +41,7 @@ function Share({ publication, electedMirror }) {
             <ArrowPathRoundedSquareIcon className={'w-[15px] sm:w-[18px]'} />
           )}
         </span>
-        {count > 0 && <span className={'text-[11px] sm:text-xs'}>{count}</span>}
+        {mirrorCount > 0 && <span className={'text-[11px] sm:text-xs'}>{mirrorCount}</span>}
       </span>
     </motion.button>
   );

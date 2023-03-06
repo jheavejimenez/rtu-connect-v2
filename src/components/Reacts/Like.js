@@ -7,7 +7,9 @@ import { useAppStore } from '../../store/app';
 function Like({ publication }) {
   const isMirror = publication?.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
-
+  const reactionCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalUpvotes
+    : publication?.stats?.totalUpvotes;
   const [count, setCount] = useState(
     isMirror ? publication?.mirrorOf?.stats?.totalUpvotes : publication?.stats?.totalUpvotes
   );
@@ -19,7 +21,7 @@ function Like({ publication }) {
         <span className={'p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20'}>
           <HeartIcon className={'w-[15px] sm:w-[18px]'} />
         </span>
-        {count > 0 && <span className={'text-[11px] sm:text-xs'}>{count}</span>}
+        {count > 0 && <span className={'text-[11px] sm:text-xs'}>{reactionCount}</span>}
       </span>
     </motion.button>
   );
