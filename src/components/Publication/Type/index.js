@@ -9,8 +9,9 @@ function PublicationType({ publication, showType, showThread = false }) {
   }
 
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>{type === 'Comment' && showThread && !isCollected && <Commented publication={publication} />}</>
+    <span onClick={(event) => event.stopPropagation()}>
+      {type === 'Comment' && showThread && !isCollected && <Commented publication={publication} />}
+    </span>
   );
 }
 
