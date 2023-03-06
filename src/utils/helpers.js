@@ -183,7 +183,6 @@ function addProtocolIfNeeded(url) {
 const Url = ({ url }) => {
   const href = addProtocolIfNeeded(url);
 
-  console.log('url', url);
   return (
     <Link href={href} legacyBehavior={true} rel={'noopener'}>
       <a
