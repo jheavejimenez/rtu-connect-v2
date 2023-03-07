@@ -5,7 +5,7 @@ import Share from './Share';
 
 function Reactions({ publication, electedMirror }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const collectModuleType = publication?.collectModule.__typename;
+  const collectModuleType = publication?.collectModule?.__typename;
 
   return (
     <span

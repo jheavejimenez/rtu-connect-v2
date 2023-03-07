@@ -7,7 +7,7 @@ import { fixUsername, getAvatarUrl } from '../../utils/helpers';
 function UserProfile({ profile }) {
   return (
     <div className={'flex justify-between items-center'}>
-      <Link href={`/u/${profile?.handle}`}>
+      <Link href={`/user/${profile?.handle}`}>
         <div className={'flex items-center space-x-3'}>
           <img
             src={getAvatarUrl(profile)}

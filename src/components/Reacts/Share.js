@@ -8,7 +8,7 @@ function Share({ publication, electedMirror }) {
   const [isLoading, setIsloading] = useState(false);
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
+  const isUnknownCollect = publication?.collectModule?.__typename === 'UnknownCollectModuleSettings';
   const isMirror = publication?.__typename === 'Mirror';
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
   const mirrorCount = isMirror
