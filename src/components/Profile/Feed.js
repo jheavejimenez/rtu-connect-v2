@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { ErrorMessage } from 'formik';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { PROFILE_FEED } from '../../graphQL/queries/profile-feed';
+import { TestProfileFeedQuery } from '../../graphQL/queries/test-profile-feed-query';
 import { useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
@@ -13,16 +13,13 @@ function ProfileFeed({ profile }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const feedRequest = {
-    profileId: profile.id,
+    publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     limit: 20
   };
   const profileId = currentProfile?.id ?? null;
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
 
-  const { data, fetchMore, loading, error } = useQuery(PROFILE_FEED, {
-    variables: { feedRequest, reactionRequest, skip: !profile?.id }
-  });
-
+  const { data, fetchMore, loading, error } = useQuery(TestProfileFeedQuery);
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
