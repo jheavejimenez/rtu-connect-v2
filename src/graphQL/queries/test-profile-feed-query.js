@@ -1,18 +1,18 @@
 import { gql } from '@apollo/client';
 
 export const TestProfileFeedQuery = gql`
-  query Publications {
-    publications(request: { profileId: "0x09", publicationTypes: [POST, COMMENT, MIRROR], limit: 10 }) {
+  query Publications($request: PublicationsQueryRequest!, $reactionRequest: ReactionFieldResolverRequest) {
+    publications(request: $request) {
       items {
         __typename
         ... on Post {
-          reaction(request: { profileId: "0x01" })
+          reaction(request: $reactionRequest)
         }
         ... on Comment {
-          reaction(request: { profileId: "0x01" })
+          reaction(request: $reactionRequest)
         }
         ... on Mirror {
-          reaction(request: { profileId: "0x01" })
+          reaction(request: $reactionRequest)
         }
       }
       pageInfo {

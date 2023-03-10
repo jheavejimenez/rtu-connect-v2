@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import { ErrorMessage } from 'formik';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { TestProfileFeedQuery } from '../../graphQL/queries/test-profile-feed-query';
@@ -8,21 +7,28 @@ import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
+import ErrorMessage from '../UI/ErrorMesssage';
 
 function ProfileFeed({ profile }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const feedRequest = {
-    publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
-    limit: 20
+  const request = {
+    publicationTypes: ['POST', 'MIRROR'],
+    profileId: profile?.id,
+    limit: 10
   };
-  const profileId = currentProfile?.id ?? null;
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
 
-  const { data, fetchMore, loading, error } = useQuery(TestProfileFeedQuery);
+  const { data, fetchMore, loading, error } = useQuery(TestProfileFeedQuery, {
+    variables: { request, reactionRequest },
+    skip: !profile?.id
+  });
+
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  console.log(publications);
   const loadMore = async () => {
     const loadedIds = new Set();
     const updateQuery = (prev, { fetchMoreResult }) => {
