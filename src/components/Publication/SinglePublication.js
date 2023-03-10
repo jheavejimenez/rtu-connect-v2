@@ -11,11 +11,13 @@ function SinglePublication({ publication, feedItem, showType = true, showThread 
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
+
   const profile = feedItem
     ? rootPublication.profile
     : isMirror
     ? publication?.mirrorOf?.profile
     : publication?.profile;
+
   const timestamp = feedItem
     ? rootPublication.createdAt
     : isMirror
