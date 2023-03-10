@@ -32,6 +32,7 @@ function ViewProfile() {
   }
 
   const profile = data?.profile;
+  console.log(profile);
   return (
     <GridLayout>
       <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>{'// user profile here'}</div>
