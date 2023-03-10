@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const PROFILE_FEED = gql`
-  query Feed($feedRequest: FeedRequest!) {
-    feed(request: $feedRequest) {
+export const TIMELINE = gql`
+  query Timeline($request: FeedRequest!) {
+    feed(request: $request) {
       items {
         root {
           ... on Post {
