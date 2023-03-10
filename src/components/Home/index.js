@@ -1,10 +1,11 @@
 import { useAppStore } from '../../store/app';
 import { APP_NAME } from '../../utils/constants';
 import Post from '../Composer/Post';
+import ExploreFeed from '../Explore/Feed';
 import Banner from '../UI/Banner';
 import { GridLayout } from '../UI/GridLayout';
 import BetaWarning from './BetaWarning';
-import Feed from './Feed';
+import HomeFeed from './Feed';
 import RecommendedProfile from './RecommendedProfile';
 
 function Home() {
@@ -13,16 +14,21 @@ function Home() {
     <GridLayout>
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         {currentProfile ? (
-          <Post />
+          <>
+            <Post />
+            <HomeFeed />
+          </>
         ) : (
-          <Banner
-            title={`👋 Welcome to ${APP_NAME}`}
-            text={
-              'A decentralize social media for Rizal Technological University built with Lens Protocol 🌿'
-            }
-          />
+          <>
+            <Banner
+              title={`👋 Welcome to ${APP_NAME}`}
+              text={
+                'A decentralize social media for Rizal Technological University built with Lens Protocol 🌿'
+              }
+            />
+            <ExploreFeed />
+          </>
         )}
-        <Feed />
       </div>
       <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>
         <BetaWarning />

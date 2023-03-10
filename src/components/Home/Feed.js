@@ -1,47 +1,44 @@
 import { useQuery } from '@apollo/client';
-import { ErrorMessage } from 'formik';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
+import { TIMELINE } from '../../graphQL/queries/get-timeline';
 import { useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
+import ErrorMessage from '../UI/ErrorMesssage';
 
 function Feed() {
   const currentProfile = useAppStore((state) => state.currentProfile);
-
-  const explorePublicationsRequest = {
-    sortCriteria: 'TOP_COMMENTED',
-    publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
-    noRandomize: true,
-    limit: 10
-  };
   const profileId = currentProfile?.id ?? null;
 
-  const { data, fetchMore, loading, error } = useQuery(EXPLORE_FEED, {
-    variables: { explorePublicationsRequest }
+  const request = {
+    profileId,
+    limit: 50
+  };
+
+  const { data, fetchMore, loading, error } = useQuery(TIMELINE, {
+    variables: { request }
   });
 
-  const publications = data?.explorePublications?.items;
-  const pageInfo = data?.explorePublications?.pageInfo;
+  const publications = data?.feed?.items;
+  const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
-
   const loadMore = async () => {
     const loadedIds = new Set();
     const updateQuery = (prev, { fetchMoreResult }) => {
       if (!fetchMoreResult) {
         return prev;
       }
-      const newData = fetchMoreResult.explorePublications.items.filter((item) => !loadedIds.has(item.id));
+      const newData = fetchMoreResult.feed.items.filter((item) => !loadedIds.has(item.id));
       for (const item of newData) {
         loadedIds.add(item.id);
       }
       return {
-        explorePublications: {
-          ...fetchMoreResult.explorePublications,
-          items: [...prev.explorePublications.items, ...newData]
+        feed: {
+          ...fetchMoreResult.feed,
+          items: [...prev.feed.items, ...newData]
         }
       };
     };
@@ -50,8 +47,8 @@ function Feed() {
     }
     await fetchMore({
       variables: {
-        explorePublicationsRequest: {
-          ...explorePublicationsRequest,
+        request: {
+          ...request,
           cursor: pageInfo?.next
         },
         profileId
@@ -59,6 +56,7 @@ function Feed() {
       updateQuery
     });
   };
+
   if (loading) {
     return <FeedShimmer />;
   }
@@ -68,7 +66,6 @@ function Feed() {
   if (error) {
     return <ErrorMessage title={`Failed to load feed`} error={error} />;
   }
-
   return (
     <InfiniteScroll
       dataLength={publications?.length ?? 0}
@@ -87,7 +84,11 @@ function Feed() {
       }
     >
       {publications?.map((publication, index) => (
-        <SinglePublication key={`${publication.id}_${index}`} publication={publication} />
+        <SinglePublication
+          key={`${publication?.root.id}_${index}`}
+          feedItem={publication}
+          publication={publication.root}
+        />
       ))}
     </InfiniteScroll>
   );
