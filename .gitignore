@@ -44,5 +44,4 @@ next-env.d.ts
 # Builds
 .eslintcache
 
-/src/utils/dummyData.json
-/src/utils/DummyRecommendedProfile.json
+/src/utils/dummyfeed.json
