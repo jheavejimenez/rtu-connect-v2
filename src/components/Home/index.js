@@ -26,7 +26,7 @@ function Home() {
                 'A decentralize social media for Rizal Technological University built with Lens Protocol 🌿'
               }
             />
-            <ExploreFeed />
+            <ExploreFeed feedType={'LATEST'} />
           </>
         )}
       </div>

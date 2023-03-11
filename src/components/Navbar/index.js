@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { useAppStore } from '../../store/app';
 import rtuLogo from '../logos/rtuLogo.png';
@@ -10,7 +11,9 @@ import Login from './Login';
 import NavItems from './NavItems';
 
 function NavBar() {
+  const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
+
   return (
     <nav
       className={
@@ -48,9 +51,9 @@ function NavBar() {
         </div>
       </div>
       <ul className={'flex w-full lg:w-max items-center justify-center'}>
-        <NavItems url={'/'} active={true} logo={<SvgHome />} />
-        <NavItems url={'/community'} active={false} logo={<SvgCommunity />} />
-        <NavItems url={'/watch'} active={false} logo={<SvgWatch />} />
+        <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
+        <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
+        <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
         <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
