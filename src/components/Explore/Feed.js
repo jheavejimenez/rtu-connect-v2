@@ -17,6 +17,7 @@ function ExploreFeed() {
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     limit: 10
   };
+
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
