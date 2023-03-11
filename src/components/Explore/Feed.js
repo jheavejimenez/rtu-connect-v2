@@ -15,7 +15,6 @@ function ExploreFeed() {
   const request = {
     sortCriteria: 'LATEST',
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
-    noRandomize: true,
     limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
