@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const EXPLORE_FEED = gql`
-  query ExplorePublications($explorePublicationsRequest: ExplorePublicationRequest!) {
-    explorePublications(request: $explorePublicationsRequest) {
+  query ExplorePublications($request: ExplorePublicationRequest!) {
+    explorePublications(request: $request) {
       items {
         __typename
         ... on Post {
