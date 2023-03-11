@@ -16,7 +16,7 @@ function WatchFeed() {
     sortCriteria: 'LATEST',
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     metadata: {
-      mainContentFocus: ['VIDEO', 'IMAGE']
+      mainContentFocus: ['VIDEO']
     },
     limit: 10
   };
@@ -78,7 +78,7 @@ function WatchFeed() {
     return <FeedShimmer />;
   }
   if (publications?.length === 0) {
-    return <Empty message={"You don't follow anyone. Start posting now!"} />;
+    return <Empty message={`We don't have videos today`} />;
   }
   if (error) {
     return <ErrorMessage title={`Failed to load feed`} error={error} />;
