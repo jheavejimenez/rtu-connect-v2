@@ -12,8 +12,8 @@ import ErrorMessage from '../UI/ErrorMesssage';
 function ExploreFeed() {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const explorePublicationsRequest = {
-    sortCriteria: 'TOP_COMMENTED',
+  const request = {
+    sortCriteria: 'LATEST',
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     noRandomize: true,
     limit: 10
@@ -22,22 +22,21 @@ function ExploreFeed() {
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED, {
-    variables: { explorePublicationsRequest, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId }
   });
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  /**
+   * TODO: pageInfo.totalCount is null for some reason so we can't use it
+   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+   **/
 
-  // const loadMore = async () => {
-  //   await fetchMore({
-  //     variables: {
-  //       request: { ...explorePublicationsRequest, cursor: pageInfo?.next },
-  //       reactionRequest,
-  //       profileId
-  //     }
-  //   });
-  // };
+  /**
+   * remember to fix this when the pageInfo.totalCount
+   * is fixed for now we limit the number of publications to 100 to avoid crashing the browser
+   */
+  const hasMore = pageInfo?.next && publications?.length < 100;
 
   const loadMore = async () => {
     const loadedIds = new Set();
@@ -62,9 +61,10 @@ function ExploreFeed() {
     await fetchMore({
       variables: {
         request: {
-          ...explorePublicationsRequest,
+          ...request,
           cursor: pageInfo?.next
         },
+        reactionRequest,
         profileId
       },
       updateQuery
