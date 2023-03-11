@@ -9,12 +9,13 @@ import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
 import ErrorMessage from '../UI/ErrorMesssage';
 
-function ExploreFeed() {
+function ExploreFeed({ feedType, sources }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const request = {
-    sortCriteria: 'LATEST',
+    sortCriteria: feedType ?? 'LATEST',
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
+    sources: sources ?? [],
     limit: 10
   };
 
@@ -75,7 +76,7 @@ function ExploreFeed() {
     return <FeedShimmer />;
   }
   if (publications?.length === 0) {
-    return <Empty message={"You don't follow anyone. Start posting now!"} />;
+    return <Empty message={'Explore feed is empty, Start creating content now!'} />;
   }
   if (error) {
     return <ErrorMessage title={`Failed to load feed`} error={error} />;
