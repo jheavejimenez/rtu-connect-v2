@@ -1,4 +1,5 @@
 import Commented from './Commented';
+import Shared from './Shared';
 
 function PublicationType({ publication, showType, showThread = false }) {
   const type = publication?.__typename;
@@ -10,6 +11,7 @@ function PublicationType({ publication, showType, showThread = false }) {
 
   return (
     <span onClick={(event) => event.stopPropagation()}>
+      {type === 'Mirror' && <Shared publication={publication} />}
       {type === 'Comment' && showThread && !isCollected && <Commented publication={publication} />}
     </span>
   );
