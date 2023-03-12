@@ -6,7 +6,7 @@ import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import { GET_PROFILES } from '../graphQL/queries/get-profiles';
 import { useAppPersistStore, useAppStore } from '../store/app';
-import { APP_NAME, CHAIN_ID } from '../utils/constants';
+import { APP_NAME, CHAIN_ID, LS_KEYS } from '../utils/constants';
 import { clearLocalStorage, getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
@@ -41,10 +41,14 @@ function Layout({ children }) {
       if (!profiles?.length) {
         clearAuthState();
       }
-      const selectedUser = profiles?.find((p) => p.id === profileId);
+      const selectedUser = profiles.find((profile) => profile.id === profileId);
       setProfiles(profiles);
+      setProfileId(selectedUser?.id);
       setCurrentProfile(selectedUser);
       setUserSigNonce(data?.profiles.items[0]?.nonce);
+    },
+    onError: () => {
+      setProfileId(null);
     }
   });
 
@@ -57,8 +61,8 @@ function Layout({ children }) {
 
     if (isDisconnectedWallet) {
       clearAuthState();
-      clearLocalStorage(['accessToken', 'refreshToken', 'rtuconnect.store']);
-      disconnect();
+      clearLocalStorage(['accessToken', 'refreshToken', LS_KEYS.RTU_CONNECT_STORE]);
+      disconnect?.();
     }
   };
 
