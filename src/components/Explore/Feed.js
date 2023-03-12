@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
 import { useAppStore } from '../../store/app';
-import { SCROLL_THRESHOLD } from '../../utils/constants';
+import { DATA_LIMIT, SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
@@ -37,7 +37,7 @@ function ExploreFeed({ feedType, sources }) {
    * remember to fix this when the pageInfo.totalCount
    * is fixed for now we limit the number of publications to 100 to avoid crashing the browser
    */
-  const hasMore = pageInfo?.next && publications?.length < 100;
+  const hasMore = pageInfo?.next && publications?.length < DATA_LIMIT;
 
   const loadMore = async () => {
     const loadedIds = new Set();
