@@ -3,6 +3,8 @@ import * as chain from '@wagmi/chains';
 
 export const SCROLL_THRESHOLD = 0.5;
 
+export const DATA_LIMIT = 100;
+
 // lens protocol
 export const API_URL = 'https://api-mumbai.lens.dev/';
 
@@ -13,6 +15,11 @@ export const ALCHEMY_RPC = `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KE
 // firebase
 export const RTU_CONNECT_MEDIA = 'media';
 export const RTU_CONNECT_PROFILE = 'profile';
+
+// local storage
+export const LS_KEYS = {
+  RTU_CONNECT_STORE: 'rtu.store'
+};
 
 // polygon
 export const FAUCET = 'https://faucet.polygon.technology';

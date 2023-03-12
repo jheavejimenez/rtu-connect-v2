@@ -1,44 +1,54 @@
 import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { TIMELINE } from '../../graphQL/queries/get-timeline';
+import { PROFILE_FEED } from '../../graphQL/queries/profile-feed';
 import { useAppStore } from '../../store/app';
-import { SCROLL_THRESHOLD } from '../../utils/constants';
+import { DATA_LIMIT, SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
 import ErrorMessage from '../UI/ErrorMesssage';
 
-function Feed() {
+function ProfileFeed({ profile }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profileId = currentProfile?.id ?? null;
 
-  const request = {
-    profileId,
+  const publicationsRequest = {
+    profileId: currentProfile?.id ?? profile?.id,
+    publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     limit: 10
   };
 
-  const { data, fetchMore, loading, error } = useQuery(TIMELINE, {
-    variables: { request }
+  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED, {
+    variables: { publicationsRequest }
   });
 
-  const publications = data?.feed?.items;
-  const pageInfo = data?.feed?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  const publications = data?.publications?.items;
+  const pageInfo = data?.publications?.pageInfo;
+  /**
+   * TODO: pageInfo.totalCount is null for some reason so we can't use it
+   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+   **/
+
+  /**
+   * remember to fix this when the pageInfo.totalCount
+   * is fixed for now we limit the number of publications to 100 to avoid crashing the browser
+   */
+  const hasMore = pageInfo?.next && publications?.length < DATA_LIMIT;
+
   const loadMore = async () => {
     const loadedIds = new Set();
     const updateQuery = (prev, { fetchMoreResult }) => {
       if (!fetchMoreResult) {
         return prev;
       }
-      const newData = fetchMoreResult.feed.items.filter((item) => !loadedIds.has(item.id));
+      const newData = fetchMoreResult.publications.items.filter((item) => !loadedIds.has(item.id));
       for (const item of newData) {
         loadedIds.add(item.id);
       }
       return {
-        feed: {
-          ...fetchMoreResult.feed,
-          items: [...prev.feed.items, ...newData]
+        publications: {
+          ...fetchMoreResult.publications,
+          items: [...prev.publications.items, ...newData]
         }
       };
     };
@@ -48,10 +58,9 @@ function Feed() {
     await fetchMore({
       variables: {
         request: {
-          ...request,
+          ...publicationsRequest,
           cursor: pageInfo?.next
-        },
-        profileId
+        }
       },
       updateQuery
     });
@@ -84,14 +93,10 @@ function Feed() {
       }
     >
       {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.root.id}_${index}`}
-          feedItem={publication}
-          publication={publication.root}
-        />
+        <SinglePublication key={`${publication.id}_${index}`} publication={publication} />
       ))}
     </InfiniteScroll>
   );
 }
 
-export default Feed;
+export default ProfileFeed;

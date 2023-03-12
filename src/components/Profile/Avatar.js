@@ -6,10 +6,24 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
+import { useDisconnect } from 'wagmi';
 
-import { getAvatarUrl } from '../../utils/helpers';
+import { useAppPersistStore, useAppStore } from '../../store/app';
+import { LS_KEYS } from '../../utils/constants';
+import { clearLocalStorage, getAvatarUrl } from '../../utils/helpers';
 
 function Avatar({ profile }) {
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const { disconnect } = useDisconnect();
+
+  function logout() {
+    clearLocalStorage(['accessToken', 'refreshToken', LS_KEYS.RTU_CONNECT_STORE]);
+    setCurrentProfile(null);
+    setProfileId(null);
+    disconnect?.();
+  }
+
   return (
     <Menu as={'div'} className={'relative inline-block text-left'}>
       <div>
@@ -73,6 +87,7 @@ function Avatar({ profile }) {
                   className={`${
                     active ? 'bg-gray-100' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  onClick={logout}
                 >
                   <ArrowRightOnRectangleIcon
                     className={'mr-3 h-5 w-5 text-red-400 group-hover:text-red-700'}

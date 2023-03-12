@@ -1,6 +1,7 @@
 import moment from 'moment/moment';
 import { useRouter } from 'next/router';
 
+import HomeFeedType from '../Home/FeedType';
 import UserProfile from '../Profile';
 import Reactions from '../Reacts';
 import PublicationBody from './PublicationBody';
@@ -11,11 +12,13 @@ function SinglePublication({ publication, feedItem, showType = true, showThread 
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
+
   const profile = feedItem
     ? rootPublication.profile
     : isMirror
     ? publication?.mirrorOf?.profile
     : publication?.profile;
+
   const timestamp = feedItem
     ? rootPublication.createdAt
     : isMirror
@@ -27,7 +30,11 @@ function SinglePublication({ publication, feedItem, showType = true, showThread 
       className={'hover:bg-gray-100 cursor-pointer rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
       onClick={() => push(`/posts/${rootPublication?.id}`)}
     >
-      <PublicationType publication={publication} showType={showType} showThread={showThread} />
+      {feedItem ? (
+        <HomeFeedType feedItem={feedItem} showThread={showThread} showType={showType} />
+      ) : (
+        <PublicationType publication={publication} showType={showType} showThread={showThread} />
+      )}
       <div className={'flex justify-between pb-4 space-x-1.5'}>
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />

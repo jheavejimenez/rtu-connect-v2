@@ -12,7 +12,6 @@ const httpLink = new HttpLink({
 
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken');
-  console.log('jwt token:', accessToken);
 
   if (!accessToken || accessToken === 'undefined') {
     clearLocalStorage(['accessToken', 'refreshToken']);
@@ -61,8 +60,70 @@ const authLink = new ApolloLink((operation, forward) => {
   );
 });
 
+function cursorBasedPagination(keyArgs) {
+  return {
+    keyArgs,
+    read(existing = {}, { canRead }) {
+      if (!existing) {
+        return existing;
+      }
+      const { items, pageInfo } = existing;
+      const removedItems = items?.filter((item) => !canRead(item));
+
+      return {
+        ...existing,
+        items,
+        pageInfo: {
+          ...pageInfo,
+          totalCount: pageInfo?.totalCount ? pageInfo.totalCount - removedItems?.length : null
+        }
+      };
+    },
+    merge(existing = {}, incoming) {
+      if (!existing) {
+        return incoming;
+      }
+
+      const existingItems = existing.items ?? [];
+      const incomingItems = incoming.items ?? [];
+
+      return {
+        ...incoming,
+        items: existingItems?.concat(incomingItems),
+        pageInfo: incoming.pageInfo
+      };
+    }
+  };
+}
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
+  // cache: new InMemoryCache({
+  //   typePolicies: {
+  //     Query: {
+  //       fields: {
+  //         timeline: cursorBasedPagination(['request', ['profileId']]),
+  //         feed: cursorBasedPagination(['request', ['profileId']]),
+  //         explorePublications: cursorBasedPagination(['request', ['sortCriteria']]),
+  //         publications: cursorBasedPagination([
+  //           'request',
+  //           ['profileId', 'collectedBy', 'commentsOf', 'publicationTypes', 'metadata']
+  //         ]),
+  //         followers: cursorBasedPagination(['request', ['profileId']]),
+  //         following: cursorBasedPagination(['request', ['address']]),
+  //         search: cursorBasedPagination(['request', ['query', 'type']]),
+  //         profiles: cursorBasedPagination([
+  //           'request',
+  //           ['profileIds', 'ownedBy', 'handles', 'whoMirroredPublicationId']
+  //         ]),
+  //         whoReactedPublication: cursorBasedPagination(['request', ['publicationId']]),
+  //         mutualFollowersProfiles: cursorBasedPagination([
+  //           'request',
+  //           ['viewingProfileId', 'yourProfileId', 'limit']
+  //         ])
+  //       }
+  //     }
+  //   }
   cache: new InMemoryCache(),
   connectToDevTools: true
 });

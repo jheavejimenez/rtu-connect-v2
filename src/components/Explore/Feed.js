@@ -1,44 +1,58 @@
 import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { TIMELINE } from '../../graphQL/queries/get-timeline';
+import { EXPLORE_FEED } from '../../graphQL/queries/explore-feed';
 import { useAppStore } from '../../store/app';
-import { SCROLL_THRESHOLD } from '../../utils/constants';
+import { DATA_LIMIT, SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
 import ErrorMessage from '../UI/ErrorMesssage';
 
-function Feed() {
+function ExploreFeed({ feedType, sources }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profileId = currentProfile?.id ?? null;
 
   const request = {
-    profileId,
+    sortCriteria: feedType ?? 'LATEST',
+    publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
+    sources: sources ?? [],
     limit: 10
   };
 
-  const { data, fetchMore, loading, error } = useQuery(TIMELINE, {
-    variables: { request }
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
+
+  const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED, {
+    variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.feed?.items;
-  const pageInfo = data?.feed?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  const publications = data?.explorePublications?.items;
+  const pageInfo = data?.explorePublications?.pageInfo;
+  /**
+   * TODO: pageInfo.totalCount is null for some reason so we can't use it
+   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+   **/
+
+  /**
+   * remember to fix this when the pageInfo.totalCount
+   * is fixed for now we limit the number of publications to 100 to avoid crashing the browser
+   */
+  const hasMore = pageInfo?.next && publications?.length < DATA_LIMIT;
+
   const loadMore = async () => {
     const loadedIds = new Set();
     const updateQuery = (prev, { fetchMoreResult }) => {
       if (!fetchMoreResult) {
         return prev;
       }
-      const newData = fetchMoreResult.feed.items.filter((item) => !loadedIds.has(item.id));
+      const newData = fetchMoreResult.explorePublications.items.filter((item) => !loadedIds.has(item.id));
       for (const item of newData) {
         loadedIds.add(item.id);
       }
       return {
-        feed: {
-          ...fetchMoreResult.feed,
-          items: [...prev.feed.items, ...newData]
+        explorePublications: {
+          ...fetchMoreResult.explorePublications,
+          items: [...prev.explorePublications.items, ...newData]
         }
       };
     };
@@ -51,6 +65,7 @@ function Feed() {
           ...request,
           cursor: pageInfo?.next
         },
+        reactionRequest,
         profileId
       },
       updateQuery
@@ -61,11 +76,12 @@ function Feed() {
     return <FeedShimmer />;
   }
   if (publications?.length === 0) {
-    return <Empty message={"You don't follow anyone. Start posting now!"} />;
+    return <Empty message={'Explore feed is empty, Start creating content now!'} />;
   }
   if (error) {
     return <ErrorMessage title={`Failed to load feed`} error={error} />;
   }
+
   return (
     <InfiniteScroll
       dataLength={publications?.length ?? 0}
@@ -84,14 +100,10 @@ function Feed() {
       }
     >
       {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.root.id}_${index}`}
-          feedItem={publication}
-          publication={publication.root}
-        />
+        <SinglePublication key={`${publication.id}_${index}`} publication={publication} />
       ))}
     </InfiniteScroll>
   );
 }
 
-export default Feed;
+export default ExploreFeed;

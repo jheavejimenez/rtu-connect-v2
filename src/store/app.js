@@ -1,6 +1,8 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { LS_KEYS } from '../utils/constants';
+
 export const useAppStore = create((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
@@ -18,6 +20,6 @@ export const useAppPersistStore = create(
       notificationCount: 0,
       setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
     }),
-    { name: 'rtuconnect.store' }
+    { name: LS_KEYS.RTU_CONNECT_STORE }
   )
 );
