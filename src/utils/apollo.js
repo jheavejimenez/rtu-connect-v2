@@ -12,7 +12,6 @@ const httpLink = new HttpLink({
 
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken');
-  console.log('jwt token:', accessToken);
 
   if (!accessToken || accessToken === 'undefined') {
     clearLocalStorage(['accessToken', 'refreshToken']);
