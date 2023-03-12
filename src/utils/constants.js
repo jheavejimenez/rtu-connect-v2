@@ -2,7 +2,9 @@
 import * as chain from '@wagmi/chains';
 
 export const SCROLL_THRESHOLD = 0.5;
+
 export const DATA_LIMIT = 50;
+
 // lens protocol
 export const API_URL = 'https://api-mumbai.lens.dev/';
 
