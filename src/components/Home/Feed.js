@@ -15,7 +15,7 @@ function Feed() {
 
   const request = {
     profileId,
-    limit: 50
+    limit: 10
   };
 
   const { data, fetchMore, loading, error } = useQuery(TIMELINE, {
