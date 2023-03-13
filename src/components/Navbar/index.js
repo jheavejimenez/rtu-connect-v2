@@ -33,10 +33,10 @@ function NavBar() {
             height={35}
           />
         </div>
-        <div className={'flex items-center justify-between space-x-1'}>
+        <div className={'flex items-center justify-between space-x-1 w-full '}>
           <div
             className={
-              'relative bg-gray-100 sm:w-11 sm:h-11' +
+              'relative bg-gray-100 w-full sm:w-11 sm:h-11' +
               ' lg:h-10 lg:w-10 xl:w-max xl:pl-3 xl:pr-8 rounded-full' +
               ' flex items-center justify-center cursor-pointer'
             }
