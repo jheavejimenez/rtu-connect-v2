@@ -1,3 +1,4 @@
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -9,7 +10,6 @@ import SvgWatch from '../logos/SvgWatch';
 import Avatar from '../Profile/Avatar';
 import Login from './Login';
 import NavItems from './NavItems';
-// import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 function NavBar() {
   const { pathname } = useRouter();
@@ -43,6 +43,7 @@ function NavBar() {
             }
           >
             <button className={'outline-none focus:outline-none'} />
+            <MagnifyingGlassIcon className={'h-6 w-6 text-gray-500'} />
             <input
               className={
                 'w-full pt-2 pl-3 pb-2 text-sm text-black outline-none focus:outline-none bg-transparent'
