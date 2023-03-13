@@ -9,6 +9,7 @@ import SvgWatch from '../logos/SvgWatch';
 import Avatar from '../Profile/Avatar';
 import Login from './Login';
 import NavItems from './NavItems';
+// import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 function NavBar() {
   const { pathname } = useRouter();
@@ -33,7 +34,7 @@ function NavBar() {
             height={35}
           />
         </div>
-        <div className={'flex items-center justify-between space-x-1 w-full '}>
+        <div className={'flex items-center justify-center space-x-1 w-full h-full'}>
           <div
             className={
               'relative bg-gray-100 w-full sm:w-11 sm:h-11' +
@@ -43,8 +44,10 @@ function NavBar() {
           >
             <button className={'outline-none focus:outline-none'} />
             <input
-              className={'w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent'}
-              placeholder={'Search'}
+              className={
+                'w-full pt-2 pl-3 pb-2 text-sm text-black outline-none focus:outline-none bg-transparent'
+              }
+              placeholder={'Search RTUConnect'}
               type={'search'}
             />
           </div>
