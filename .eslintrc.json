@@ -14,7 +14,7 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "/n"
+        "endOfLine": "lf"
       }
     ],
     "react/prop-types": "off",
