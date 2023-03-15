@@ -3,7 +3,7 @@ import Link from 'next/link';
 function NavItems({ url, name, current, logo }) {
   return (
     <Link href={url} aria-current={current ? 'page' : undefined}>
-      <li className={' w-1/5 md:w-max text-center '}>
+      <li className={' w-max md:w-max text-center '}>
         <div
           className={`${current}
             inline-block rounded text-gray-600 w-full 
