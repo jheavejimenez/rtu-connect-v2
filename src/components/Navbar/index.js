@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -37,16 +38,16 @@ function NavBar() {
         <div className={'flex items-center justify-center space-x-1 w-full h-full'}>
           <div
             className={
-              'relative bg-gray-100 w-full sm:w-11 sm:h-11' +
+              'relative bg-gray-200 w-full sm:w-11 sm:h-11' +
               ' lg:h-10 lg:w-10 xl:w-max xl:pl-3 xl:pr-8 rounded-full' +
               ' flex items-center justify-center cursor-pointer'
             }
           >
             <button className={'outline-none focus:outline-none'} />
-            <MagnifyingGlassIcon className={'h-6 w-6 text-gray-500'} />
+            <MagnifyingGlassIcon className={'pl-3 h-8 w-8 text-gray-500'} />
             <input
               className={
-                'w-full pt-2 pl-3 pb-2 text-sm text-black outline-none focus:outline-none bg-transparent'
+                'w-full pt-2 pl-2 pb-2 text-sm text-black outline-none focus:outline-none bg-transparent'
               }
               placeholder={'Search RTUConnect'}
               type={'search'}
@@ -58,6 +59,7 @@ function NavBar() {
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
+        <Bars3Icon className={'pb-2 h-10 w-10 md:hidden text-gray-500'} />
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
         <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
