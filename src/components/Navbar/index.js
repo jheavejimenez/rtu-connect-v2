@@ -26,7 +26,7 @@ function NavBar() {
       }
     >
       <div className={'flex items-center justify-between w-full md:w-max px-4 py-2'}>
-        <div className={'mr-2 hidden md:inline-block cursor-pointer'}>
+        <div className={'mr-3 mt-1 md:inline-block cursor-pointer'}>
           <Image
             src={rtuLogo}
             alt={'rtu logo'}
