@@ -59,7 +59,7 @@ function NavBar() {
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
-        <Bars3Icon className="h-8 w-8 md:hidden text-gray-500" />
+        <Bars3Icon className={'pb-2 h-10 w-10 md:hidden text-gray-500'} />
       </ul>
       <ul className={'hidden md:flex mx-4 items-center justify-center'}>
         <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
