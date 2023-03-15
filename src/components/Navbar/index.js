@@ -30,7 +30,7 @@ function NavBar() {
           <Image
             src={rtuLogo}
             alt={'rtu logo'}
-            className={'w-24 h-auto rounded-full'}
+            className={'w-auto h-auto rounded-full'}
             width={35}
             height={35}
           />
@@ -55,7 +55,7 @@ function NavBar() {
           </div>
         </div>
       </div>
-      <ul className={'flex w-full lg:w-max items-center justify-center'}>
+      <ul className={'flex w-full lg:w-max items-center justify-evenly'}>
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
