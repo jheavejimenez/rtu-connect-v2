@@ -6,29 +6,6 @@ import Reactions from '../Reacts';
 import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
 
-// Helper function to get the stats for a publication
-// const getStats = (publication) => {
-//   const isMirror = publication.__typename === 'Mirror';
-//   const stats = isMirror ? publication.mirrorOf.stats : publication.stats;
-//   return {
-//     mirrorCount: stats.totalAmountOfMirrors,
-//     reactionCount: stats.totalUpvotes,
-//     collectCount: stats.totalAmountOfCollects
-//   };
-// };
-//
-// // Helper function to get the profile for a publication
-// const getProfile = (publication) => {
-//   const isMirror = publication.__typename === 'Mirror';
-//   return isMirror ? publication.mirrorOf.profile : publication.profile;
-// };
-//
-// // Helper function to get the timestamp for a publication
-// const getTimestamp = (publication) => {
-//   const isMirror = publication.__typename === 'Mirror';
-//   return isMirror ? publication.mirrorOf.createdAt : publication.createdAt;
-// };
-
 function Publication({ publication }) {
   const isMirror = publication.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
