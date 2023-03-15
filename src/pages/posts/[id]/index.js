@@ -5,6 +5,7 @@ import ViewComment from '../../../components/Comment';
 import BetaWarning from '../../../components/Home/BetaWarning';
 import UserProfile from '../../../components/Profile';
 import Publication from '../../../components/Publication/Publication';
+import PublicationPageShimmer from '../../../components/Shimmer/PublicationPageShimmer';
 import Card from '../../../components/UI/Card';
 import { GridLayout } from '../../../components/UI/GridLayout';
 import { GET_PUBLICATION } from '../../../graphQL/queries/get-publication';
@@ -29,7 +30,7 @@ function ViewPublication() {
   const publication = data?.publication;
 
   if (loading || !data) {
-    return <div>{'Loading...'}</div>;
+    return <PublicationPageShimmer />;
   }
 
   if (error) {
