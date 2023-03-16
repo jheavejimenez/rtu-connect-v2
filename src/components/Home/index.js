@@ -1,6 +1,5 @@
-import { useAppStore } from '../../store/app';
 import { APP_NAME } from '../../utils/constants';
-import Post from '../Composer/Post';
+import NewPublication from '../Composer/Post';
 import ExploreFeed from '../Explore/Feed';
 import Banner from '../UI/Banner';
 import { GridLayout } from '../UI/GridLayout';
@@ -9,13 +8,14 @@ import HomeFeed from './Feed';
 import RecommendedProfile from './RecommendedProfile';
 
 function Home() {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  // const currentProfile = useAppStore((state) => state.currentProfile);
+  const currentProfile = true;
   return (
     <GridLayout>
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         {currentProfile ? (
           <>
-            <Post />
+            <NewPublication />
             <HomeFeed />
           </>
         ) : (
