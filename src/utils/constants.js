@@ -71,6 +71,84 @@ export const RECOMMENDED_PROFILES = {
           totalMirrors: 0,
           __typename: 'ProfileStats'
         }
+      },
+      {
+        id: '0x4fb0',
+        name: null,
+        bio: null,
+        attributes: [],
+        followNftAddress: null,
+        metadata: null,
+        isDefault: false,
+        picture: null,
+        handle: 'chadie.test',
+        coverPicture: null,
+        ownedBy: '0x29f45DfE96BDB710180553804CBA6c2359715cEE',
+        dispatcher: null,
+        stats: {
+          totalFollowers: 0,
+          totalFollowing: 0,
+          totalPosts: 1,
+          totalComments: 0,
+          totalMirrors: 0,
+          totalPublications: 1,
+          totalCollects: 0,
+          __typename: 'ProfileStats'
+        },
+        followModule: null,
+        __typename: 'Profile'
+      },
+      {
+        id: '0x50d9',
+        name: null,
+        bio: null,
+        attributes: [],
+        followNftAddress: null,
+        metadata: null,
+        isDefault: false,
+        picture: null,
+        handle: 'eloquade.test',
+        coverPicture: null,
+        ownedBy: '0xa89015f9f0Ff20e7D3a234C719a7175CCe5a9046',
+        dispatcher: null,
+        stats: {
+          totalFollowers: 0,
+          totalFollowing: 0,
+          totalPosts: 2,
+          totalComments: 0,
+          totalMirrors: 0,
+          totalPublications: 2,
+          totalCollects: 0,
+          __typename: 'ProfileStats'
+        },
+        followModule: null,
+        __typename: 'Profile'
+      },
+      {
+        id: '0x5012',
+        name: null,
+        bio: null,
+        attributes: [],
+        followNftAddress: null,
+        metadata: null,
+        isDefault: false,
+        picture: null,
+        handle: 'testdarell.test',
+        coverPicture: null,
+        ownedBy: '0x71cCfBC763F4721498d76b2e3D031fd312B965B5',
+        dispatcher: null,
+        stats: {
+          totalFollowers: 0,
+          totalFollowing: 0,
+          totalPosts: 2,
+          totalComments: 1,
+          totalMirrors: 0,
+          totalPublications: 3,
+          totalCollects: 0,
+          __typename: 'ProfileStats'
+        },
+        followModule: null,
+        __typename: 'Profile'
       }
     ]
   }
@@ -81,4 +159,4 @@ export const BLOCK_LIST_URL = [
   'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan'
 ];
 
-export const VERIFIED_PROFILES = ['0x43d0'];
+export const VERIFIED_PROFILES = ['0x43d0', '0x4fb0', '0x50d9', '0x5012'];

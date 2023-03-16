@@ -3,12 +3,12 @@ import Link from 'next/link';
 function NavItems({ url, name, current, logo }) {
   return (
     <Link href={url} aria-current={current ? 'page' : undefined}>
-      <li className={'w-1/5 md:w-max text-center'}>
+      <li className={' w-max md:w-max text-center flex justify-evenly '}>
         <div
-          className={`${current && 'bg-gray-200'}
+          className={`${current && 'text-blue-800'}
             inline-block rounded text-gray-600 w-full 
             text-md py-2 px-3 xl:px-12 cursor-pointer 
-            hover:bg-gray-100 relative`}
+            hover:bg-gray-200 hover:text-blue-800 relative`}
         >
           {logo}
         </div>

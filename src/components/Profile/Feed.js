@@ -24,6 +24,7 @@ function ProfileFeed({ profile }) {
 
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
+
   /**
    * TODO: pageInfo.totalCount is null for some reason so we can't use it
    const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
@@ -33,6 +34,7 @@ function ProfileFeed({ profile }) {
    * remember to fix this when the pageInfo.totalCount
    * is fixed for now we limit the number of publications to 100 to avoid crashing the browser
    */
+
   const hasMore = pageInfo?.next && publications?.length < DATA_LIMIT;
 
   const loadMore = async () => {
