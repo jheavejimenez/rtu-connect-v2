@@ -42,9 +42,7 @@ function NewPublication() {
             <img
               src={getAvatarUrl(profile)}
               loading={'lazy'}
-              className={'w-12 h-12 bg-gray-200 rounded-full border'}
-              height={40}
-              width={40}
+              className={'w-9 h-9 bg-gray-200 rounded-full border sm:w-12 sm:h-12'}
               alt={fixUsername(profile?.handle)}
             />
           </Link>
