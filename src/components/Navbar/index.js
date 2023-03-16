@@ -61,7 +61,7 @@ function NavBar() {
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
         <Bars3Icon className={'h-6 w-max md:hidden md:disabled text-gray-600'} />
       </ul>
-      <ul className={'sm:hidden md:flex mx-4 items-center justify-center'}>
+      <ul className={'hidden md:flex mx-4 items-center justify-center'}>
         <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
       </ul>
     </nav>
