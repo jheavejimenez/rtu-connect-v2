@@ -35,11 +35,11 @@ function NavBar() {
             height={35}
           />
         </div>
-        <div className={'flex items-center justify-center space-x-1 w-full h-full'}>
+        <div className={'flex items-stretch justify-center space-x-1 w-full h-full'}>
           <div
             className={
-              'relative bg-gray-200 w-full sm:w-11 sm:h-11' +
-              ' lg:h-10 lg:w-10 xl:w-max xl:pl-3 xl:pr-8 rounded-full' +
+              'relative bg-gray-200 h-full w-full' +
+              ' xl:w-max xl:pl-3 xl:pr-8 rounded-full' +
               ' flex items-center justify-center cursor-pointer'
             }
           >
@@ -59,13 +59,9 @@ function NavBar() {
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
-        <NavItems
-          url={'/menu'}
-          current={pathname === '/menu'}
-          logo={<Bars3Icon className={'h-6 w-max md:hidden text-gray-600'} />}
-        />
+        <Bars3Icon className={'h-6 w-max md:hidden md:disabled text-gray-600'} />
       </ul>
-      <ul className={'hidden md:flex mx-4 items-center justify-center'}>
+      <ul className={'sm:hidden md:flex mx-4 items-center justify-center'}>
         <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
       </ul>
     </nav>
