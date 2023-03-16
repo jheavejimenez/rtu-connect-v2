@@ -19,7 +19,7 @@ function NavBar() {
   return (
     <nav
       className={
-        'bg-white h-max md:h-14 w-full ' +
+        'bg-white h-32 md:h-14 w-full ' +
         'shadow flex flex-col md:flex-row ' +
         'items-center justify-center md:justify-between ' +
         'fixed top-0 z-50 border-b'
@@ -59,10 +59,13 @@ function NavBar() {
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
-        <Bars3Icon className={'h-6 w-max md:hidden md:disabled text-gray-600'} />
+        <Bars3Icon className={'h-6 w-max hidden md:hidden text-gray-600'} />
+        <ul className={'md:hidden w-21 flex mx-4 items-center justify-center'}>
+          <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
+        </ul>
       </ul>
-      <ul className={'hidden md:flex mx-4 items-center justify-center'}>
-        <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
+      <ul className={'hidden w-24 md:flex mx-2 items-center justify-center'}>
+        <li className={'mx-2'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
       </ul>
     </nav>
   );
