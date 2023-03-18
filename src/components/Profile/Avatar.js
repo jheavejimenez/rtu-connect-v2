@@ -12,7 +12,7 @@ import { useDisconnect } from 'wagmi';
 import { useAppPersistStore, useAppStore } from '../../store/app';
 import { useAuthStore } from '../../store/auth';
 import { LS_KEYS } from '../../utils/constants';
-import { clearLocalStorage, getAvatarUrl } from '../../utils/helpers';
+import { clearLocalStorage, fixUsername, getAvatarUrl } from '../../utils/helpers';
 
 function Avatar({ profile }) {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
@@ -38,7 +38,7 @@ function Avatar({ profile }) {
         <Menu.Button
           as={'img'}
           className={'inline-block h-10 w-10 rounded-full ring-2 ring-blue-800'}
-          alt={'avatar'}
+          alt={fixUsername(profile?.handle)}
           src={getAvatarUrl(profile)}
         />
       </div>

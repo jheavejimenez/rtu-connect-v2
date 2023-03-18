@@ -13,7 +13,7 @@ function Detail({ profile }) {
         <img
           className={'h-28 w-28 bg-white p-2 rounded-full shadow mb-4'}
           src={getAvatarUrl(profile)}
-          alt={'user avatar'}
+          alt={fixUsername(profile?.handle)}
         />
       </div>
       <div className={'flex items-center justify-center'}>
