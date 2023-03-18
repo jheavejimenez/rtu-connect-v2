@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
+import Detail from '../../../components/Profile/Detail';
 import ProfileFeed from '../../../components/Profile/Feed';
 import { GridLayout } from '../../../components/UI/GridLayout';
 import { GET_PROFILE } from '../../../graphQL/queries/get-profile';
@@ -35,7 +36,9 @@ function ViewProfile() {
   console.log(profile);
   return (
     <GridLayout>
-      <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>{'// user profile here'}</div>
+      <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>
+        <Detail />
+      </div>
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         <ProfileFeed profile={profile} />
       </div>
