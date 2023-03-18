@@ -16,8 +16,9 @@ function ViewProfile() {
   const { data, loading, error } = useQuery(GET_PROFILE, {
     variables: {
       profileRequest: {
-        handle: handle ?? currentProfile?.handle
-      }
+        handle: handle
+      },
+      skip: !handle
     }
   });
 
@@ -32,9 +33,8 @@ function ViewProfile() {
   if (!data?.profile) {
     return <div>{'No profile found'}</div>;
   }
-
   const profile = data?.profile;
-  console.log(profile);
+
   return (
     <GridLayout>
       <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>
