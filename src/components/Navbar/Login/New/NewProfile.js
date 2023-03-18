@@ -34,11 +34,18 @@ function NewProfile({ isModal = false }) {
       handle: ''
     },
     onSubmit: async (values) => {
+      if (!values.handle || values.handle.length < 5) {
+        toast.error('Handle must be minimum of 5 length');
+        return;
+      }
       const metadata = {
         contentType: file?.type
       };
       const handle = formatUsername(values.handle);
-      const fileUrl = file ? await uploadFile(file, `${RTU_CONNECT_PROFILE}/${nanoid(11)}`, metadata) : null;
+      const fileName = file?.name.split('.')[0];
+      const fileUrl = file
+        ? await uploadFile(file, `${RTU_CONNECT_PROFILE}/${fileName}-${nanoid(5)}`, metadata)
+        : null;
       await createProfile({
         variables: {
           request: {
@@ -49,7 +56,6 @@ function NewProfile({ isModal = false }) {
       });
     }
   });
-
   return data?.createProfile.__typename === 'RelayerResult' && data?.createProfile.txHash ? (
     <PendingProfile txHash={data?.createProfile?.txHash} />
   ) : (

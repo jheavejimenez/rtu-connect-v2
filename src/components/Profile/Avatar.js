@@ -6,19 +6,27 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
+import toast from 'react-hot-toast';
 import { useDisconnect } from 'wagmi';
 
 import { useAppPersistStore, useAppStore } from '../../store/app';
+import { useAuthStore } from '../../store/auth';
 import { LS_KEYS } from '../../utils/constants';
 import { clearLocalStorage, getAvatarUrl } from '../../utils/helpers';
 
 function Avatar({ profile }) {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const { disconnect } = useDisconnect();
+  const setLoginRequested = useAuthStore((state) => state.setLoginRequested);
+  const { disconnect } = useDisconnect({
+    onError: (error) => {
+      toast.error(error.message);
+    }
+  });
 
   function logout() {
     clearLocalStorage(['accessToken', 'refreshToken', LS_KEYS.RTU_CONNECT_STORE]);
+    setLoginRequested(false);
     setCurrentProfile(null);
     setProfileId(null);
     disconnect?.();

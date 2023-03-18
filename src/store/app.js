@@ -16,9 +16,7 @@ export const useAppPersistStore = create(
   persist(
     (set) => ({
       profileId: null,
-      setProfileId: (profileId) => set(() => ({ profileId })),
-      notificationCount: 0,
-      setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
+      setProfileId: (profileId) => set(() => ({ profileId }))
     }),
     { name: LS_KEYS.RTU_CONNECT_STORE }
   )

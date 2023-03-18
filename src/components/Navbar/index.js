@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { Bars3Icon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -19,7 +18,7 @@ function NavBar() {
   return (
     <nav
       className={
-        'bg-white h-max md:h-14 w-full ' +
+        'bg-white h-32 md:h-14 w-full ' +
         'shadow flex flex-col md:flex-row ' +
         'items-center justify-center md:justify-between ' +
         'fixed top-0 z-50 border-b'
@@ -59,10 +58,9 @@ function NavBar() {
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
-        <Bars3Icon className={'h-6 w-max md:hidden md:disabled text-gray-600'} />
       </ul>
-      <ul className={'hidden md:flex mx-4 items-center justify-center'}>
-        <li className={'mx-4'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
+      <ul className={'hidden w-24 md:flex mr-2 items-center justify-center'}>
+        <li className={'mx-0'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
       </ul>
     </nav>
   );

@@ -1,33 +1,49 @@
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useAccount } from 'wagmi';
 
+import { useAuthStore } from '../../../store/auth';
 import { APP_NAME } from '../../../utils/constants';
+import useLogin from '../../../utils/hooks/useLogin';
 import rtuLogo from '../../logos/rtuLogo.png';
 import Button from '../../UI/Button';
 import Modal from '../../UI/Modal';
-import ConnectToLens from './ConnectToLens';
+import Spinner from '../../UI/Spinner';
 import NewProfile from './New/NewProfile';
 
 function Login() {
-  const [hasProfile, setHasProfile] = useState(true);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const { openConnectModal } = useConnectModal();
+  const { isConnected } = useAccount();
+  const { showLoginFlow, handleLogin } = useLogin();
+
+  const loginRequested = useAuthStore((state) => state.loginRequested);
+  const showSignupModal = useAuthStore((state) => state.showSignupModal);
+  const setShowSignupModal = useAuthStore((state) => state.setShowSignupModal);
+  const signingInProgress = useAuthStore((state) => state.signingInProgress);
+
+  useEffect(() => {
+    if (isConnected && loginRequested) {
+      handleLogin();
+    }
+  }, [isConnected]);
+
   return (
     <>
       <Modal
         title={APP_NAME}
         icon={<Image height={55} width={55} src={rtuLogo} alt={'RTU Logo'} />}
-        show={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
+        show={showSignupModal}
+        onClose={() => setShowSignupModal(false)}
       >
-        {hasProfile ? <ConnectToLens setHasProfile={setHasProfile} /> : <NewProfile />}
+        <NewProfile />
       </Modal>
-      {openConnectModal ? (
-        <Button onClick={openConnectModal}>{'Connect Wallet'}</Button>
-      ) : (
-        <Button onClick={() => setShowLoginModal(!showLoginModal)}>{'Login'}</Button>
-      )}
+      <Button
+        disabled={signingInProgress}
+        onClick={() => {
+          showLoginFlow();
+        }}
+      >
+        {signingInProgress ? <Spinner /> : 'login'}
+      </Button>
     </>
   );
 }
