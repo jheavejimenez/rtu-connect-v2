@@ -156,7 +156,8 @@ export const RECOMMENDED_PROFILES = {
 
 export const BLOCK_LIST_URL = [
   'https://test.com',
-  'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan'
+  'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan',
+  'https://avatar.tobi.sh/tiktoko.png'
 ];
 
 export const VERIFIED_PROFILES = ['0x43d0', '0x4fb0', '0x50d9', '0x5012'];

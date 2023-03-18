@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { GET_PUBLICATIONS } from '../../graphQL/queries/get-publications';
 import { useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
+import NewComment from '../Composer/Comment';
 import SinglePublication from '../Publication/SinglePublication';
 import CommentShimmer from '../Shimmer/CommentShimmer';
 import Empty from '../UI/Empty';
@@ -38,7 +39,7 @@ function ViewComment({ publication }) {
 
   return (
     <>
-      {/*{currentProfile && <NewComment publication={publication} />}*/}
+      {currentProfile && <NewComment publication={publication} />}
       {loading && <CommentShimmer />}
       {!loading && commentsLength === 0 && <Empty message={<span>{'Be the first one to comment!'}</span>} />}
       <ErrorMessage title={'Failed to load comment feed'} error={error} />

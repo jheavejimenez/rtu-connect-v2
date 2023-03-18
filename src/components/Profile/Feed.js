@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { PROFILE_FEED } from '../../graphQL/queries/profile-feed';
-import { useAppStore } from '../../store/app';
 import { DATA_LIMIT, SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
@@ -10,10 +9,8 @@ import Empty from '../UI/Empty';
 import ErrorMessage from '../UI/ErrorMesssage';
 
 function ProfileFeed({ profile }) {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   const publicationsRequest = {
-    profileId: currentProfile?.id ?? profile?.id,
+    profileId: profile?.id,
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     limit: 10
   };
