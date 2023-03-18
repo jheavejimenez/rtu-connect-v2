@@ -5,6 +5,7 @@ import {
   ExclamationTriangleIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/router';
 import { Fragment } from 'react';
 import toast from 'react-hot-toast';
 import { useDisconnect } from 'wagmi';
@@ -18,6 +19,9 @@ function Avatar({ profile }) {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setLoginRequested = useAuthStore((state) => state.setLoginRequested);
+
+  const { push } = useRouter();
+
   const { disconnect } = useDisconnect({
     onError: (error) => {
       toast.error(error.message);
@@ -63,6 +67,9 @@ function Avatar({ profile }) {
                   className={`${
                     active ? 'bg-gray-100' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  onClick={() => {
+                    push(`/user/${profile?.handle}`);
+                  }}
                 >
                   <UserIcon
                     className={'mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-900'}
