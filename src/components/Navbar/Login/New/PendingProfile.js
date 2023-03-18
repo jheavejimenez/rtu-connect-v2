@@ -1,10 +1,13 @@
 import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 
 import { GET_TRANSACTION_INDEX } from '../../../../graphQL/queries/get-transaction-index';
 import Button from '../../../UI/Button';
 import Spinner from '../../../UI/Spinner';
 
 function PendingProfile({ handle, txHash }) {
+  const { push } = useRouter();
+
   const { loading } = useQuery(GET_TRANSACTION_INDEX, {
     variables: {
       hasTxHashBeenIndexedRequest: {
@@ -26,13 +29,7 @@ function PendingProfile({ handle, txHash }) {
           <div className={'text-[40px]'}>{'🌿'}</div>
           <div>{'Account created successfully'}</div>
           <div className={'pt-3'}>
-            <Button
-              onClick={() => {
-                window.location.reload();
-              }}
-            >
-              {'go to profile'}
-            </Button>
+            <Button onClick={() => push(`/`)}>{'go to homepage'}</Button>
           </div>
         </div>
       )}
