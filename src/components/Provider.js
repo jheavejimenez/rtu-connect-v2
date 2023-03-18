@@ -8,6 +8,7 @@ import { polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
 import client from '../utils/apollo';
+import { APP_NAME, GITBOOK } from '../utils/constants';
 // const { chains, provider } = configureChains(
 //   [chain.polygonMumbai],
 //   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
@@ -43,7 +44,13 @@ const wagmiClient = createClient({
 function Providers({ children }) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains} modalSize={'compact'}>
+      <RainbowKitProvider
+        appInfo={{
+          appName: APP_NAME,
+          learnMoreUrl: `${GITBOOK}`
+        }}
+        chains={chains}
+      >
         <ApolloProvider client={client}>{children}</ApolloProvider>
       </RainbowKitProvider>
     </WagmiConfig>
