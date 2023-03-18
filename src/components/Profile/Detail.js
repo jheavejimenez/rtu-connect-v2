@@ -1,7 +1,13 @@
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+
+import { useAppPersistStore } from '../../store/app';
+import { VERIFIED_PROFILES } from '../../utils/constants';
 import { fixUsername, getAvatarUrl } from '../../utils/helpers';
 import Button from '../UI/Button';
 
 function Detail({ profile }) {
+  const profileId = useAppPersistStore((state) => state.profileId);
+
   return (
     <aside
       className={
@@ -11,13 +17,14 @@ function Detail({ profile }) {
     >
       <div className={'flex flex-col gap-1 text-center items-center'}>
         <img
-          className={'h-28 w-28 bg-white p-2 rounded-full shadow mb-4'}
+          className={'h-28 w-28 bg-white p-2 rounded-full mb-4'}
           src={getAvatarUrl(profile)}
           alt={fixUsername(profile?.handle)}
         />
       </div>
       <div className={'flex items-center justify-center'}>
-        <span className={'font-semibold'}>{fixUsername(profile?.name) ?? fixUsername(profile?.handle)}</span>
+        <span className={'text-md'}>{fixUsername(profile?.name) ?? fixUsername(profile?.handle)}</span>
+        {VERIFIED_PROFILES.includes(profile?.id) && <CheckCircleIcon className={'w-4 h-4 text-blue-700'} />}
       </div>
       <div className={'flex items-center justify-center'}>
         {profile?.ownedBy !== undefined ? (
@@ -40,11 +47,13 @@ function Detail({ profile }) {
         </div>
       </div>
       <div className={'flex items-center justify-center pt-3'}>
-        <Button>{'Follow'}</Button>
+        {profileId !== profile.id && <Button>{'Follow'}</Button>}
       </div>
-      <div className={'flex items-center justify-center p-3'}>
-        <span className={'text-sm text-gray-400 whitespace-pre-wrap break-words'}>{profile?.bio}</span>
-      </div>
+      {profile?.bio && (
+        <div className={'flex items-center justify-center p-3'}>
+          <span className={'text-sm text-gray-400 whitespace-pre-wrap break-words'}>{profile?.bio}</span>
+        </div>
+      )}
     </aside>
   );
 }
