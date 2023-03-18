@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import BetaWarning from '../../../components/Home/BetaWarning';
 import Detail from '../../../components/Profile/Detail';
 import ProfileFeed from '../../../components/Profile/Feed';
+import ErrorMessage from '../../../components/UI/ErrorMesssage';
 import { GridLayout } from '../../../components/UI/GridLayout';
 import { GET_PROFILE } from '../../../graphQL/queries/get-profile';
 
@@ -21,7 +22,7 @@ function ViewProfile() {
   });
 
   if (error) {
-    return <div>{'Error'}</div>;
+    return <ErrorMessage title={`Failed to load feed`} error={error} />;
   }
 
   // if (loading || !data) {
