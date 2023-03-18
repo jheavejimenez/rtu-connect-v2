@@ -6,13 +6,11 @@ import Detail from '../../../components/Profile/Detail';
 import ProfileFeed from '../../../components/Profile/Feed';
 import { GridLayout } from '../../../components/UI/GridLayout';
 import { GET_PROFILE } from '../../../graphQL/queries/get-profile';
-import { useAppStore } from '../../../store/app';
 
 function ViewProfile() {
   const {
     query: { handle }
   } = useRouter();
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const { data, loading, error } = useQuery(GET_PROFILE, {
     variables: {
       profileRequest: {
