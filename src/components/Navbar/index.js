@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { Bars3Icon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -59,10 +58,6 @@ function NavBar() {
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
-        <Bars3Icon className={'h-6 w-max hidden md:hidden text-gray-600'} />
-        <ul className={'md:hidden w-21 flex mx-4 items-center justify-center'}>
-          <li className={'mx-0'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
-        </ul>
       </ul>
       <ul className={'hidden w-24 md:flex mr-2 items-center justify-center'}>
         <li className={'mx-0'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</li>
