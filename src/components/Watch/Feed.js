@@ -14,10 +14,13 @@ function WatchFeed() {
 
   const request = {
     sortCriteria: 'LATEST',
-    publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
+    publicationTypes: ['POST', 'MIRROR'],
     metadata: {
       mainContentFocus: ['VIDEO']
     },
+    noRandomize: false,
+    customFilters: ['GARDENERS'],
+    sources: ['lenstube', 'orb', 'rtutest', 'lenster'],
     limit: 10
   };
 
