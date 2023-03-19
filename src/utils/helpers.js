@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { utils } from 'ethers';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { Matcher } from 'interweave';
@@ -5,8 +6,9 @@ import { URL_PATTERN } from 'interweave-autolink';
 import Link from 'next/link';
 import omitDeep from 'omit-deep';
 import { createElement } from 'react';
+import toast from 'react-hot-toast';
 
-import { BLOCK_LIST_URL, NFT_STORAGE_GATEWAY, ZERO_ADDRESS } from './constants';
+import { BLOCK_LIST_URL, IPFS_GATEWAY, NFT_STORAGE_GATEWAY, ZERO_ADDRESS } from './constants';
 import { storage } from './firebase';
 
 /**
@@ -291,4 +293,20 @@ export const getSignature = (domain, types, value) => {
 
 export const splitSignature = (signature) => {
   return utils.splitSignature(signature);
+};
+
+export const uploadToIPFS = async (data) => {
+  try {
+    const upload = await axios.post(IPFS_GATEWAY, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_API_KEY}`
+      }
+    });
+
+    return upload.data;
+  } catch (error) {
+    toast.error('Error uploading to IPFS');
+    throw error;
+  }
 };
