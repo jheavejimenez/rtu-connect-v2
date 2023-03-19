@@ -8,6 +8,8 @@ export const DATA_LIMIT = 100;
 // lens protocol
 export const API_URL = 'https://api-mumbai.lens.dev/';
 
+export const LENS_HUB_MUMBAI = '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82';
+
 // alchemy
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
 export const ALCHEMY_RPC = `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`;
