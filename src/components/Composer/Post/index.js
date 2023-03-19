@@ -59,7 +59,6 @@ function NewPublication() {
         toast.error(broadcast.reason);
       } else {
         toast.success('Broadcast Transaction Successful');
-        setShowLoginModal(!showLoginModal);
       }
     }
   });
@@ -154,9 +153,10 @@ function NewPublication() {
         variables: { options: { overrideSigNonce: userSigNonce }, createPostTypedDataRequest }
       });
     } catch (error) {
-      console.log(error);
+      toast.error(`Error creating publication: ${error.message}`);
     } finally {
       setLoading(false);
+      setShowLoginModal(!showLoginModal);
     }
   };
 
