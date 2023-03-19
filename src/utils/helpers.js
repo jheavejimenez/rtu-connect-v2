@@ -1,7 +1,9 @@
+import { utils } from 'ethers';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { Matcher } from 'interweave';
 import { URL_PATTERN } from 'interweave-autolink';
 import Link from 'next/link';
+import omitDeep from 'omit-deep';
 import { createElement } from 'react';
 
 import { BLOCK_LIST_URL, NFT_STORAGE_GATEWAY, ZERO_ADDRESS } from './constants';
@@ -278,3 +280,15 @@ export class MDCodeMatcher extends Matcher {
     );
   }
 }
+
+export const getSignature = (domain, types, value) => {
+  return {
+    domain: omitDeep(domain, '__typename'),
+    types: omitDeep(types, '__typename'),
+    value: omitDeep(value, '__typename')
+  };
+};
+
+export const splitSignature = (signature) => {
+  return utils.splitSignature(signature);
+};
