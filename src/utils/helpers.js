@@ -295,6 +295,13 @@ export const splitSignature = (signature) => {
   return utils.splitSignature(signature);
 };
 
+/**
+ *
+ * @description - upload data to IPFS
+ * @param  data
+ * @returns url
+ *
+ */
 export const uploadToIPFS = async (data) => {
   try {
     const upload = await axios.post(IPFS_GATEWAY, data, {
