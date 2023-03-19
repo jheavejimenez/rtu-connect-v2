@@ -30,17 +30,16 @@ export const POLYGON_MUMBAI = {
   name: 'Polygon Mumbai',
   rpcUrls: { default: 'https://rpc-mumbai.maticvigil.com' }
 };
-
 export const CHAIN_ID = 80001;
-
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
+// IPFS
 export const NFT_STORAGE_GATEWAY = 'https://nftstorage.link/ipfs/';
+export const IPFS_GATEWAY = 'https://api.pinata.cloud/pinning/pinJSONToIPFS';
 
+// RTU Connect
 export const APP_NAME = 'RTU Connect';
-
 export const GITBOOK = 'https://jhv.gitbook.io/rtu-connect';
-
 export const ALLOWED_VIDEO_TYPES = ['video/quicktime', 'video/mp4', 'video/mpeg', 'video/ogg', 'video/webm'];
 
 // Recommended Profiles
