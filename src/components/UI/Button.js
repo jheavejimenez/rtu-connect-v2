@@ -1,6 +1,6 @@
 function Button({ loading, icon = '', children, ...props }) {
   const className =
-    'btn bg-blue-500 text-[12px] h-11 w-24 sm:w-22 relative hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-md focus:outline-none focus:shadow-outline';
+    'btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline';
 
   return (
     <button
