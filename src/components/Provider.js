@@ -5,16 +5,12 @@ import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit
 import { metaMaskWallet, rainbowWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { polygonMumbai } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../utils/apollo';
-import { APP_NAME, GITBOOK } from '../utils/constants';
-// const { chains, provider } = configureChains(
-//   [chain.polygonMumbai],
-//   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
-// );
+import { ALCHEMY_KEY, APP_NAME, GITBOOK } from '../utils/constants';
 
-const { provider, webSocketProvider, chains } = configureChains([polygonMumbai], [publicProvider()]);
+const { chains, provider } = configureChains([polygonMumbai], [alchemyProvider({ apiKey: ALCHEMY_KEY })]);
 
 const connectors = connectorsForWallets([
   {

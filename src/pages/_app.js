@@ -1,5 +1,6 @@
 import '../../styles/globals.css';
 
+import { Analytics } from '@vercel/analytics/react';
 import { lazy, Suspense } from 'react';
 
 import Loading from '../components/Shimmer/Loading';
@@ -13,6 +14,7 @@ function App({ Component, pageProps }) {
       <Provider>
         <Layout>
           <Component {...pageProps} />
+          <Analytics />
         </Layout>
       </Provider>
     </Suspense>
