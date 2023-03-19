@@ -283,11 +283,11 @@ export class MDCodeMatcher extends Matcher {
   }
 }
 
-export const getSignature = (domain, types, value) => {
+export const getSignature = (typedData) => {
   return {
-    domain: omitDeep(domain, '__typename'),
-    types: omitDeep(types, '__typename'),
-    value: omitDeep(value, '__typename')
+    domain: omitDeep(typedData.domain, '__typename'),
+    types: omitDeep(typedData.types, '__typename'),
+    value: omitDeep(typedData.value, '__typename')
   };
 };
 
@@ -313,7 +313,7 @@ export const uploadToIPFS = async (data) => {
 
     return upload.data;
   } catch (error) {
-    toast.error('Error uploading to IPFS');
+    toast.error(`Error uploading to IPFS: ${error.message}`);
     throw error;
   }
 };
