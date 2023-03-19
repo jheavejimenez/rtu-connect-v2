@@ -9,7 +9,9 @@ export const useAppStore = create((set) => ({
   currentProfile: null,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   userSigNonce: 0,
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
+  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
+  publicationContent: '',
+  setPublicationContent: (publicationContent) => set(() => ({ publicationContent }))
 }));
 
 export const useAppPersistStore = create(
