@@ -4,6 +4,7 @@ import NewPublication from '../Composer/Post';
 import ExploreFeed from '../Explore/Feed';
 import Banner from '../UI/Banner';
 import { GridLayout } from '../UI/GridLayout';
+import MetaTags from '../UI/MetaTags';
 import BetaWarning from './BetaWarning';
 import HomeFeed from './Feed';
 import RecommendedProfile from './RecommendedProfile';
@@ -12,6 +13,7 @@ function Home() {
   const currentProfile = useAppStore((state) => state.currentProfile);
   return (
     <GridLayout>
+      <MetaTags tile={APP_NAME} />
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         {currentProfile ? (
           <>

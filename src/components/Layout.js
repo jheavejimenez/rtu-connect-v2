@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import Head from 'next/head';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
@@ -11,6 +10,7 @@ import { clearLocalStorage, getTokenFromLocalStorage } from '../utils/helpers';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import Navbar from './Navbar';
 import Loading from './Shimmer/Loading';
+import MetaTags from './UI/MetaTags';
 
 function Layout({ children }) {
   const setProfiles = useAppStore((state) => state.setProfiles);
@@ -76,10 +76,12 @@ function Layout({ children }) {
 
   return (
     <>
-      <Head>
-        <title>{APP_NAME}</title>
-        <meta name={'description'} content={APP_NAME} />
-      </Head>
+      <MetaTags
+        tile={APP_NAME}
+        description={
+          'A decentralize social media for Rizal Technological University built with Lens Protocol 🌿'
+        }
+      />
       <Toaster
         containerStyle={{
           position: 'relative',

@@ -8,8 +8,10 @@ import Publication from '../../../components/Publication/Publication';
 import PublicationPageShimmer from '../../../components/Shimmer/PublicationPageShimmer';
 import Card from '../../../components/UI/Card';
 import { GridLayout } from '../../../components/UI/GridLayout';
+import MetaTags from '../../../components/UI/MetaTags';
 import { GET_PUBLICATION } from '../../../graphQL/queries/get-publication';
 import { useAppStore } from '../../../store/app';
+import { APP_NAME } from '../../../utils/constants';
 
 function ViewPublication() {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -43,6 +45,7 @@ function ViewPublication() {
 
   return (
     <GridLayout>
+      <MetaTags title={`Post ${APP_NAME}`} />
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         <Card className={'!rounded-xl'}>
           <Publication publication={publication} />
