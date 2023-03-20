@@ -34,10 +34,10 @@ function NavBar() {
             height={35}
           />
         </div>
-        <div className={'flex justify-start w-full h-full'}>
+        <div className={' justify-start w-full h-full pr-12'}>
           <div
             className={
-              'relative bg-gray-200 h-full md:w-full w-4/5' +
+              'relative bg-gray-200 h-full w-full' +
               ' xl:w-max xl:pl-3 xl:pr-8 rounded-full' +
               ' flex shrink items-center justify-center cursor-pointer'
             }
@@ -54,17 +54,19 @@ function NavBar() {
           </div>
         </div>
       </div>
-      <ul className={'flex w-full lg:w-max items-center justify-evenly md:justify-center'}>
+      <ul className={'flex w-full md:w-max items-center justify-evenly md:justify-center'}>
         <NavItems url={'/'} current={pathname === '/'} logo={<SvgHome />} />
         <NavItems url={'/explore'} current={pathname === '/explore'} logo={<SvgCommunity />} />
         <NavItems url={'/watch'} current={pathname === '/watch'} logo={<SvgWatch />} />
       </ul>
       <div
         className={
-          'absolute h-fit top-5 right-0 md:relative md:top-0 w-22 mr-3 flex items-center justify-center'
+          'absolute h-fit top-5 right-0 md:relative ml-5 md:top-0 md:w-fit w-22 mr-3 flex items-center justify-center'
         }
       >
-        <div className={'mx-0'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</div>
+        <div className={'mx-0 w-full'}>
+          {!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}
+        </div>
       </div>
     </nav>
   );
