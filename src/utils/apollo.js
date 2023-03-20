@@ -7,6 +7,7 @@ import { clearLocalStorage, isTokenExpired, setLocalStorage } from './helpers';
 
 const httpLink = new HttpLink({
   uri: API_URL,
+  fetchOptions: 'no-cors',
   fetch
 });
 
