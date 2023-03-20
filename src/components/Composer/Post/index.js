@@ -173,7 +173,7 @@ function NewPublication() {
         <Editor />
         <div className={'block items-center sm:flex px-5'}>
           <div className={'ml-auto pt-2 sm:pt-0'}>
-            <Button loading={isLoading} disabled={isLoading} onClick={createPublication}>
+            <Button loading={isLoading} disabled={isLoading}>
               {isLoading ? <Spinner /> : 'Post'}
             </Button>
           </div>
