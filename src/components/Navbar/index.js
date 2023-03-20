@@ -61,7 +61,7 @@ function NavBar() {
       </ul>
       <div
         className={
-          'absolute h-fit top-5 right-0 md:relative md:top-0 w-24 flex items-center mr-1 justify-center'
+          'absolute h-fit top-5 right-0 md:relative md:top-0 w-22 mr-3 flex items-center justify-center'
         }
       >
         <div className={'mx-0'}>{!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}</div>
