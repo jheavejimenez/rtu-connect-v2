@@ -2,8 +2,9 @@ import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { TIMELINE } from '../../graphQL/queries/get-timeline';
-import { useAppStore } from '../../store/app';
+import { useAppPersistStore, useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
+import Queued from '../Publication/Queued';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
@@ -11,6 +12,7 @@ import ErrorMessage from '../UI/ErrorMesssage';
 
 function Feed() {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const txnQueue = useAppPersistStore((state) => state.txnQueue);
   const profileId = currentProfile?.id ?? null;
 
   const request = {
@@ -83,6 +85,14 @@ function Feed() {
         </div>
       }
     >
+      {txnQueue.map(
+        (txn) =>
+          txn?.type === 'new_post' && (
+            <div key={txn.id}>
+              <Queued txn={txn} />
+            </div>
+          )
+      )}
       {publications?.map((publication, index) => (
         <SinglePublication
           key={`${publication?.root.id}_${index}`}

@@ -6,10 +6,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import { BROADCAST_TRANSACTION } from '../../../graphQL/mutations/broadcast-transaction';
 import { CREATE_COMMENT } from '../../../graphQL/mutations/create-comment';
-import { useAppStore } from '../../../store/app';
+import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
 import { LENS_HUB_MUMBAI } from '../../../utils/constants';
-import { getSignature, splitSignature, uploadToIPFS } from '../../../utils/helpers';
+import { generateTxnQueData, getSignature, splitSignature, uploadToIPFS } from '../../../utils/helpers';
 import Button from '../../UI/Button';
 import Card from '../../UI/Card';
 import Spinner from '../../UI/Spinner';
@@ -17,9 +17,13 @@ import Editor from '../index';
 
 function NewComment({ publication }) {
   const publicationContent = useAppStore((state) => state.publicationContent);
+  const setPublicationContent = useAppStore((state) => state.setPublicationContent);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const setTxnQueue = useAppPersistStore((state) => state.setTxnQueue);
+  const txnQueue = useAppPersistStore((state) => state.txnQueue);
+
   // States
   const [loading, setLoading] = useState(false);
 
@@ -35,19 +39,28 @@ function NewComment({ publication }) {
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: () => {
-      toast('posted successfully');
+      toast('Comment posted successfully', { type: 'success' });
     },
     onError: (error) => {
-      toast(`Error posting Comment: ${error.message}`);
+      toast(`Error posting Comment: ${error.message}`, { type: 'error' });
     }
   });
 
   const [broadcast] = useMutation(BROADCAST_TRANSACTION, {
-    onCompleted: ({ broadcast }) => {
-      if (broadcast.__typename === 'RelayError') {
-        toast.error(broadcast.reason);
-      } else {
-        toast.success('Broadcast Transaction Successful');
+    onCompleted: (data) => {
+      if (data.broadcast.__typename === 'RelayerResult') {
+        setTxnQueue([
+          generateTxnQueData({
+            txHash: data.broadcast.txHash,
+            txId: data.broadcast.txId,
+            publication,
+            publicationContent,
+            attachments: [],
+            isComment: true
+          }),
+          ...txnQueue
+        ]);
+        setPublicationContent('');
       }
     }
   });
