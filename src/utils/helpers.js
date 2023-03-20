@@ -283,6 +283,12 @@ export class MDCodeMatcher extends Matcher {
   }
 }
 
+/**
+ * @description - Get signature from typed data
+ * @param typedData - Typed data to split
+ * @returns typed data parts
+ */
+
 export const getSignature = (typedData) => {
   return {
     domain: omitDeep(typedData.domain, '__typename'),
@@ -291,6 +297,11 @@ export const getSignature = (typedData) => {
   };
 };
 
+/**
+ * @description - Split signature into r, s, and v
+ * @param signature - Signature to split
+ * @returns signature parts
+ */
 export const splitSignature = (signature) => {
   return utils.splitSignature(signature);
 };
