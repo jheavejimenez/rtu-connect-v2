@@ -1,6 +1,6 @@
 import { CurrencyDollarIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
-import { APP_NAME, FAUCET, GITBOOK } from '../../utils/constants';
+import { APP_NAME, FAUCET } from '../../utils/constants';
 
 function BetaWarning() {
   return (
@@ -23,14 +23,14 @@ function BetaWarning() {
           {'Get Testnet Token'}
         </a>
       </div>
-      <p className={'text-sm leading-[22px]'}>
-        {`Visit our Documentation to `}
-        <span className={'text-sm font-bold text-yellow-700'}>
-          <a href={GITBOOK} target={'_blank'} rel={'noreferrer noopener'}>
-            {'learn more'}
-          </a>
-        </span>
-      </p>
+      {/*<p className={'text-sm leading-[22px]'}>*/}
+      {/*  {`Visit our Documentation to `}*/}
+      {/*  <span className={'text-sm font-bold text-yellow-700'}>*/}
+      {/*    <a href={GITBOOK} target={'_blank'} rel={'noreferrer noopener'}>*/}
+      {/*      {'learn more'}*/}
+      {/*    </a>*/}
+      {/*  </span>*/}
+      {/*</p>*/}
     </aside>
   );
 }
