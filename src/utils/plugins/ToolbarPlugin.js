@@ -36,7 +36,7 @@ export default function ToolbarPlugin() {
     );
   }, [editor, updateToolbar]);
   return (
-    <div className={'toolbar w-full flex space-x-1 ml-3'}>
+    <div className={'toolbar flex space-x-1 ml-3'}>
       <button
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
