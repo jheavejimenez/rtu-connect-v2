@@ -18,7 +18,9 @@ export const useAppPersistStore = create(
   persist(
     (set) => ({
       profileId: null,
-      setProfileId: (profileId) => set(() => ({ profileId }))
+      setProfileId: (profileId) => set(() => ({ profileId })),
+      txnQueue: [],
+      setTxnQueue: (txnQueue) => set(() => ({ txnQueue }))
     }),
     { name: LS_KEYS.RTU_CONNECT_STORE }
   )
