@@ -3,6 +3,7 @@ import { utils } from 'ethers';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { Matcher } from 'interweave';
 import { URL_PATTERN } from 'interweave-autolink';
+import { nanoid } from 'nanoid';
 import Link from 'next/link';
 import omitDeep from 'omit-deep';
 import { createElement } from 'react';
@@ -327,4 +328,33 @@ export const uploadToIPFS = async (data) => {
     toast.error(`Error uploading to IPFS: ${error.message}`);
     throw error;
   }
+};
+
+/**
+ * @description - this function will return data for the queue to be use
+ * @param txHash
+ * @param txId
+ * @param publication
+ * @param publicationContent
+ * @param attachments
+ * @param isComment
+ * @returns {{attachments, txId, id: string, type: (string), txHash, content}}
+ */
+export const generateTxnQueData = ({
+  txHash,
+  txId,
+  publication,
+  publicationContent,
+  attachments,
+  isComment = false
+}) => {
+  return {
+    id: nanoid(),
+    ...(isComment && { parent: publication.id }),
+    type: isComment ? 'new_comment' : 'new_post',
+    txHash,
+    txId,
+    content: publicationContent,
+    attachments
+  };
 };
