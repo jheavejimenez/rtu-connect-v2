@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { PROFILE_FEED } from '../../graphQL/queries/profile-feed';
-import { DATA_LIMIT, SCROLL_THRESHOLD } from '../../utils/constants';
+import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
 import Empty from '../UI/Empty';
@@ -12,7 +12,7 @@ function ProfileFeed({ profile }) {
   const publicationsRequest = {
     profileId: profile?.id,
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
-    limit: 10
+    limit: 32
   };
 
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED, {
@@ -32,7 +32,7 @@ function ProfileFeed({ profile }) {
    * is fixed for now we limit the number of publications to 100 to avoid crashing the browser
    */
 
-  const hasMore = pageInfo?.next && publications?.length < DATA_LIMIT;
+  const hasMore = pageInfo?.next && publications?.length < 1;
 
   const loadMore = async () => {
     const loadedIds = new Set();

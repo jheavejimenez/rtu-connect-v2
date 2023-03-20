@@ -11,8 +11,8 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
-import { useState } from 'react';
 
+import { useAppStore } from '../../store/app';
 import CodeHighlightPlugin from '../../utils/plugins/CodeHighlightPlugin';
 import ToolbarPlugin from '../../utils/plugins/ToolbarPlugin';
 import Theme from './themes/Theme';
@@ -35,7 +35,8 @@ const editorConfig = {
 };
 
 export default function Editor() {
-  const [publicationContent, setPublicationContent] = useState();
+  const setPublicationContent = useAppStore((state) => state.setPublicationContent);
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <ToolbarPlugin />

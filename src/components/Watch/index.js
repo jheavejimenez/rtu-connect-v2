@@ -1,11 +1,14 @@
+import { APP_NAME } from '../../utils/constants';
 import BetaWarning from '../Home/BetaWarning';
 import RecommendedProfile from '../Home/RecommendedProfile';
 import { GridLayout } from '../UI/GridLayout';
+import MetaTags from '../UI/MetaTags';
 import WatchFeed from './Feed';
 
 function Watch() {
   return (
     <GridLayout>
+      <MetaTags tile={`Watch ${APP_NAME}`} />
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         <WatchFeed />
       </div>
