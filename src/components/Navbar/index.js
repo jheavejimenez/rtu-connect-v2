@@ -34,7 +34,7 @@ function NavBar() {
             height={35}
           />
         </div>
-        <div className={' justify-start w-full h-full pr-12'}>
+        <div className={' justify-start w-full h-full pr-16'}>
           <div
             className={
               'relative bg-gray-200 h-full w-full' +
@@ -61,10 +61,10 @@ function NavBar() {
       </ul>
       <div
         className={
-          'absolute h-fit top-5 right-0 md:relative ml-5 md:top-0 md:w-fit w-22 mr-3 flex items-center justify-center'
+          'absolute h-fit top-5 right-0 md:relative md:top-0 md:w-fit w-22 mr-3 flex items-center justify-center'
         }
       >
-        <div className={'mx-0 w-full'}>
+        <div className={'mx-2 w-full'}>
           {!currentProfile ? <Login /> : <Avatar profile={currentProfile} />}
         </div>
       </div>
