@@ -30,6 +30,7 @@ function NewPublication() {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+
   // States
   const [loading, setLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -173,7 +174,7 @@ function NewPublication() {
         <Editor />
         <div className={'block items-center sm:flex px-5'}>
           <div className={'ml-auto pt-2 sm:pt-0'}>
-            <Button loading={isLoading} disabled={isLoading}>
+            <Button loading={isLoading} disabled={isLoading} onClick={createPublication}>
               {isLoading ? <Spinner /> : 'Post'}
             </Button>
           </div>
