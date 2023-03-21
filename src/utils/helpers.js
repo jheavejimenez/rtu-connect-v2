@@ -9,7 +9,14 @@ import omitDeep from 'omit-deep';
 import { createElement } from 'react';
 import toast from 'react-hot-toast';
 
-import { BLOCK_LIST_URL, IPFS_GATEWAY, NFT_STORAGE_GATEWAY, ZERO_ADDRESS } from './constants';
+import {
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
+  BLOCK_LIST_URL,
+  IPFS_GATEWAY,
+  NFT_STORAGE_GATEWAY,
+  ZERO_ADDRESS
+} from './constants';
 import { storage } from './firebase';
 
 /**
@@ -357,4 +364,18 @@ export const generateTxnQueData = ({
     content: publicationContent,
     attachments
   };
+};
+
+export const getPublicationMainFocus = (attachments) => {
+  if (attachments.length > 0) {
+    if (ALLOWED_IMAGE_TYPES.includes(attachments[0].type)) {
+      return 'IMAGE';
+    } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type)) {
+      return 'VIDEO';
+    } else {
+      return 'TEXT_ONLY';
+    }
+  } else {
+    return 'TEXT_ONLY';
+  }
 };
