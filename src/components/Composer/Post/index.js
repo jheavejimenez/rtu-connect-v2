@@ -8,11 +8,12 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import { BROADCAST_TRANSACTION } from '../../../graphQL/mutations/broadcast-transaction';
 import { CREATE_PUBLICATION } from '../../../graphQL/mutations/create-publications';
-import { useAppStore } from '../../../store/app';
+import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
 import { APP_NAME, LENS_HUB_MUMBAI } from '../../../utils/constants';
 import {
   fixUsername,
+  generateTxnQueData,
   getAvatarUrl,
   getSignature,
   splitSignature,
@@ -30,6 +31,9 @@ function NewPublication() {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const setPublicationContent = useAppStore((state) => state.setPublicationContent);
+  const setTxnQueue = useAppPersistStore((state) => state.setTxnQueue);
+  const txnQueue = useAppPersistStore((state) => state.txnQueue);
 
   // States
   const [loading, setLoading] = useState(false);
@@ -55,11 +59,18 @@ function NewPublication() {
   });
 
   const [broadcast] = useMutation(BROADCAST_TRANSACTION, {
-    onCompleted: ({ broadcast }) => {
-      if (broadcast.__typename === 'RelayError') {
-        toast.error(broadcast.reason);
-      } else {
-        toast.success('Broadcast Transaction Successful');
+    onCompleted: (data) => {
+      if (data.broadcast.__typename === 'RelayerResult') {
+        setTxnQueue([
+          generateTxnQueData({
+            txHash: data.broadcast.txHash,
+            txId: data.broadcast.txId,
+            publicationContent,
+            attachments: []
+          }),
+          ...txnQueue
+        ]);
+        setPublicationContent('');
       }
     }
   });
