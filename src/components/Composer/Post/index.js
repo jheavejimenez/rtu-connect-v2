@@ -133,7 +133,7 @@ function NewPublication() {
             txHash: data.broadcast.txHash,
             txId: data.broadcast.txId,
             publicationContent,
-            attachments
+            attachments: attachmentMetadata
           }),
           ...txnQueue
         ]);
