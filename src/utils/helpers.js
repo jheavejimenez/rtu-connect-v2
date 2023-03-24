@@ -379,3 +379,10 @@ export const getPublicationMainFocus = (attachments) => {
     return 'TEXT_ONLY';
   }
 };
+
+export const getMimeType = (attachments) => {
+  if (attachments.length === 0) {
+    return null;
+  }
+  return attachments[0]?.type;
+};
