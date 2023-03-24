@@ -14,7 +14,7 @@ function Home() {
   return (
     <GridLayout>
       <MetaTags tile={APP_NAME} />
-      <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
+      <div className={'mt-16 md:mt-0 space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         {currentProfile ? (
           <>
             <NewPublication />

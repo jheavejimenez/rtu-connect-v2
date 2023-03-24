@@ -21,7 +21,7 @@ function Explore() {
       <MetaTags tile={`Explore ${APP_NAME}`} />
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         <Tab.Group>
-          <Tab.List className={'divider space-x-8 pb-3'}>
+          <Tab.List className={'divider mt-16 md:mt-0 flex justify-around sm:space-x-8 '}>
             {tabs.map((tab, index) => (
               <Tab
                 key={index}

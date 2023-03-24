@@ -3,12 +3,20 @@ import { utils } from 'ethers';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { Matcher } from 'interweave';
 import { URL_PATTERN } from 'interweave-autolink';
+import { nanoid } from 'nanoid';
 import Link from 'next/link';
 import omitDeep from 'omit-deep';
 import { createElement } from 'react';
 import toast from 'react-hot-toast';
 
-import { BLOCK_LIST_URL, IPFS_GATEWAY, NFT_STORAGE_GATEWAY, ZERO_ADDRESS } from './constants';
+import {
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
+  BLOCK_LIST_URL,
+  IPFS_GATEWAY,
+  NFT_STORAGE_GATEWAY,
+  ZERO_ADDRESS
+} from './constants';
 import { storage } from './firebase';
 
 /**
@@ -283,6 +291,12 @@ export class MDCodeMatcher extends Matcher {
   }
 }
 
+/**
+ * @description - Get signature from typed data
+ * @param typedData - Typed data to split
+ * @returns typed data parts
+ */
+
 export const getSignature = (typedData) => {
   return {
     domain: omitDeep(typedData.domain, '__typename'),
@@ -291,6 +305,11 @@ export const getSignature = (typedData) => {
   };
 };
 
+/**
+ * @description - Split signature into r, s, and v
+ * @param signature - Signature to split
+ * @returns signature parts
+ */
 export const splitSignature = (signature) => {
   return utils.splitSignature(signature);
 };
@@ -316,4 +335,54 @@ export const uploadToIPFS = async (data) => {
     toast.error(`Error uploading to IPFS: ${error.message}`);
     throw error;
   }
+};
+
+/**
+ * @description - this function will return data for the queue to be use
+ * @param txHash
+ * @param txId
+ * @param publication
+ * @param publicationContent
+ * @param attachments
+ * @param isComment
+ * @returns {{attachments, txId, id: string, type: (string), txHash, content}}
+ */
+export const generateTxnQueData = ({
+  txHash,
+  txId,
+  publication,
+  publicationContent,
+  attachments,
+  isComment = false
+}) => {
+  return {
+    id: nanoid(),
+    ...(isComment && { parent: publication.id }),
+    type: isComment ? 'new_comment' : 'new_post',
+    txHash,
+    txId,
+    content: publicationContent,
+    attachments
+  };
+};
+
+export const getPublicationMainFocus = (attachments) => {
+  if (attachments.length > 0) {
+    if (ALLOWED_IMAGE_TYPES.includes(attachments[0].type)) {
+      return 'IMAGE';
+    } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type)) {
+      return 'VIDEO';
+    } else {
+      return 'TEXT_ONLY';
+    }
+  } else {
+    return 'TEXT_ONLY';
+  }
+};
+
+export const getMimeType = (attachments) => {
+  if (attachments.length === 0) {
+    return null;
+  }
+  return attachments[0]?.type;
 };

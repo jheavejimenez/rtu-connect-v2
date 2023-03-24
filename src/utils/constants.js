@@ -41,9 +41,9 @@ export const IPFS_GATEWAY = 'https://api.pinata.cloud/pinning/pinJSONToIPFS';
 export const APP_NAME = 'RTU Connect';
 export const GITBOOK = 'https://jhv.gitbook.io/rtu-connect';
 export const ALLOWED_VIDEO_TYPES = ['video/quicktime', 'video/mp4', 'video/mpeg', 'video/ogg', 'video/webm'];
+export const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
 // Recommended Profiles
-
 export const RECOMMENDED_PROFILES = {
   data: {
     recommendedProfiles: [

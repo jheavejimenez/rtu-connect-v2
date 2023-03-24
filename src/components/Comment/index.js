@@ -2,9 +2,10 @@ import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { GET_PUBLICATIONS } from '../../graphQL/queries/get-publications';
-import { useAppStore } from '../../store/app';
+import { useAppPersistStore, useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import NewComment from '../Composer/Comment';
+import Queued from '../Publication/Queued';
 import SinglePublication from '../Publication/SinglePublication';
 import CommentShimmer from '../Shimmer/CommentShimmer';
 import Empty from '../UI/Empty';
@@ -13,6 +14,7 @@ import ErrorMessage from '../UI/ErrorMesssage';
 function ViewComment({ publication }) {
   const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const txnQueue = useAppPersistStore((state) => state.txnQueue);
 
   const reactionsRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
@@ -50,6 +52,15 @@ function ViewComment({ publication }) {
         next={loadMore}
       >
         <div className={'divide-y-[1px]'}>
+          {txnQueue.map(
+            (txn) =>
+              txn?.type === 'new_comment' &&
+              txn?.parent === publication?.id && (
+                <div key={txn.id}>
+                  <Queued txn={txn} />
+                </div>
+              )
+          )}
           {comments?.map((comment, index) => (
             <SinglePublication key={`${publicationId}_${index}`} publication={comment} showType={false} />
           ))}

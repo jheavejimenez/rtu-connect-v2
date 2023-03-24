@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import { nanoid } from 'nanoid';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,14 +9,24 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import { BROADCAST_TRANSACTION } from '../../../graphQL/mutations/broadcast-transaction';
 import { CREATE_PUBLICATION } from '../../../graphQL/mutations/create-publications';
-import { useAppStore } from '../../../store/app';
+import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
-import { APP_NAME, LENS_HUB_MUMBAI } from '../../../utils/constants';
+import {
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
+  APP_NAME,
+  LENS_HUB_MUMBAI,
+  RTU_CONNECT_MEDIA
+} from '../../../utils/constants';
 import {
   fixUsername,
+  generateTxnQueData,
   getAvatarUrl,
+  getMimeType,
+  getPublicationMainFocus,
   getSignature,
   splitSignature,
+  uploadFile,
   uploadToIPFS
 } from '../../../utils/helpers';
 import rtuLogo from '../../logos/rtuLogo.png';
@@ -30,9 +41,70 @@ function NewPublication() {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const setPublicationContent = useAppStore((state) => state.setPublicationContent);
+  const setTxnQueue = useAppPersistStore((state) => state.setTxnQueue);
+  const txnQueue = useAppPersistStore((state) => state.txnQueue);
+
   // States
   const [loading, setLoading] = useState(false);
+  const [firebaseLoading, setFirebaseLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [attachmentMetadata, setAttachmentMetadata] = useState([]);
+
+  const ALLOWED_MEDIA = [...ALLOWED_IMAGE_TYPES, ...ALLOWED_VIDEO_TYPES].join(',');
+
+  const uploadToFirebase = async (file) => {
+    const metadata = {
+      contentType: file?.type
+    };
+
+    const fileName = file?.name.split('.')[0];
+    const fileUrl = await uploadFile(file, `${RTU_CONNECT_MEDIA}/${fileName}-${nanoid(5)}`, metadata);
+
+    return {
+      item: fileUrl,
+      type: file?.type
+    };
+  };
+
+  const handleFileOnChange = async (event) => {
+    try {
+      setFirebaseLoading(true);
+      const selectedFile = event.target.files[0];
+      if (!selectedFile) {
+        toast.error('No file selected');
+        return;
+      }
+      if (!ALLOWED_MEDIA.includes(selectedFile.type)) {
+        toast.error('File type not supported');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+
+      const data = await uploadToFirebase(selectedFile);
+
+      setAttachmentMetadata([...attachmentMetadata, data]);
+      setAttachments([...attachments, selectedFile]);
+
+      reader.readAsDataURL(selectedFile);
+
+      toast.success('File selected successfully');
+    } catch (error) {
+      toast.error(`Error in uploading: ${error.message}`);
+    } finally {
+      setFirebaseLoading(false);
+    }
+  };
+
+  console.log('attachments', attachments);
+  console.table('attachmentMetadata', attachmentMetadata);
+  console.log('attachmentMetadata item', attachmentMetadata[0]?.item);
+  console.log('getMimeType(attachments)', getMimeType(attachments));
 
   const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({
     onError: (error) => {
@@ -54,11 +126,18 @@ function NewPublication() {
   });
 
   const [broadcast] = useMutation(BROADCAST_TRANSACTION, {
-    onCompleted: ({ broadcast }) => {
-      if (broadcast.__typename === 'RelayError') {
-        toast.error(broadcast.reason);
-      } else {
-        toast.success('Broadcast Transaction Successful');
+    onCompleted: (data) => {
+      if (data.broadcast.__typename === 'RelayerResult') {
+        setTxnQueue([
+          generateTxnQueData({
+            txHash: data.broadcast.txHash,
+            txId: data.broadcast.txId,
+            publicationContent,
+            attachments: attachmentMetadata
+          }),
+          ...txnQueue
+        ]);
+        setPublicationContent('');
       }
     }
   });
@@ -108,30 +187,30 @@ function NewPublication() {
     }
     try {
       setLoading(true);
-      if (publicationContent.length === 0) {
+      if (publicationContent.length === 0 && attachments.length === 0) {
         toast.error('Please write something.');
         return;
       }
       const metadata = {
         version: '2.0.0',
-        mainContentFocus: 'TEXT_ONLY',
+        mainContentFocus: getPublicationMainFocus(attachments),
         metadata_id: nanoid(),
         description: 'RTU Connect Post',
         locale: 'en-US',
         content: publicationContent,
         external_url: `https://rtu-connect-v2.vercel.app/user/${currentProfile?.handle}`,
-        image: null,
-        imageMimeType: null,
+        image: attachments?.length > 0 ? attachmentMetadata[0]?.item : null,
+        imageMimeType: getMimeType(attachments),
         name: `Posted by ${currentProfile?.name}`,
         contentWarning: null,
         attributes: [
           {
             traitType: 'string',
             key: 'type',
-            value: 'post'
+            value: getPublicationMainFocus(attachments)?.toLowerCase()
           }
         ],
-        media: null,
+        media: attachmentMetadata,
         appId: 'rtutest'
       };
       const metadataURI = await createMetadata(metadata);
@@ -172,13 +251,51 @@ function NewPublication() {
       >
         <Editor />
         <div className={'block items-center sm:flex px-5'}>
+          {firebaseLoading ? (
+            <Spinner />
+          ) : (
+            <label>
+              <PhotoIcon className={'w-9 h-9 text-gray-500 cursor-pointer'} />
+              <input
+                type={'file'}
+                className={'hidden'}
+                accept={ALLOWED_MEDIA}
+                onChange={handleFileOnChange}
+              />
+            </label>
+          )}
           <div className={'ml-auto pt-2 sm:pt-0'}>
-            <Button loading={isLoading} disabled={isLoading}>
+            <Button loading={isLoading} disabled={isLoading} onClick={createPublication}>
               {isLoading ? <Spinner /> : 'Post'}
             </Button>
           </div>
         </div>
-        <div className={'py-5'} />
+        <div className={'py-3'}>
+          {attachments.length > 0 && (
+            <div className={'px-5 relative items-center'}>
+              {attachments[0].type.includes('image') ? (
+                <img className={'w-fit h-1/2'} src={previewUrl} />
+              ) : (
+                <video src={previewUrl} />
+              )}
+              <div className={'absolute inset-0 flex items-center justify-center'}>
+                <button
+                  className={
+                    'flex items-center justify-center w-20 opacity-0 font-bold text-red-500 hover:opacity-100 rounded bg-red-100'
+                  }
+                  onClick={() => {
+                    setAttachments([]);
+                    setAttachmentMetadata([]);
+                    setPreviewUrl('');
+                    toast.success('Attachment removed');
+                  }}
+                >
+                  {'remove'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </Modal>
       <Card className={'p-5 space-y-3 !rounded-xl'}>
         <div className={'flex items-center space-x-3'}>
