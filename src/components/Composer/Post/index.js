@@ -15,15 +15,18 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
-  LENS_HUB_MUMBAI
+  LENS_HUB_MUMBAI,
+  RTU_CONNECT_MEDIA
 } from '../../../utils/constants';
 import {
   fixUsername,
   generateTxnQueData,
   getAvatarUrl,
+  getMimeType,
   getPublicationMainFocus,
   getSignature,
   splitSignature,
+  uploadFile,
   uploadToIPFS
 } from '../../../utils/helpers';
 import rtuLogo from '../../logos/rtuLogo.png';
@@ -44,33 +47,65 @@ function NewPublication() {
 
   // States
   const [loading, setLoading] = useState(false);
+  const [firebaseLoading, setFirebaseLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [attachments, setAttachments] = useState([]);
   const [previewUrl, setPreviewUrl] = useState('');
+  const [attachmentMetadata, setAttachmentMetadata] = useState([]);
 
   const ALLOWED_MEDIA = [...ALLOWED_IMAGE_TYPES, ...ALLOWED_VIDEO_TYPES].join(',');
 
-  const handleFileOnChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (!selectedFile) {
-      toast.error('No file selected');
-      return;
-    }
-    if (!ALLOWED_MEDIA.includes(selectedFile.type)) {
-      toast.error('File type not supported');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPreviewUrl(reader.result);
+  const uploadToFirebase = async (file) => {
+    const metadata = {
+      contentType: file?.type
     };
-    setAttachments([...attachments, selectedFile]);
-    reader.readAsDataURL(selectedFile);
-    toast.success('File selected successfully');
+
+    const fileName = file?.name.split('.')[0];
+    const fileUrl = await uploadFile(file, `${RTU_CONNECT_MEDIA}/${fileName}-${nanoid(5)}`, metadata);
+
+    return {
+      item: fileUrl,
+      type: file?.type
+    };
+  };
+
+  const handleFileOnChange = async (event) => {
+    try {
+      setFirebaseLoading(true);
+      const selectedFile = event.target.files[0];
+      if (!selectedFile) {
+        toast.error('No file selected');
+        return;
+      }
+      if (!ALLOWED_MEDIA.includes(selectedFile.type)) {
+        toast.error('File type not supported');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+
+      const data = await uploadToFirebase(selectedFile);
+
+      setAttachmentMetadata([...attachmentMetadata, data]);
+      setAttachments([...attachments, selectedFile]);
+
+      reader.readAsDataURL(selectedFile);
+
+      toast.success('File selected successfully');
+    } catch (error) {
+      toast.error(`Error in uploading: ${error.message}`);
+    } finally {
+      setFirebaseLoading(false);
+    }
   };
 
   console.log('attachments', attachments);
-  console.log('previewUrl', previewUrl);
+  console.table('attachmentMetadata', attachmentMetadata);
+  console.log('attachmentMetadata item', attachmentMetadata[0]?.item);
+  console.log('getMimeType(attachments)', getMimeType(attachments));
+
   const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({
     onError: (error) => {
       toast('Error signing typed data: ' + error.message, { type: 'error' });
@@ -98,7 +133,7 @@ function NewPublication() {
             txHash: data.broadcast.txHash,
             txId: data.broadcast.txId,
             publicationContent,
-            attachments: []
+            attachments
           }),
           ...txnQueue
         ]);
@@ -164,8 +199,8 @@ function NewPublication() {
         locale: 'en-US',
         content: publicationContent,
         external_url: `https://rtu-connect-v2.vercel.app/user/${currentProfile?.handle}`,
-        image: null,
-        imageMimeType: null,
+        image: attachments?.length > 0 ? attachmentMetadata[0]?.item : null,
+        imageMimeType: getMimeType(attachments),
         name: `Posted by ${currentProfile?.name}`,
         contentWarning: null,
         attributes: [
@@ -175,7 +210,7 @@ function NewPublication() {
             value: getPublicationMainFocus(attachments)?.toLowerCase()
           }
         ],
-        media: null,
+        media: attachmentMetadata,
         appId: 'rtutest'
       };
       const metadataURI = await createMetadata(metadata);
@@ -216,10 +251,19 @@ function NewPublication() {
       >
         <Editor />
         <div className={'block items-center sm:flex px-5'}>
-          <label>
-            <PhotoIcon className={'w-9 h-9 text-gray-500 cursor-pointer'} />
-            <input type={'file'} className={'hidden'} accept={ALLOWED_MEDIA} onChange={handleFileOnChange} />
-          </label>
+          {firebaseLoading ? (
+            <Spinner />
+          ) : (
+            <label>
+              <PhotoIcon className={'w-9 h-9 text-gray-500 cursor-pointer'} />
+              <input
+                type={'file'}
+                className={'hidden'}
+                accept={ALLOWED_MEDIA}
+                onChange={handleFileOnChange}
+              />
+            </label>
+          )}
           <div className={'ml-auto pt-2 sm:pt-0'}>
             <Button loading={isLoading} disabled={isLoading} onClick={createPublication}>
               {isLoading ? <Spinner /> : 'Post'}
@@ -241,6 +285,7 @@ function NewPublication() {
                   }
                   onClick={() => {
                     setAttachments([]);
+                    setAttachmentMetadata([]);
                     setPreviewUrl('');
                     toast.success('Attachment removed');
                   }}
