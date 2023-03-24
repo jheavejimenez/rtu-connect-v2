@@ -18,7 +18,7 @@ function NavBar() {
   return (
     <nav
       className={
-        'bg-white h-32 md:h-14 w-full ' +
+        'bg-white h-28 md:h-14 w-full ' +
         'shadow flex flex-col md:flex-row ' +
         'items-center justify-center md:justify-between ' +
         'fixed top-0 z-50 border-b'
@@ -61,7 +61,7 @@ function NavBar() {
       </ul>
       <div
         className={
-          'absolute h-fit top-5 right-0 md:relative md:top-0 md:w-fit w-22 mr-3 flex items-center justify-center'
+          'absolute h-fit top-3 right-0 md:relative md:top-0 md:w-fit w-22 mr-3 flex items-center justify-center'
         }
       >
         <div className={'mx-2 w-full'}>
