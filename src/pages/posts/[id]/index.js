@@ -46,7 +46,7 @@ function ViewPublication() {
   return (
     <GridLayout>
       <MetaTags title={`Post ${APP_NAME}`} />
-      <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mt-16'}>
+      <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mt-16 md:mt-0'}>
         <Card className={'!rounded-xl'}>
           <Publication publication={publication} />
         </Card>
