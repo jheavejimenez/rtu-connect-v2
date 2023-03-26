@@ -105,6 +105,7 @@ function NewPublication() {
   console.table('attachmentMetadata', attachmentMetadata);
   console.log('attachmentMetadata item', attachmentMetadata[0]?.item);
   console.log('getMimeType(attachments)', getMimeType(attachments));
+  console.log('getPublicationMainFocus(attachments)', getPublicationMainFocus(attachments));
 
   const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({
     onError: (error) => {

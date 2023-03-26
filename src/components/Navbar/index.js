@@ -46,7 +46,7 @@ function NavBar() {
             <MagnifyingGlassIcon className={'pl-3 h-8 w-8 text-gray-500'} />
             <input
               className={
-                'w-full pt-2 pl-2 pb-2 text-sm text-black outline-none focus:outline-none bg-transparent'
+                'w-full pt-2 pl-2 pb-2 pr-3 text-sm text-black outline-none focus:outline-none bg-transparent'
               }
               placeholder={'Search'}
               type={'search'}
