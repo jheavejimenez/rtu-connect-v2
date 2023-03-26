@@ -11,7 +11,7 @@ function Detail({ profile }) {
   return (
     <aside
       className={
-        'rounded-none sm:rounded-xl border mb-4 bg-white border border-gray-200 ' +
+        'rounded-none sm:rounded-xl border mt-16 md:mt-0 mb-4 bg-white border border-gray-200 ' +
         'space-y-2.5 p-10 md:w-82px  '
       }
     >
