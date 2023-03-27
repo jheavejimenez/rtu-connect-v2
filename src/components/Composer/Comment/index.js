@@ -39,10 +39,10 @@ function NewComment({ publication }) {
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: () => {
-      toast('Comment posted successfully', { type: 'success' });
+      toast.success('Comment posted successfully');
     },
     onError: (error) => {
-      toast(`Error posting Comment: ${error.message}`, { type: 'error' });
+      toast.error(`Error posting Comment: ${error.message}`);
     }
   });
 
