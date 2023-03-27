@@ -82,7 +82,6 @@ function Like({ publication }) {
     }
   };
 
-  console.log(publication?.stats);
   return (
     <motion.button whileTap={{ scale: 0.9 }} aria-label={'Like'} onClick={createLike}>
       <span className={'flex items-center space-x-1'}>
