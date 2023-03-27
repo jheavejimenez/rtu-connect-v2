@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_MIRROR = gql`
-  mutation CreateMirrorTypedData($createMirrorTypedDataRequest: CreateMirrorRequest!) {
-    createMirrorTypedData(request: $createMirrorTypedDataRequest) {
+  mutation CreateMirrorTypedData($request: CreateMirrorRequest!) {
+    createMirrorTypedData(request: $request) {
       id
       expiresAt
       typedData {
