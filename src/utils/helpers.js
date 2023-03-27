@@ -91,7 +91,7 @@ export const contentFormatter = (value) =>
  */
 export const getNFTStorageLink = (url) => {
   const gateway = NFT_STORAGE_GATEWAY;
-  return url.replace('https://ipfs.io/ipfs/', gateway).replace('ipfs://', gateway);
+  return url?.replace('https://ipfs.io/ipfs/', gateway).replace('ipfs://', gateway);
 };
 
 /**
