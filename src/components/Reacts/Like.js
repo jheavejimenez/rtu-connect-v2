@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { CREATE_DOWNVOTE } from '../../graphQL/mutations/create-downvote';
 import { CREATE_UPVOTE } from '../../graphQL/mutations/create-upvote';
 import { useAppStore } from '../../store/app';
+import { publicationKeyFields } from '../../utils/helpers';
 
 function Like({ publication }) {
   const isMirror = publication?.__typename === 'Mirror';
@@ -28,7 +29,7 @@ function Like({ publication }) {
 
   const updateCache = (type) => {
     cache.modify({
-      id: isMirror ? publication?.mirrorOf : publication,
+      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
       fields: {
         stats: (stats) => ({
           ...stats,
