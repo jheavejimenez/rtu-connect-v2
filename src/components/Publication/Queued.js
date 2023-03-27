@@ -5,6 +5,7 @@ import { GET_PUBLICATION } from '../../graphQL/queries/get-publication';
 import { GET_TRANSACTION_INDEX } from '../../graphQL/queries/get-transaction-index';
 import { useAppPersistStore, useAppStore } from '../../store/app';
 import UserProfile from '../Profile';
+import MediaRenderer from './MediaRenderer';
 
 function Queued({ txn }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -78,6 +79,9 @@ function Queued({ txn }) {
             onClick={(event) => event.stopPropagation()}
           />
         </div>
+        {txn?.attachments.length > 0 && (
+          <MediaRenderer media={txn?.attachments?.item} mediaType={txn.attachments?.type} />
+        )}
       </div>
     </article>
   );
