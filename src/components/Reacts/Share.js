@@ -1,4 +1,4 @@
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { splitSignature } from 'ethers/lib/utils';
 import { motion } from 'framer-motion';
@@ -34,9 +34,7 @@ function Share({ publication, electedMirror }) {
     }
   });
 
-  const { cache } = useApolloClient();
-
-  const updateCache = () => {
+  const updateCache = (cache) => {
     cache.modify({
       id: isMirror ? publication?.mirrorOf : publication,
       fields: {
