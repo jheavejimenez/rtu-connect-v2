@@ -386,3 +386,10 @@ export const getMimeType = (attachments) => {
   }
   return attachments[0]?.type;
 };
+
+export const publicationKeyFields = (publication) => {
+  return `${publication.__typename}:${JSON.stringify({
+    id: publication.id,
+    createdAt: publication.createdAt
+  })}`;
+};
