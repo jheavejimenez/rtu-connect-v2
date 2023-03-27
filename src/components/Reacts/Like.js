@@ -1,4 +1,4 @@
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { HeartIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -25,9 +25,7 @@ function Like({ publication }) {
     isMirror ? publication?.mirrorOf?.stats?.totalUpvotes : publication?.stats?.totalUpvotes
   );
 
-  const { cache } = useApolloClient();
-
-  const updateCache = (type) => {
+  const updateCache = (cache, type) => {
     cache.modify({
       id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
       fields: {
