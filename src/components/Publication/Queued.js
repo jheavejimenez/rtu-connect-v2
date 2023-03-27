@@ -62,8 +62,6 @@ function Queued({ txn }) {
     }
   });
 
-  console.log();
-
   return (
     <article
       className={'hover:bg-gray-100 animate-pulse rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
