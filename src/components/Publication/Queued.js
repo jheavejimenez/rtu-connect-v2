@@ -62,6 +62,8 @@ function Queued({ txn }) {
     }
   });
 
+  console.log();
+
   return (
     <article
       className={'hover:bg-gray-100 animate-pulse rounded-none sm:rounded-xl border bg-white mb-3.5 p-5'}
@@ -80,7 +82,7 @@ function Queued({ txn }) {
           />
         </div>
         {txn?.attachments.length > 0 && (
-          <MediaRenderer media={txn?.attachments?.item} mediaType={txn.attachments?.type} />
+          <MediaRenderer media={txn?.attachments[0]?.item} mediaType={txn?.attachments[0]?.type} />
         )}
       </div>
     </article>
