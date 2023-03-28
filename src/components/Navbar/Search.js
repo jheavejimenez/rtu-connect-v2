@@ -9,7 +9,7 @@ import Card from '../UI/Card';
 import Spinner from '../UI/Spinner';
 
 function Search({ hideDropdown = false }) {
-  const { push, pathname, query } = useRouter();
+  const { push, pathname } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
 
