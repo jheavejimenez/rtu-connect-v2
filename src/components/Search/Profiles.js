@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { SEARCH_PROFILES } from '../../graphQL/queries/search-profiles';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import UserProfile from '../Profile';
+import ProfileShimmer from '../Shimmer/ProfileShimmer';
 import Card from '../UI/Card';
 import Empty from '../UI/Empty';
 import ErrorMessage from '../UI/ErrorMesssage';
@@ -57,9 +58,9 @@ function Profiles({ query }) {
     });
   };
 
-  // if (loading) {
-  //   return <UserProfilesShimmer isBig />;
-  // }
+  if (loading) {
+    return <ProfileShimmer />;
+  }
 
   if (profiles?.length === 0) {
     return <Empty message={`No profiles for &ldquo;${query}&rdquo;`} />;
