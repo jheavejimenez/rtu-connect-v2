@@ -45,6 +45,7 @@ function Search({ hideDropdown = false }) {
   const searchResult = searchUsersData?.search;
   const isProfileSearchResult = searchResult && searchResult.hasOwnProperty('items');
   const profiles = isProfileSearchResult ? searchResult.items : [];
+
   return (
     <div aria-hidden={'true'} className={'w-full'}>
       <form onSubmit={handleKeyDown}>
