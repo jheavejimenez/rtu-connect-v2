@@ -41,6 +41,7 @@ function Queued({ txn }) {
     pollInterval: 1000,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+        toast.error('transaction error');
         return removeTxn();
       }
 
@@ -48,6 +49,7 @@ function Queued({ txn }) {
         const status = data.hasTxHashBeenIndexed.metadataStatus?.status;
 
         if (status === 'METADATA_VALIDATION_FAILED' || status === 'NOT_FOUND') {
+          toast.error('metadata validation failed');
           return removeTxn();
         }
         if (data.hasTxHashBeenIndexed.indexed) {
