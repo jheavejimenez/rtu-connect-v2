@@ -83,17 +83,14 @@ function Layout({ children }) {
         }
       />
       <Toaster
-        containerStyle={{
-          position: 'relative',
-          top: '65px'
-        }}
-        position={'top-right'}
+        position={'bottom-right'}
+        reverseOrder={false}
         toastOptions={{
           success: {
-            duration: 3000
+            duration: 5000
           },
           error: {
-            duration: 5000
+            duration: 6000
           }
         }}
       />

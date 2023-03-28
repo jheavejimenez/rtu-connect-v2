@@ -1,5 +1,6 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useAppStore } from '../../store/app';
@@ -10,6 +11,7 @@ import SvgWatch from '../logos/SvgWatch';
 import Avatar from '../Profile/Avatar';
 import Login from './Login';
 import NavItems from './NavItems';
+import Search from './Search';
 
 function NavBar() {
   const { pathname } = useRouter();
@@ -26,13 +28,15 @@ function NavBar() {
     >
       <div className={'flex items-center justify-between w-full md:w-max px-4 py-2'}>
         <div className={'mr-3 mt-1 md:inline-block cursor-pointer'}>
-          <Image
-            src={rtuLogo}
-            alt={'rtu logo'}
-            className={'w-auto h-auto rounded-full'}
-            width={35}
-            height={35}
-          />
+          <Link href={'/'}>
+            <Image
+              src={rtuLogo}
+              alt={'rtu logo'}
+              className={'w-auto h-auto rounded-full'}
+              width={35}
+              height={35}
+            />
+          </Link>
         </div>
         <div className={' justify-start w-full h-full pr-16'}>
           <div
@@ -44,13 +48,7 @@ function NavBar() {
           >
             <button className={'outline-none focus:outline-none'} />
             <MagnifyingGlassIcon className={'pl-3 h-8 w-8 text-gray-500'} />
-            <input
-              className={
-                'w-full pt-2 pl-2 pb-2 pr-3 text-sm text-black outline-none focus:outline-none bg-transparent'
-              }
-              placeholder={'Search'}
-              type={'search'}
-            />
+            <Search />
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ export const GET_PROFILE = gql`
         key
         value
       }
+      isFollowedByMe
       followNftAddress
       metadata
       isDefault

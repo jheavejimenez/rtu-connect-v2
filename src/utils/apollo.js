@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { refresh } from '../graphQL/auth/auth-mutations';
 import { API_URL } from './constants';
-import { clearLocalStorage, isTokenExpired, setLocalStorage } from './helpers';
+import { clearLocalStorage, isTokenExpired, publicationKeyFields, setLocalStorage } from './helpers';
 
 const httpLink = new HttpLink({
   uri: API_URL,
@@ -99,33 +99,13 @@ function cursorBasedPagination(keyArgs) {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  // cache: new InMemoryCache({
-  //   typePolicies: {
-  //     Query: {
-  //       fields: {
-  //         timeline: cursorBasedPagination(['request', ['profileId']]),
-  //         feed: cursorBasedPagination(['request', ['profileId']]),
-  //         explorePublications: cursorBasedPagination(['request', ['sortCriteria']]),
-  //         publications: cursorBasedPagination([
-  //           'request',
-  //           ['profileId', 'collectedBy', 'commentsOf', 'publicationTypes', 'metadata']
-  //         ]),
-  //         followers: cursorBasedPagination(['request', ['profileId']]),
-  //         following: cursorBasedPagination(['request', ['address']]),
-  //         search: cursorBasedPagination(['request', ['query', 'type']]),
-  //         profiles: cursorBasedPagination([
-  //           'request',
-  //           ['profileIds', 'ownedBy', 'handles', 'whoMirroredPublicationId']
-  //         ]),
-  //         whoReactedPublication: cursorBasedPagination(['request', ['publicationId']]),
-  //         mutualFollowersProfiles: cursorBasedPagination([
-  //           'request',
-  //           ['viewingProfileId', 'yourProfileId', 'limit']
-  //         ])
-  //       }
-  //     }
-  //   }
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Post: { keyFields: publicationKeyFields },
+      Comment: { keyFields: publicationKeyFields },
+      Mirror: { keyFields: publicationKeyFields }
+    }
+  }),
   connectToDevTools: true
 });
 

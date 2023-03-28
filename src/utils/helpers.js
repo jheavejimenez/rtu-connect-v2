@@ -91,7 +91,7 @@ export const contentFormatter = (value) =>
  */
 export const getNFTStorageLink = (url) => {
   const gateway = NFT_STORAGE_GATEWAY;
-  return url.replace('https://ipfs.io/ipfs/', gateway).replace('ipfs://', gateway);
+  return url?.replace('https://ipfs.io/ipfs/', gateway).replace('ipfs://', gateway);
 };
 
 /**
@@ -385,4 +385,11 @@ export const getMimeType = (attachments) => {
     return null;
   }
   return attachments[0]?.type;
+};
+
+export const publicationKeyFields = (publication) => {
+  return `${publication.__typename}:${JSON.stringify({
+    id: publication.id,
+    createdAt: publication.createdAt
+  })}`;
 };

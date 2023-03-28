@@ -1,10 +1,8 @@
-import { useAppStore } from '../../store/app';
 import Comment from './Comment';
 import Like from './Like';
 import Share from './Share';
 
 function Reactions({ publication, electedMirror }) {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const collectModuleType = publication?.collectModule?.__typename;
 
   return (

@@ -3,7 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useAppPersistStore } from '../../store/app';
 import { VERIFIED_PROFILES } from '../../utils/constants';
 import { fixUsername, getAvatarUrl } from '../../utils/helpers';
-import Button from '../UI/Button';
+import Follow from './Follow';
 
 function Detail({ profile }) {
   const profileId = useAppPersistStore((state) => state.profileId);
@@ -47,7 +47,7 @@ function Detail({ profile }) {
         </div>
       </div>
       <div className={'flex items-center justify-center pt-3'}>
-        {profileId !== profile.id && <Button>{'Follow'}</Button>}
+        {profileId !== profile.id && <Follow profile={profile} />}
       </div>
       {profile?.bio && (
         <div className={'flex items-center justify-center p-3'}>
