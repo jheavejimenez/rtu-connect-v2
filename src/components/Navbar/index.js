@@ -1,5 +1,6 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useAppStore } from '../../store/app';
@@ -27,13 +28,15 @@ function NavBar() {
     >
       <div className={'flex items-center justify-between w-full md:w-max px-4 py-2'}>
         <div className={'mr-3 mt-1 md:inline-block cursor-pointer'}>
-          <Image
-            src={rtuLogo}
-            alt={'rtu logo'}
-            className={'w-auto h-auto rounded-full'}
-            width={35}
-            height={35}
-          />
+          <Link href={'/'}>
+            <Image
+              src={rtuLogo}
+              alt={'rtu logo'}
+              className={'w-auto h-auto rounded-full'}
+              width={35}
+              height={35}
+            />
+          </Link>
         </div>
         <div className={' justify-start w-full h-full pr-16'}>
           <div
