@@ -37,7 +37,7 @@ function Search({ hideDropdown = false }) {
   const handleKeyDown = (evt) => {
     evt.preventDefault();
     if (pathname === '/search') {
-      push(`/search?q=${searchText}&type=profiles`);
+      push(`/search?q=${searchText}`);
     }
     setSearchText('');
   };
