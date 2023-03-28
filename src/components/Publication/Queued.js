@@ -1,5 +1,6 @@
 import { useApolloClient, useLazyQuery, useQuery } from '@apollo/client';
 import { Interweave } from 'interweave';
+import toast from 'react-hot-toast';
 
 import { GET_PUBLICATION } from '../../graphQL/queries/get-publication';
 import { GET_TRANSACTION_INDEX } from '../../graphQL/queries/get-transaction-index';
@@ -57,6 +58,7 @@ function Queued({ txn }) {
             }
           });
           removeTxn();
+          toast.success('Transaction has been indexed');
         }
       }
     }
