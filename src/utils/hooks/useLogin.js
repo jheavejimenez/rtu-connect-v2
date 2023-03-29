@@ -1,11 +1,9 @@
-import { useLazyQuery, useMutation } from '@apollo/client';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useSignMessage } from 'wagmi';
 
-import { AUTHENTICATION, GET_CHALLENGE } from '../../graphQL/auth/auth-mutations';
-import { GET_PROFILES } from '../../graphQL/queries/get-profiles';
+import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from '../../../generated';
 import { useAppPersistStore, useAppStore } from '../../store/app';
 import { useAuthStore } from '../../store/auth';
 import { setLocalStorage } from '../helpers';
@@ -20,12 +18,12 @@ function useLogin() {
   const setSigningInProgress = useAuthStore((state) => state.setSigningInProgress);
   const setShowSignupModal = useAuthStore((state) => state.setShowSignupModal);
 
-  const [getChallenge] = useLazyQuery(GET_CHALLENGE, {
+  const [getChallenge] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
 
-  const [authenticate] = useMutation(AUTHENTICATION);
-  const [getProfile] = useLazyQuery(GET_PROFILES);
+  const [authenticate] = useAuthenticateMutation();
+  const [getProfile] = useUserProfilesLazyQuery();
 
   const { address, connector, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage({
@@ -57,8 +55,9 @@ function useLogin() {
         ['accessToken', 'refreshToken'],
         [auth.data?.authenticate.accessToken, auth.data?.authenticate.refreshToken]
       );
+
       const { data: profileData } = await getProfile({
-        variables: { request: { ownedBy: address } }
+        variables: { ownedBy: address }
       });
 
       if (
