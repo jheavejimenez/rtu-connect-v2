@@ -14,6 +14,7 @@ function ExploreFeed({ feedType, sources }) {
   const request = {
     sortCriteria: feedType ?? 'LATEST',
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
+    noRandomize: true,
     sources: sources ?? [],
     limit: 10
   };
