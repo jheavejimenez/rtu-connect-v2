@@ -1,7 +1,6 @@
-import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { GET_PUBLICATIONS } from '../../graphQL/queries/get-publications';
+import { useCommentFeedQuery } from '../../../generated';
 import { useAppPersistStore, useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import NewComment from '../Composer/Comment';
@@ -16,15 +15,16 @@ function ViewComment({ publication }) {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useAppPersistStore((state) => state.txnQueue);
 
-  const reactionsRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const publicationsRequest = {
+  const request = {
     commentsOf: publicationId,
     limit: 10
   };
-  const { data, loading, error, fetchMore } = useQuery(GET_PUBLICATIONS, {
-    variables: { publicationsRequest, reactionsRequest },
+
+  const { data, loading, error, fetchMore } = useCommentFeedQuery({
+    variables: { request, reactionRequest, profileId },
     skip: !publicationId
   });
 
@@ -35,7 +35,7 @@ function ViewComment({ publication }) {
 
   const loadMore = async () => {
     await fetchMore({
-      variables: { request: { ...publicationsRequest, cursor: pageInfo?.next }, reactionsRequest, profileId }
+      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     });
   };
 
