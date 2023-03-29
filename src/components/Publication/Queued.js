@@ -40,7 +40,7 @@ function Queued({ txn }) {
   });
 
   useHasTxHashBeenIndexedQuery({
-    variables: { hasTxHashBeenIndexedRequest: { txHash } },
+    variables: { request: { txHash } },
     pollInterval: 1000,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
@@ -58,7 +58,8 @@ function Queued({ txn }) {
         if (data.hasTxHashBeenIndexed.indexed) {
           await getPublication({
             variables: {
-              publicationRequest: { txHash: txHash },
+              request: { txHash: data.hasTxHashBeenIndexed.txHash },
+              reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
               profileId: currentProfile?.id ?? null
             }
           });
