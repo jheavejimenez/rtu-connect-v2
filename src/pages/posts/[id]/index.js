@@ -1,6 +1,6 @@
-import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
+import { usePublicationQuery } from '../../../../generated';
 import ViewComment from '../../../components/Comment';
 import BetaWarning from '../../../components/Home/BetaWarning';
 import UserProfile from '../../../components/Profile';
@@ -9,7 +9,6 @@ import PublicationPageShimmer from '../../../components/Shimmer/PublicationPageS
 import Card from '../../../components/UI/Card';
 import { GridLayout } from '../../../components/UI/GridLayout';
 import MetaTags from '../../../components/UI/MetaTags';
-import { GET_PUBLICATION } from '../../../graphQL/queries/get-publication';
 import { useAppStore } from '../../../store/app';
 import { APP_NAME } from '../../../utils/constants';
 
@@ -19,11 +18,10 @@ function ViewPublication() {
     query: { id }
   } = useRouter();
 
-  const { data, loading, error } = useQuery(GET_PUBLICATION, {
+  const { data, loading, error } = usePublicationQuery({
     variables: {
-      publicationRequest: {
-        publicationId: id
-      },
+      request: { publicationId: id },
+      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
       profileId: currentProfile?.id ?? null
     },
     skip: !id
