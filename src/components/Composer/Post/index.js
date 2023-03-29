@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/client';
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import { nanoid } from 'nanoid';
 import Image from 'next/image';
@@ -6,7 +7,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { useBroadcastMutation, useCreatePostTypedDataMutation } from '../../../../generated';
+import { useBroadcastMutation } from '../../../../generated';
+import { CREATE_PUBLICATION } from '../../../graphQL/mutations/create-publications';
 import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
 import {
@@ -131,6 +133,7 @@ function NewPublication() {
           ...txnQueue
         ]);
         setPublicationContent('');
+        toast.success('Publication Broadcast successfully');
       }
     }
   });
@@ -165,7 +168,7 @@ function NewPublication() {
     }
   };
 
-  const [createPostTypedData] = useCreatePostTypedDataMutation({
+  const [createPostTypedData] = useMutation(CREATE_PUBLICATION, {
     onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData)
   });
 

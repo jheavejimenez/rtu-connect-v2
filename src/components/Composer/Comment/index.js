@@ -1,9 +1,11 @@
+import { useMutation } from '@apollo/client';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { useBroadcastMutation, useCreateCommentTypedDataMutation } from '../../../../generated';
+import { useBroadcastMutation } from '../../../../generated';
+import { CREATE_COMMENT } from '../../../graphQL/mutations/create-comment';
 import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
 import { LENS_HUB_MUMBAI } from '../../../utils/constants';
@@ -93,8 +95,11 @@ function NewComment({ publication }) {
     }
   };
 
-  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData)
+  const [createCommentTypedData] = useMutation(CREATE_COMMENT, {
+    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
+    onError: (error) => {
+      toast.error(`Error creating Comment type data mutation: ${error.message}`);
+    }
   });
 
   const createMetadata = async (metadata) => {
