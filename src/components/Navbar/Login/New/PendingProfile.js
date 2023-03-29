@@ -9,11 +9,11 @@ function PendingProfile({ txHash }) {
 
   const { loading } = useHasTxHashBeenIndexedQuery({
     variables: {
-      hasTxHashBeenIndexedRequest: {
+      request: {
         txHash
       }
     },
-    pollInterval: 5
+    pollInterval: 1000
   });
 
   return (
