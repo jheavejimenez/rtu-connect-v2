@@ -1,11 +1,12 @@
-import { useMutation } from '@apollo/client';
 import { splitSignature } from 'ethers/lib/utils';
 import toast from 'react-hot-toast';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
-import { BROADCAST_TRANSACTION } from '../../graphQL/mutations/broadcast-transaction';
-import { CREATE_FOLLOW } from '../../graphQL/mutations/create-follow';
-import { CREATE_PROXY_FOLLOW } from '../../graphQL/mutations/create-proxy-follow';
+import {
+  useBroadcastMutation,
+  useCreateFollowTypedDataMutation,
+  useProxyActionMutation
+} from '../../../generated';
 import { useAppStore } from '../../store/app';
 import LensHubProxy from '../../utils/abis/LensHubProxy.json';
 import { LENS_HUB_MUMBAI } from '../../utils/constants';
@@ -35,7 +36,7 @@ function Follow({ profile }) {
     }
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_TRANSACTION, {
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onSuccess: () => {
       toast.success('Followed successfully');
     }
@@ -53,14 +54,14 @@ function Follow({ profile }) {
       }
     });
   };
-  const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(CREATE_PROXY_FOLLOW, {
+  const [createFollowProxyAction, { loading: proxyActionLoading }] = useProxyActionMutation({
     onCompleted: async () => {
       toast.success(`Followed successfully!`);
     },
     update: updateCache
   });
 
-  const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(CREATE_FOLLOW, {
+  const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
       const { deadline } = typedData.value;

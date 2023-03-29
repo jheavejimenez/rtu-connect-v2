@@ -11,17 +11,6 @@ function Publication({ publication }) {
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
-  const mirrorCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
-    : publication?.stats?.totalAmountOfMirrors;
-  const reactionCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalUpvotes
-    : publication?.stats?.totalUpvotes;
-  const collectCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-    : publication?.stats?.totalAmountOfCollects;
-  const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
-
   return (
     <article className={'p-5'}>
       <PublicationType publication={publication} />

@@ -1,9 +1,12 @@
-import { useApolloClient, useLazyQuery, useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import { Interweave } from 'interweave';
 import toast from 'react-hot-toast';
 
-import { GET_PUBLICATION } from '../../graphQL/queries/get-publication';
-import { GET_TRANSACTION_INDEX } from '../../graphQL/queries/get-transaction-index';
+import {
+  PublicationDocument,
+  useHasTxHashBeenIndexedQuery,
+  usePublicationLazyQuery
+} from '../../../generated';
 import { useAppPersistStore, useAppStore } from '../../store/app';
 import UserProfile from '../Profile';
 import MediaRenderer from './MediaRenderer';
@@ -22,13 +25,13 @@ function Queued({ txn }) {
     }
   };
 
-  const [getPublication] = useLazyQuery(GET_PUBLICATION, {
+  const [getPublication] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data?.publication) {
         cache.modify({
           fields: {
             publications() {
-              cache.writeQuery({ data: data?.publication, query: GET_PUBLICATION });
+              cache.writeQuery({ data: data?.publication, query: PublicationDocument });
             }
           }
         });
@@ -36,7 +39,7 @@ function Queued({ txn }) {
     }
   });
 
-  useQuery(GET_TRANSACTION_INDEX, {
+  useHasTxHashBeenIndexedQuery({
     variables: { hasTxHashBeenIndexedRequest: { txHash } },
     pollInterval: 1000,
     onCompleted: async (data) => {

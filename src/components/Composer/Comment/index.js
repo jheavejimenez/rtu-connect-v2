@@ -1,11 +1,9 @@
-import { useMutation } from '@apollo/client';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { BROADCAST_TRANSACTION } from '../../../graphQL/mutations/broadcast-transaction';
-import { CREATE_COMMENT } from '../../../graphQL/mutations/create-comment';
+import { useBroadcastMutation, useCreateCommentTypedDataMutation } from '../../../../generated';
 import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
 import { LENS_HUB_MUMBAI } from '../../../utils/constants';
@@ -46,7 +44,7 @@ function NewComment({ publication }) {
     }
   });
 
-  const [broadcast] = useMutation(BROADCAST_TRANSACTION, {
+  const [broadcast] = useBroadcastMutation({
     onCompleted: (data) => {
       if (data.broadcast.__typename === 'RelayerResult') {
         setTxnQueue([
@@ -95,7 +93,7 @@ function NewComment({ publication }) {
     }
   };
 
-  const [createCommentTypedData] = useMutation(CREATE_COMMENT, {
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData)
   });
 

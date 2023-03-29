@@ -1,8 +1,7 @@
-import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 
-import { SEARCH_PROFILES } from '../../graphQL/queries/search-profiles';
+import { useSearchProfilesLazyQuery } from '../../../generated';
 import useOnClickOutside from '../../utils/hooks/useClickOutside';
 import UserProfile from '../Profile';
 import Card from '../UI/Card';
@@ -15,7 +14,7 @@ function Search({ hideDropdown = false }) {
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
-  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useLazyQuery(SEARCH_PROFILES);
+  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
   const handleSearch = async (e) => {
     const keyword = e.target.value;

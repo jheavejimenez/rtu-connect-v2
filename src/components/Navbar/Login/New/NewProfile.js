@@ -1,11 +1,10 @@
-import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount } from 'wagmi';
 
-import { CREATE_PROFILE } from '../../../../graphQL/mutations/create-profile';
+import { useCreateProfileMutation } from '../../../../../generated';
 import { RTU_CONNECT_PROFILE, ZERO_ADDRESS } from '../../../../utils/constants';
 import { formatUsername, getStampFyiUrl, uploadFile } from '../../../../utils/helpers';
 import Button from '../../../UI/Button';
@@ -17,7 +16,7 @@ function NewProfile({ isModal = false }) {
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
-  const [createProfile, { data, loading }] = useMutation(CREATE_PROFILE);
+  const [createProfile, { data, loading }] = useCreateProfileMutation();
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];

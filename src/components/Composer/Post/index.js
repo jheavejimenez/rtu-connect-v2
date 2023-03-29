@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client';
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import { nanoid } from 'nanoid';
 import Image from 'next/image';
@@ -7,8 +6,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { BROADCAST_TRANSACTION } from '../../../graphQL/mutations/broadcast-transaction';
-import { CREATE_PUBLICATION } from '../../../graphQL/mutations/create-publications';
+import { useBroadcastMutation, useCreatePostTypedDataMutation } from '../../../../generated';
 import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
 import {
@@ -120,7 +118,7 @@ function NewPublication() {
     }
   });
 
-  const [broadcast] = useMutation(BROADCAST_TRANSACTION, {
+  const [broadcast] = useBroadcastMutation({
     onCompleted: (data) => {
       if (data.broadcast.__typename === 'RelayerResult') {
         setTxnQueue([
@@ -167,7 +165,7 @@ function NewPublication() {
     }
   };
 
-  const [createPostTypedData] = useMutation(CREATE_PUBLICATION, {
+  const [createPostTypedData] = useCreatePostTypedDataMutation({
     onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData)
   });
 
