@@ -38,7 +38,7 @@ function NavBar() {
             />
           </Link>
         </div>
-        <div className={'justify-start w-full h-full pr-16 sm:px-0'}>
+        <div className={'justify-start w-full h-full pr-16 md:px-0'}>
           <div
             className={
               'relative bg-gray-200 h-full w-11/12 md:w-full ' +
