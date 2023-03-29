@@ -38,10 +38,10 @@ function NavBar() {
             />
           </Link>
         </div>
-        <div className={' justify-start w-full h-full pr-16'}>
+        <div className={'justify-start w-full h-full pr-16 md:px-0'}>
           <div
             className={
-              'relative bg-gray-200 h-full w-11/12 md:w-full ' +
+              'relative bg-gray-200 h-full w-[95%] md:w-full ' +
               ' xl:w-max xl:pl-3 xl:pr-8 rounded-full' +
               ' flex shrink items-center justify-center cursor-pointer'
             }

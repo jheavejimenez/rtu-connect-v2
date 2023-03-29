@@ -1,11 +1,9 @@
-import { useMutation } from '@apollo/client';
 import { HeartIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { CREATE_DOWNVOTE } from '../../graphQL/mutations/create-downvote';
-import { CREATE_UPVOTE } from '../../graphQL/mutations/create-upvote';
+import { useAddReactionMutation, useRemoveReactionMutation } from '../../../generated';
 import { useAppStore } from '../../store/app';
 import { publicationKeyFields } from '../../utils/helpers';
 
@@ -37,7 +35,7 @@ function Like({ publication }) {
     });
   };
 
-  const [addReaction] = useMutation(CREATE_UPVOTE, {
+  const [addReaction] = useAddReactionMutation({
     onError: (error) => {
       setLiked(!liked);
       setCount(count - 1);
@@ -46,7 +44,7 @@ function Like({ publication }) {
     update: (cache) => updateCache(cache, ReactionTypes.Upvote)
   });
 
-  const [removeReaction] = useMutation(CREATE_DOWNVOTE, {
+  const [removeReaction] = useRemoveReactionMutation({
     onError: (error) => {
       setLiked(!liked);
       setCount(count + 1);

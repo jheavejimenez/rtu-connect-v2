@@ -1,10 +1,15 @@
 import ThreadBody from '../ThreadBody';
 
 function Commented({ publication }) {
-  const mainPost = publication?.mainPost;
+  const commentOn = publication?.commentOn;
+  const mainPost = commentOn?.mainPost;
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{mainPost ? <ThreadBody publication={mainPost} /> : null}</>;
+  return (
+    <>
+      {mainPost ? <ThreadBody publication={mainPost} /> : null}
+      <ThreadBody publication={commentOn} />
+    </>
+  );
 }
 
 export default Commented;

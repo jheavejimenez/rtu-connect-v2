@@ -1,8 +1,7 @@
-import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 
-import { SEARCH_PROFILES } from '../../graphQL/queries/search-profiles';
+import { useSearchProfilesLazyQuery } from '../../../generated';
 import useOnClickOutside from '../../utils/hooks/useClickOutside';
 import UserProfile from '../Profile';
 import Card from '../UI/Card';
@@ -15,7 +14,7 @@ function Search({ hideDropdown = false }) {
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
-  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useLazyQuery(SEARCH_PROFILES);
+  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
   const handleSearch = async (e) => {
     const keyword = e.target.value;
@@ -59,8 +58,8 @@ function Search({ hideDropdown = false }) {
         />
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
-        <div className={'absolute mt-2 flex w-[94%] flex-col'} ref={dropdownRef}>
-          <Card className={'max-h-[80vh] overflow-y-auto py-2 max-w-md'}>
+        <div className={'absolute flex justify-start w-[94%] flex-col'} ref={dropdownRef}>
+          <Card className={'max-h-[80vh] bg-gray-300 overflow-y-auto py-2 z-10 shrink w-full'}>
             {searchUsersLoading ? (
               <div className={'space-y-2 py-2 px-4 text-center text-sm font-bold'}>
                 <Spinner />

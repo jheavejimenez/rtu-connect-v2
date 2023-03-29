@@ -1,7 +1,6 @@
-import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { TIMELINE } from '../../graphQL/queries/get-timeline';
+import { useTimelineQuery } from '../../../generated';
 import { useAppPersistStore, useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import Queued from '../Publication/Queued';
@@ -20,8 +19,10 @@ function Feed() {
     limit: 10
   };
 
-  const { data, fetchMore, loading, error } = useQuery(TIMELINE, {
-    variables: { request }
+  const reactionRequest = currentProfile ? { profileId } : null;
+
+  const { data, loading, error, fetchMore } = useTimelineQuery({
+    variables: { request, reactionRequest, profileId }
   });
 
   const publications = data?.feed?.items;
@@ -53,6 +54,7 @@ function Feed() {
           ...request,
           cursor: pageInfo?.next
         },
+        reactionRequest,
         profileId
       },
       updateQuery

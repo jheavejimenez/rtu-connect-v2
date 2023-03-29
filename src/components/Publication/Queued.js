@@ -1,8 +1,12 @@
-import { useApolloClient, useLazyQuery, useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import { Interweave } from 'interweave';
+import toast from 'react-hot-toast';
 
-import { GET_PUBLICATION } from '../../graphQL/queries/get-publication';
-import { GET_TRANSACTION_INDEX } from '../../graphQL/queries/get-transaction-index';
+import {
+  PublicationDocument,
+  useHasTxHashBeenIndexedQuery,
+  usePublicationLazyQuery
+} from '../../../generated';
 import { useAppPersistStore, useAppStore } from '../../store/app';
 import UserProfile from '../Profile';
 import MediaRenderer from './MediaRenderer';
@@ -21,13 +25,13 @@ function Queued({ txn }) {
     }
   };
 
-  const [getPublication] = useLazyQuery(GET_PUBLICATION, {
+  const [getPublication] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data?.publication) {
         cache.modify({
           fields: {
             publications() {
-              cache.writeQuery({ data: data?.publication, query: GET_PUBLICATION });
+              cache.writeQuery({ data: data?.publication, query: PublicationDocument });
             }
           }
         });
@@ -35,11 +39,12 @@ function Queued({ txn }) {
     }
   });
 
-  useQuery(GET_TRANSACTION_INDEX, {
-    variables: { hasTxHashBeenIndexedRequest: { txHash } },
+  useHasTxHashBeenIndexedQuery({
+    variables: { request: { txHash } },
     pollInterval: 1000,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+        toast.error('transaction error');
         return removeTxn();
       }
 
@@ -47,16 +52,19 @@ function Queued({ txn }) {
         const status = data.hasTxHashBeenIndexed.metadataStatus?.status;
 
         if (status === 'METADATA_VALIDATION_FAILED' || status === 'NOT_FOUND') {
+          toast.error('metadata validation failed');
           return removeTxn();
         }
         if (data.hasTxHashBeenIndexed.indexed) {
           await getPublication({
             variables: {
-              publicationRequest: { txHash: txHash },
+              request: { txHash: data.hasTxHashBeenIndexed.txHash },
+              reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
               profileId: currentProfile?.id ?? null
             }
           });
           removeTxn();
+          toast.success('Transaction has been indexed');
         }
       }
     }

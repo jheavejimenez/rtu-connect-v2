@@ -1,7 +1,6 @@
-import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { SEARCH_PROFILES } from '../../graphQL/queries/search-profiles';
+import { useSearchProfilesQuery } from '../../../generated';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import UserProfile from '../Profile';
 import ProfileShimmer from '../Shimmer/ProfileShimmer';
@@ -17,7 +16,7 @@ function Profiles({ query }) {
     limit: 10
   };
 
-  const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES, {
+  const { data, loading, error, fetchMore } = useSearchProfilesQuery({
     variables: { request },
     skip: !query
   });

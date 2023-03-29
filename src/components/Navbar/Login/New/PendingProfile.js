@@ -1,20 +1,19 @@
-import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
-import { GET_TRANSACTION_INDEX } from '../../../../graphQL/queries/get-transaction-index';
+import { useHasTxHashBeenIndexedQuery } from '../../../../../generated';
 import Button from '../../../UI/Button';
 import Spinner from '../../../UI/Spinner';
 
-function PendingProfile({ handle, txHash }) {
+function PendingProfile({ txHash }) {
   const { push } = useRouter();
 
-  const { loading } = useQuery(GET_TRANSACTION_INDEX, {
+  const { loading } = useHasTxHashBeenIndexedQuery({
     variables: {
-      hasTxHashBeenIndexedRequest: {
+      request: {
         txHash
       }
     },
-    pollInterval: 5
+    pollInterval: 1000
   });
 
   return (

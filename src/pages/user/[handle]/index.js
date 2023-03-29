@@ -1,35 +1,35 @@
-import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
+import { useProfileQuery } from '../../../../generated';
 import BetaWarning from '../../../components/Home/BetaWarning';
 import Detail from '../../../components/Profile/Detail';
 import ProfileFeed from '../../../components/Profile/Feed';
+import ProfileShimmer from '../../../components/Shimmer/ProfileShimmer';
 import ErrorMessage from '../../../components/UI/ErrorMesssage';
 import { GridLayout } from '../../../components/UI/GridLayout';
 import MetaTags from '../../../components/UI/MetaTags';
-import { GET_PROFILE } from '../../../graphQL/queries/get-profile';
+import { useAppStore } from '../../../store/app';
 import { APP_NAME } from '../../../utils/constants';
 
 function ViewProfile() {
   const {
     query: { handle }
   } = useRouter();
-  const { data, loading, error } = useQuery(GET_PROFILE, {
-    variables: {
-      profileRequest: {
-        handle: handle
-      },
-      skip: !handle
-    }
+
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
+  const { data, loading, error } = useProfileQuery({
+    variables: { request: { handle }, who: currentProfile?.id ?? null },
+    skip: !handle
   });
 
   if (error) {
     return <ErrorMessage title={`Failed to load feed`} error={error} />;
   }
 
-  // if (loading || !data) {
-  //   return <ProfilePageShimmer />;
-  // }
+  if (loading || !data) {
+    return <ProfileShimmer />;
+  }
 
   if (!data?.profile) {
     return <div>{'No profile found'}</div>;

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { BROADCAST_TRANSACTION } from '../../../graphQL/mutations/broadcast-transaction';
+import { useBroadcastMutation } from '../../../../generated';
 import { CREATE_COMMENT } from '../../../graphQL/mutations/create-comment';
 import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
@@ -46,7 +46,7 @@ function NewComment({ publication }) {
     }
   });
 
-  const [broadcast] = useMutation(BROADCAST_TRANSACTION, {
+  const [broadcast] = useBroadcastMutation({
     onCompleted: (data) => {
       if (data.broadcast.__typename === 'RelayerResult') {
         setTxnQueue([
@@ -96,7 +96,10 @@ function NewComment({ publication }) {
   };
 
   const [createCommentTypedData] = useMutation(CREATE_COMMENT, {
-    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData)
+    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
+    onError: (error) => {
+      toast.error(`Error creating Comment type data mutation: ${error.message}`);
+    }
   });
 
   const createMetadata = async (metadata) => {

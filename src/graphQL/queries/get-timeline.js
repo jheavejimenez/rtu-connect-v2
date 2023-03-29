@@ -1,7 +1,11 @@
 import { gql } from '@apollo/client';
 
 export const TIMELINE = gql`
-  query Timeline($request: FeedRequest!) {
+  query Timeline(
+    $request: FeedRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
+  ) {
     feed(request: $request) {
       items {
         root {

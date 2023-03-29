@@ -1,7 +1,7 @@
-import { useQuery } from '@apollo/client';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { PROFILE_FEED } from '../../graphQL/queries/profile-feed';
+import { useProfileFeedQuery } from '../../../generated';
+import { useAppStore } from '../../store/app';
 import { SCROLL_THRESHOLD } from '../../utils/constants';
 import SinglePublication from '../Publication/SinglePublication';
 import FeedShimmer from '../Shimmer/FeedShimmer';
@@ -9,30 +9,27 @@ import Empty from '../UI/Empty';
 import ErrorMessage from '../UI/ErrorMesssage';
 
 function ProfileFeed({ profile }) {
-  const publicationsRequest = {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
+  const request = {
     profileId: profile?.id,
     publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
     limit: 32
   };
 
-  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED, {
-    variables: { publicationsRequest }
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
+
+  const { data, loading, error, fetchMore } = useProfileFeedQuery({
+    variables: { request, reactionRequest, profileId },
+    skip: !profile?.id
   });
 
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
+  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
-  /**
-   * TODO: pageInfo.totalCount is null for some reason so we can't use it
-   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
-   **/
-
-  /**
-   * remember to fix this when the pageInfo.totalCount
-   * is fixed for now we limit the number of publications to 100 to avoid crashing the browser
-   */
-
-  const hasMore = pageInfo?.next && publications?.length < 1;
+  // const hasMore = pageInfo?.next && publications?.length < 1;
 
   const loadMore = async () => {
     const loadedIds = new Set();
@@ -55,12 +52,7 @@ function ProfileFeed({ profile }) {
       return;
     }
     await fetchMore({
-      variables: {
-        request: {
-          ...publicationsRequest,
-          cursor: pageInfo?.next
-        }
-      },
+      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId },
       updateQuery
     });
   };

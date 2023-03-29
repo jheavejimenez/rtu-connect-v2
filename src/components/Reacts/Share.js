@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client';
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { splitSignature } from 'ethers/lib/utils';
 import { motion } from 'framer-motion';
@@ -6,8 +5,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { BROADCAST_TRANSACTION } from '../../graphQL/mutations/broadcast-transaction';
-import { CREATE_MIRROR } from '../../graphQL/mutations/create-mirror';
+import { useBroadcastMutation, useCreateMirrorTypedDataMutation } from '../../../generated';
 import { useAppStore } from '../../store/app';
 import LensHubProxy from '../../utils/abis/LensHubProxy.json';
 import { LENS_HUB_MUMBAI } from '../../utils/constants';
@@ -56,7 +54,7 @@ function Share({ publication, electedMirror }) {
     }
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_TRANSACTION, {
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted: () => {
       setMirrored(true);
       toast.success('Post shared successfully');
@@ -64,7 +62,7 @@ function Share({ publication, electedMirror }) {
     update: updateCache
   });
 
-  const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(CREATE_MIRROR, {
+  const [createMirrorTypedData, { loading: typedDataLoading }] = useCreateMirrorTypedDataMutation({
     onCompleted: async ({ createMirrorTypedData }) => {
       const { id, typedData } = createMirrorTypedData;
       const {

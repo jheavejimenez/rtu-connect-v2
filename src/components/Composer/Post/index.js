@@ -7,7 +7,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { BROADCAST_TRANSACTION } from '../../../graphQL/mutations/broadcast-transaction';
+import { useBroadcastMutation } from '../../../../generated';
 import { CREATE_PUBLICATION } from '../../../graphQL/mutations/create-publications';
 import { useAppPersistStore, useAppStore } from '../../../store/app';
 import LensHubProxy from '../../../utils/abis/LensHubProxy.json';
@@ -120,7 +120,7 @@ function NewPublication() {
     }
   });
 
-  const [broadcast] = useMutation(BROADCAST_TRANSACTION, {
+  const [broadcast] = useBroadcastMutation({
     onCompleted: (data) => {
       if (data.broadcast.__typename === 'RelayerResult') {
         setTxnQueue([
@@ -133,6 +133,7 @@ function NewPublication() {
           ...txnQueue
         ]);
         setPublicationContent('');
+        toast.success('Publication Broadcast successfully');
       }
     }
   });
