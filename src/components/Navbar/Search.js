@@ -60,7 +60,7 @@ function Search({ hideDropdown = false }) {
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
         <div className={'absolute mt-2 flex w-[94%] flex-col'} ref={dropdownRef}>
-          <Card className={'max-h-[80vh] overflow-y-auto py-2 max-w-md'}>
+          <Card className={'max-h-[80vh] overflow-y-auto py-2 z-10 max-w-md'}>
             {searchUsersLoading ? (
               <div className={'space-y-2 py-2 px-4 text-center text-sm font-bold'}>
                 <Spinner />
