@@ -235,7 +235,7 @@ function NewPublication() {
     }
   };
 
-  const isLoading = loading || typedDataLoading;
+  const isLoading = loading || typedDataLoading || firebaseLoading;
 
   return (
     <>
