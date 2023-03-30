@@ -62,7 +62,9 @@ function Search({ hideDropdown = false }) {
           <Card className={'max-h-[80vh] bg-gray-300 overflow-y-auto py-2 z-10 shrink w-full'}>
             {searchUsersLoading ? (
               <div className={'space-y-2 py-2 px-4 text-center text-sm font-bold'}>
-                <Spinner />
+                <div className={'flex items-center justify-center'}>
+                  <Spinner />
+                </div>
                 <div>{'Searching users'}</div>
               </div>
             ) : (
@@ -72,7 +74,9 @@ function Search({ hideDropdown = false }) {
                     <UserProfile profile={profile} />
                   </div>
                 ))}
-                {profiles.length === 0 && <div className={'py-2 px-4'}>{'No matching users'}</div>}
+                {profiles.length === 0 && (
+                  <div className={'py-2 px-4 text-center text-sm font-bold'}>{'No matching users'}</div>
+                )}
               </>
             )}
           </Card>
