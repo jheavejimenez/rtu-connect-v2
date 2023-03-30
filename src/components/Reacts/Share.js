@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/client';
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { splitSignature } from 'ethers/lib/utils';
 import { motion } from 'framer-motion';
@@ -5,7 +6,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { useBroadcastMutation, useCreateMirrorTypedDataMutation } from '../../../generated';
+import { useBroadcastMutation } from '../../../generated';
+import { CREATE_MIRROR } from '../../graphQL/mutations/create-mirror';
 import { useAppStore } from '../../store/app';
 import LensHubProxy from '../../utils/abis/LensHubProxy.json';
 import { LENS_HUB_MUMBAI } from '../../utils/constants';
@@ -57,12 +59,12 @@ function Share({ publication, electedMirror }) {
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted: () => {
       setMirrored(true);
-      toast.success('Post shared successfully');
+      toast.success('broadcast to chain successfully');
     },
     update: updateCache
   });
 
-  const [createMirrorTypedData, { loading: typedDataLoading }] = useCreateMirrorTypedDataMutation({
+  const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(CREATE_MIRROR, {
     onCompleted: async ({ createMirrorTypedData }) => {
       const { id, typedData } = createMirrorTypedData;
       const {
@@ -91,6 +93,7 @@ function Share({ publication, electedMirror }) {
       if (data?.broadcast.__typename === 'RelayError') {
         return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
       }
+      toast.success('Post shared successfully');
     },
     onError: (error) => {
       toast.error(error.message);
@@ -124,6 +127,7 @@ function Share({ publication, electedMirror }) {
 
   const isLoading = typedDataLoading || signLoading || writeLoading || broadcastLoading;
 
+  console.log(userSigNonce);
   return (
     <motion.button
       whileTap={{ scale: 0.9 }}
