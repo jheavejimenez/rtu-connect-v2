@@ -5,9 +5,9 @@ function NavItems({ url, name, current, logo }) {
     <Link href={url} aria-current={current ? 'page' : undefined}>
       <li className={'w-max text-center flex justify-center'}>
         <div
-          className={`${current && 'bg-gray-200 text-blue-800'}
+          className={`${current && 'text-blue-700'}
             inline-block rounded text-gray-600 w-full 
-            text-md py-2 px-3 xl:px-12 cursor-pointer 
+            text-md py-2 px-12 cursor-pointer 
             hover:bg-gray-200 hover:text-blue-800 relative`}
         >
           {logo}
