@@ -4,6 +4,7 @@ import { usePublicationQuery } from '../../../../generated';
 import ViewComment from '../../../components/Comment';
 import BetaWarning from '../../../components/Home/BetaWarning';
 import UserProfile from '../../../components/Profile';
+import BlockchainTransaction from '../../../components/Publication/BlockchainTransaction';
 import Publication from '../../../components/Publication/Publication';
 import PublicationPageShimmer from '../../../components/Shimmer/PublicationPageShimmer';
 import Card from '../../../components/UI/Card';
@@ -59,6 +60,7 @@ function ViewPublication() {
           />
         </aside>
         <BetaWarning />
+        <BlockchainTransaction publication={publication} />
       </div>
     </GridLayout>
   );
