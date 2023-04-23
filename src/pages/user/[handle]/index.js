@@ -38,7 +38,7 @@ function ViewProfile() {
 
   return (
     <GridLayout>
-      <MetaTags tile={`User ${APP_NAME}`} />
+      <MetaTags title={`User ${APP_NAME}`} />
       <div className={'lg:col-span-4 md:col-span-12 col-span-12'}>
         <Detail profile={profile} />
         <BetaWarning />

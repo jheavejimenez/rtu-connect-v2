@@ -2,10 +2,10 @@ import Head from 'next/head';
 
 import { APP_NAME } from '../../utils/constants';
 
-function MetaTags({ tile, description }) {
+function MetaTags({ title, description }) {
   return (
     <Head>
-      <title>{tile}</title>
+      <title>{title}</title>
       <meta name={'description'} content={description} />
       <meta
         name={'viewport'}

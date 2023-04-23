@@ -18,7 +18,7 @@ function Explore() {
   ];
   return (
     <GridLayout>
-      <MetaTags tile={`Explore ${APP_NAME}`} />
+      <MetaTags title={`Explore ${APP_NAME}`} />
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mb-5'}>
         <Tab.Group>
           <Tab.List className={'divider mt-16 md:mt-0 flex justify-around sm:space-x-8 '}>
