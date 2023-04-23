@@ -8,7 +8,7 @@ import WatchFeed from './Feed';
 function Watch() {
   return (
     <GridLayout>
-      <MetaTags tile={`Watch ${APP_NAME}`} />
+      <MetaTags title={`Watch ${APP_NAME}`} />
       <div className={'space-y-5 lg:col-span-8 md:col-span-12 col-span-12 mt-16 md:mt-0 mb-5'}>
         <WatchFeed />
       </div>

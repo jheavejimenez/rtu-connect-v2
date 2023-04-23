@@ -68,6 +68,7 @@ function Layout({ children }) {
 
   useEffect(() => {
     validateLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect, profileId]);
 
   if (loading || !mounted) {
@@ -77,7 +78,7 @@ function Layout({ children }) {
   return (
     <>
       <MetaTags
-        tile={APP_NAME}
+        title={APP_NAME}
         description={
           'A decentralize social media for Rizal Technological University built with Lens Protocol 🌿'
         }
