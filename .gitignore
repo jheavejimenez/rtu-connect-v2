@@ -45,3 +45,8 @@ next-env.d.ts
 .eslintcache
 
 /src/utils/dummyfeed.json
+
+generated.ts
+graphql.config.yml
+src/graphQL
+src/documents
